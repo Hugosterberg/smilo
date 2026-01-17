@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 
-import productLifestyle from "@/assets/product-lifestyle.jpg";
+import heroLifestyle from "@/assets/hero-lifestyle.jpg";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const HeroSection = () => {
@@ -89,8 +89,8 @@ const HeroSection = () => {
               
               {/* Main image */}
               <img 
-                src={productLifestyle} 
-                alt="Smajl retro kamera i bruk" 
+                src={heroLifestyle} 
+                alt="Ögonblick fångade med Smajl" 
                 className="relative rounded-2xl shadow-card w-full aspect-[4/5] object-cover"
               />
               
