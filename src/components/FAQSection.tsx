@@ -8,7 +8,7 @@ import {
 const faqs = [
   {
     question: "Är detta en engångskamera?",
-    answer: "Nej. smajl är digital och kan användas om och om igen.",
+    answer: "Nej. Smajl är digital och kan användas om och om igen.",
   },
   {
     question: "Kan jag se bilderna direkt?",

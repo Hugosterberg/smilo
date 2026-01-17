@@ -47,7 +47,7 @@ const HeroSection = () => {
         >
           <img 
             src={smajlLogoFull} 
-            alt="smajl" 
+            alt="Smajl" 
             className="h-32 md:h-44 w-auto mx-auto drop-shadow-2xl"
           />
         </motion.div>
@@ -69,7 +69,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          smajl retro kamera är en digital kamera utan skärm.
+          Smajl retro kamera är en digital kamera utan skärm.
           <br />
           Du tar bilder – och fortsätter leva i stunden.
         </motion.p>
@@ -92,7 +92,7 @@ const HeroSection = () => {
           className="flex flex-col items-center"
         >
           <Button variant="hero" size="xl" asChild>
-            <a href="#produkt">Köp smajl retro kamera – 800 kr</a>
+            <a href="#produkt">Köp Smajl retro kamera – 800 kr</a>
           </Button>
           
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-6">
