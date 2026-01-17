@@ -4,7 +4,6 @@ import { ShoppingBag, X } from "lucide-react";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const navLinks = [
-  { label: "Handla", href: "#produkt" },
   { label: "Kontakt", href: "#kontakt" },
   { label: "Spåra ditt paket", href: "#spara" },
 ];
