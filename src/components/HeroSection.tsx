@@ -94,15 +94,6 @@ const HeroSection = () => {
                 className="relative rounded-2xl shadow-card w-full aspect-[4/5] object-cover"
               />
               
-              {/* Floating badge */}
-              <motion.div 
-                className="absolute -bottom-4 -right-4 bg-white rounded-full px-5 py-3 shadow-card"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
-              >
-                <span className="text-smajl-olive font-medium text-sm">✨ Lev i stunden</span>
-              </motion.div>
             </div>
           </motion.div>
         </div>
