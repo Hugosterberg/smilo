@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import heroCamera from "@/assets/hero-camera.jpg";
 import heroSample1 from "@/assets/hero-sample-1.jpg";
 import heroSample2 from "@/assets/hero-sample-2.jpg";
-import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const HeroSection = () => {
   return (
@@ -32,16 +31,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.img 
-              src={smajlLogoFull} 
-              alt="Smajl" 
-              className="h-14 md:h-20 w-auto mx-auto mb-6"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            />
-            
-            <motion.h1 
+            <motion.h1
               className="text-3xl md:text-5xl lg:text-6xl text-smajl-brown leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -94,9 +84,6 @@ const HeroSection = () => {
                     alt="Bild tagen med Smajl"
                     className="relative rounded-lg shadow-card w-full aspect-[3/4] object-cover border-4 border-white"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-smajl-cream px-2 py-1 rounded text-xs text-smajl-brown-light shadow-sm">
-                    📸 Tagen med Smajl
-                  </div>
                 </div>
               </motion.div>
 
@@ -122,16 +109,6 @@ const HeroSection = () => {
                       alt="Smajl Kamera" 
                       className="relative w-full max-w-[200px] md:max-w-[320px] lg:max-w-[400px] drop-shadow-2xl"
                     />
-                    
-                    {/* Badge */}
-                    <motion.div 
-                      className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 bg-smajl-olive text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium shadow-lg"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 1 }}
-                    >
-                      ✨ Nyhet 2025
-                    </motion.div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -150,9 +127,6 @@ const HeroSection = () => {
                     alt="Bild tagen med Smajl"
                     className="relative rounded-lg shadow-card w-full aspect-[3/4] object-cover border-4 border-white"
                   />
-                  <div className="absolute -bottom-2 -left-2 bg-smajl-cream px-2 py-1 rounded text-xs text-smajl-brown-light shadow-sm">
-                    📸 Tagen med Smajl
-                  </div>
                 </div>
               </motion.div>
 
