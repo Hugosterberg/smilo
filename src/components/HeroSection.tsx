@@ -84,22 +84,6 @@ const HeroSection = () => {
         >
           <div className="relative">
             <div className="absolute inset-0 bg-smajl-olive/10 blur-[50px] rounded-full scale-110" />
-            
-            {/* Flash effect - synced with bounce */}
-            <motion.div
-              className="absolute inset-0 bg-white rounded-full blur-2xl pointer-events-none"
-              animate={{ 
-                opacity: [0, 0, 0, 0.4, 0],
-                scale: [1, 1, 1, 1.3, 1]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                times: [0, 0.4, 0.48, 0.52, 0.6]
-              }}
-            />
-            
             <motion.img
               src={heroCameraNoBg}
               alt="Smajl Kamera"
