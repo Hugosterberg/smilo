@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowDown } from "lucide-react";
 
 import heroLifestyle from "@/assets/hero-lifestyle.jpg";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
@@ -98,26 +97,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <motion.div 
-          className="pb-8 flex justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <a 
-            href="#varfor-smajl" 
-            className="flex flex-col items-center gap-2 text-smajl-olive/60 hover:text-smajl-olive transition-colors"
-          >
-            <span className="text-sm">Upptäck mer</span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <ArrowDown className="w-5 h-5" />
-            </motion.div>
-          </a>
-        </motion.div>
       </div>
     </section>
   );
