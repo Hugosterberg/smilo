@@ -34,9 +34,10 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section className="smajl-section bg-secondary/30">
+    <section className="smajl-section bg-smajl-cream">
       <div className="smajl-container max-w-2xl">
-        <h2 className="smajl-heading-lg text-center mb-12">Vanliga frågor</h2>
+        <h2 className="smajl-heading-lg text-center mb-4 text-smajl-brown">Vanliga frågor</h2>
+        <div className="w-16 h-1 bg-smajl-gold mx-auto mb-12 rounded-full" />
         
         <Accordion type="single" collapsible className="space-y-4">
           {faqs.map((faq, index) => (
@@ -45,10 +46,10 @@ const FAQSection = () => {
               value={`faq-${index}`}
               className="bg-card rounded-2xl px-6 border-0 shadow-soft"
             >
-              <AccordionTrigger className="font-display text-lg hover:no-underline text-left py-5">
+              <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left py-5 text-smajl-brown">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="smajl-body-sm text-muted-foreground pb-5">
+              <AccordionContent className="smajl-body-sm text-smajl-brown-light pb-5">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
