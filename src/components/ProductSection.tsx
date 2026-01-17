@@ -15,9 +15,6 @@ import productGreen from "@/assets/product-green.jpg";
 import productBrown from "@/assets/product-brown.jpg";
 import productAllColors from "@/assets/product-all-colors.jpg";
 import productBack from "@/assets/product-back.jpg";
-import productLifestyle from "@/assets/product-lifestyle.jpg";
-import productAngles from "@/assets/product-angles.jpg";
-import productUnboxing from "@/assets/product-unboxing.jpg";
 
 import smajlLogoIcon from "@/assets/smajl-logo-icon.png";
 
@@ -76,15 +73,12 @@ const ProductSection = () => {
 
   const totalPrice = 800 + (adapterAdded ? 99 : 0);
 
-  // Gallery images for selected color
+  // Gallery images for selected color - only show selected color's images
   const getGalleryImages = () => {
     return [
       { id: 'main', src: selectedColor.image, alt: `${selectedColor.fullName} - framsida` },
       { id: 'back', src: productBack, alt: `${selectedColor.fullName} - baksida` },
       { id: 'all', src: productAllColors, alt: 'Alla färger' },
-      { id: 'lifestyle', src: productLifestyle, alt: 'Lifestyle' },
-      { id: 'angles', src: productAngles, alt: 'Produktvinklar' },
-      { id: 'unboxing', src: productUnboxing, alt: 'Unboxing' },
     ];
   };
 
@@ -105,26 +99,14 @@ const ProductSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            {/* Striped Background Pattern */}
-            <div className="absolute inset-0 -m-4 rounded-3xl overflow-hidden">
-              <div className="w-full h-full flex">
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <div 
-                    key={i} 
-                    className={`flex-1 h-full ${i % 2 === 0 ? 'bg-smajl-cream' : 'bg-smajl-gold-soft'}`}
-                  />
-                ))}
-              </div>
-            </div>
-
             {/* Main Image */}
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm shadow-card">
+            <div className="aspect-square rounded-3xl overflow-hidden bg-white shadow-card">
               <AnimatePresence mode="wait">
                 <motion.img
                   key={activeImage}
                   src={activeImage}
                   alt={selectedColor.fullName}
-                  className="w-full h-full object-contain p-6"
+                  className="w-full h-full object-contain p-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -134,18 +116,18 @@ const ProductSection = () => {
             </div>
 
             {/* Thumbnail Gallery */}
-            <div className="relative flex gap-2 mt-4 overflow-x-auto pb-2">
+            <div className="flex gap-3 justify-center mt-4">
               {getGalleryImages().map((img) => (
                 <button
                   key={img.id}
                   onClick={() => setActiveImage(img.src)}
-                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden bg-white shadow-soft transition-all ${
+                  className={`w-20 h-20 rounded-xl overflow-hidden bg-white shadow-soft transition-all ${
                     activeImage === img.src 
                       ? 'ring-2 ring-smajl-olive ring-offset-2' 
                       : 'hover:ring-2 hover:ring-smajl-olive/50'
                   }`}
                 >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-contain p-1" />
+                  <img src={img.src} alt={img.alt} className="w-full h-full object-contain p-2" />
                 </button>
               ))}
             </div>
