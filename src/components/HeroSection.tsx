@@ -34,72 +34,74 @@ const HeroSection = () => {
       
       {/* Main content area */}
       <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-6 md:px-12 lg:px-16 pt-28 pb-8 lg:pb-0">
-        
-        {/* Left side - Text content */}
-        <motion.div 
-          className="w-full lg:w-1/2 text-center lg:text-left mb-8 lg:mb-0"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-smajl-brown leading-[1.1] mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+        <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center lg:gap-12 xl:gap-20">
+          
+          {/* Left side - Text content */}
+          <motion.div 
+            className="w-full lg:w-auto lg:flex-1 text-center lg:text-left mb-8 lg:mb-0 lg:max-w-xl"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Släpp mobilen.
-            <br />
-            <span className="italic text-smajl-olive">Ta kameran.</span>
-          </motion.h1>
-
-          <motion.p
-            className="text-base md:text-lg lg:text-xl text-smajl-brown-light leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-          >
-            En digital kamera utan skärm. Ta bilder – och fortsätt leva i stunden.
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-          >
-            <Button variant="default" size="lg" asChild className="rounded-full px-10">
-              <a href="#produkt">Köp nu</a>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              asChild 
-              className="rounded-full px-10 border-smajl-olive/30 text-smajl-olive hover:bg-smajl-olive/5"
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-smajl-brown leading-[1.1] mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
             >
-              <a href="#hur-funkar-det">Hur funkar det?</a>
-            </Button>
-          </motion.div>
-        </motion.div>
+              Släpp mobilen.
+              <br />
+              <span className="italic text-smajl-olive">Ta kameran.</span>
+            </motion.h1>
 
-        {/* Right side - Camera */}
-        <motion.div 
-          className="w-full lg:w-1/2 flex justify-center lg:justify-end"
-          initial={{ opacity: 0, x: 30, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <div className="relative">
-            <div className="absolute inset-0 bg-smajl-olive/10 blur-[50px] rounded-full scale-110" />
-            <motion.img
-              src={heroCameraNoBg}
-              alt="Smajl Kamera"
-              className="relative w-56 md:w-72 lg:w-80 xl:w-96 drop-shadow-2xl"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-        </motion.div>
+            <motion.p
+              className="text-base md:text-lg lg:text-xl text-smajl-brown-light leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+            >
+              En digital kamera utan skärm. Ta bilder – och fortsätt leva i stunden.
+            </motion.p>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+            >
+              <Button variant="default" size="lg" asChild className="rounded-full px-10">
+                <a href="#produkt">Köp nu</a>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                asChild 
+                className="rounded-full px-10 border-smajl-olive/30 text-smajl-olive hover:bg-smajl-olive/5"
+              >
+                <a href="#hur-funkar-det">Hur funkar det?</a>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Right side - Camera */}
+          <motion.div 
+            className="w-full lg:w-auto lg:flex-1 flex justify-center lg:max-w-xl"
+            initial={{ opacity: 0, x: 30, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-smajl-olive/10 blur-[60px] rounded-full scale-110" />
+              <motion.img
+                src={heroCameraNoBg}
+                alt="Smajl Kamera"
+                className="relative w-64 md:w-80 lg:w-96 xl:w-[26rem] drop-shadow-2xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Infinite scrolling carousel */}
