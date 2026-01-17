@@ -24,7 +24,7 @@ const Header = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[15px] text-smajl-brown hover:text-smajl-olive transition-colors duration-300"
+                className="text-[15px] text-smajl-brown hover:text-smajl-olive transition-colors duration-300 font-heading"
               >
                 {link.label}
               </a>
@@ -34,7 +34,7 @@ const Header = () => {
           {/* Mobile menu button - left side */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden text-smajl-brown text-[15px]"
+            className="md:hidden text-smajl-brown text-[15px] font-heading"
           >
             Meny
           </button>
