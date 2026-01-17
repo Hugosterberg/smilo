@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 import heroCamera from "@/assets/hero-camera.jpg";
+import heroSample1 from "@/assets/hero-sample-1.jpg";
+import heroSample2 from "@/assets/hero-sample-2.jpg";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const HeroSection = () => {
@@ -21,26 +23,26 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Main hero content */}
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-6 lg:px-16 pt-24 pb-12 gap-8 lg:gap-16">
+        <div className="flex-1 flex flex-col items-center justify-center px-6 lg:px-16 pt-24 pb-12">
           
-          {/* Left side - Text content */}
+          {/* Center text content */}
           <motion.div 
-            className="flex-1 max-w-xl text-center lg:text-left"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            className="text-center max-w-3xl mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.img 
               src={smajlLogoFull} 
               alt="Smajl" 
-              className="h-16 md:h-24 w-auto mx-auto lg:mx-0 mb-6"
+              className="h-14 md:h-20 w-auto mx-auto mb-6"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             />
             
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl text-smajl-brown leading-[1.1] mb-6"
+              className="text-3xl md:text-5xl lg:text-6xl text-smajl-brown leading-[1.1] mb-5"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -51,7 +53,7 @@ const HeroSection = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-lg md:text-xl text-smajl-brown-light leading-relaxed mb-8 max-w-md mx-auto lg:mx-0"
+              className="text-base md:text-lg text-smajl-brown-light leading-relaxed mb-8 max-w-xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -63,7 +65,7 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="default" size="xl" asChild className="rounded-full px-8">
                 <a href="#produkt">Utforska kameran</a>
@@ -74,50 +76,90 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Product Image */}
-          <motion.div 
-            className="flex-1 max-w-md lg:max-w-lg xl:max-w-xl flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-          >
-            <div className="relative">
-              {/* Glow effect behind camera */}
-              <div className="absolute inset-0 bg-smajl-olive/10 blur-3xl rounded-full scale-150" />
+          {/* Visual showcase - Camera + Sample photos */}
+          <div className="w-full max-w-6xl mx-auto">
+            <div className="grid grid-cols-12 gap-4 md:gap-6 items-center">
               
-              {/* Floating animation wrapper */}
-              <motion.div
-                animate={{ 
-                  y: [0, -10, 0],
-                }}
-                transition={{ 
-                  duration: 4, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
-                className="relative"
+              {/* Left sample photo */}
+              <motion.div 
+                className="col-span-4 md:col-span-3"
+                initial={{ opacity: 0, x: -30, rotate: -5 }}
+                animate={{ opacity: 1, x: 0, rotate: -3 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
               >
-                {/* Main camera image */}
-                <img 
-                  src={heroCamera} 
-                  alt="Smajl Kamera - Olive Green Edition" 
-                  className="relative w-full max-w-[400px] lg:max-w-[500px] drop-shadow-2xl"
-                />
-                
-                {/* Decorative badge */}
-                <motion.div 
-                  className="absolute -bottom-4 -right-4 bg-smajl-olive text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                >
-                  ✨ Nyhet 2025
-                </motion.div>
+                <div className="relative">
+                  <div className="absolute inset-0 bg-white rounded-lg shadow-lg transform rotate-2" />
+                  <img 
+                    src={heroSample1}
+                    alt="Bild tagen med Smajl"
+                    className="relative rounded-lg shadow-card w-full aspect-[3/4] object-cover border-4 border-white"
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-smajl-cream px-2 py-1 rounded text-xs text-smajl-brown-light shadow-sm">
+                    📸 Tagen med Smajl
+                  </div>
+                </div>
               </motion.div>
-            </div>
-          </motion.div>
-        </div>
 
+              {/* Center camera product */}
+              <motion.div 
+                className="col-span-4 md:col-span-6 flex justify-center"
+                initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+              >
+                <div className="relative">
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-smajl-olive/15 blur-3xl rounded-full scale-125" />
+                  
+                  {/* Floating animation */}
+                  <motion.div
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative"
+                  >
+                    <img 
+                      src={heroCamera} 
+                      alt="Smajl Kamera" 
+                      className="relative w-full max-w-[200px] md:max-w-[320px] lg:max-w-[400px] drop-shadow-2xl"
+                    />
+                    
+                    {/* Badge */}
+                    <motion.div 
+                      className="absolute -bottom-2 -right-2 md:-bottom-4 md:-right-4 bg-smajl-olive text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium shadow-lg"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 1 }}
+                    >
+                      ✨ Nyhet 2025
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Right sample photo */}
+              <motion.div 
+                className="col-span-4 md:col-span-3"
+                initial={{ opacity: 0, x: 30, rotate: 5 }}
+                animate={{ opacity: 1, x: 0, rotate: 3 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-white rounded-lg shadow-lg transform -rotate-2" />
+                  <img 
+                    src={heroSample2}
+                    alt="Bild tagen med Smajl"
+                    className="relative rounded-lg shadow-card w-full aspect-[3/4] object-cover border-4 border-white"
+                  />
+                  <div className="absolute -bottom-2 -left-2 bg-smajl-cream px-2 py-1 rounded text-xs text-smajl-brown-light shadow-sm">
+                    📸 Tagen med Smajl
+                  </div>
+                </div>
+              </motion.div>
+
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
