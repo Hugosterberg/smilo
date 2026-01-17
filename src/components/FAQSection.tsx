@@ -7,44 +7,28 @@ import {
 
 const faqs = [
   {
-    question: "Är smajl en engångskamera?",
-    answer:
-      "Nej, smajl är en digital kamera som du kan använda om och om igen. Du laddar ner bilderna till din mobil och kan sedan ta nya.",
+    question: "Är detta en engångskamera?",
+    answer: "Nej. smajl är digital och kan användas om och om igen.",
   },
   {
     question: "Kan jag se bilderna direkt?",
-    answer:
-      "Nej, kameran har ingen skärm – det är hela poängen! Du ser bilderna först när du kopplar in kameran till din mobil. Det gör upplevelsen lite mer spännande och nostalgisk.",
+    answer: "Nej. Kameran har ingen skärm – medvetet.",
   },
   {
-    question: "Funkar den med iPhone och Android?",
-    answer:
-      "Ja! Alla mobiler med USB-C-port fungerar direkt. iPhone 14 eller äldre (med Lightning-port) kräver en USB-C-adapter som säljs separat.",
+    question: "Fungerar den med iPhone och Android?",
+    answer: "Ja. Android och nyare iPhone fungerar direkt. Äldre iPhone kräver adapter.",
   },
   {
-    question: "Behöver jag en app?",
-    answer:
-      "Nej, ingen app behövs. Du kopplar bara in kameran och öppnar Filer-appen på din mobil för att ladda ner bilderna.",
+    question: "Behöver jag ladda ner en app?",
+    answer: "Nej. Allt sker via mobilens filhanterare.",
   },
   {
-    question: "Är den bra i mörker?",
-    answer:
-      "Kameran har både LED- och xenonblixt som hjälper till i mörkare miljöer. Resultatet blir ofta charmigt och nostalgiskt – precis som gamla flashbilder.",
+    question: "Kan jag radera bilderna från mobilen?",
+    answer: "Ja, medan kameran är inkopplad.",
   },
   {
-    question: "Vad skiljer den från mobilen?",
-    answer:
-      "Med smajl tar du bilden och återgår till stunden – inga notiser, ingen scrollning, ingen distraction. Du upplever mer och ser bilderna senare.",
-  },
-  {
-    question: "Kan jag radera bilder direkt från mobilen?",
-    answer:
-      "Ja! När kameran är inkopplad kan du både ladda ner och radera bilder direkt från Filer-appen.",
-  },
-  {
-    question: "Vad händer om jag vill returnera?",
-    answer:
-      "Vi erbjuder fri retur inom 30 dagar. Skicka tillbaka kameran i originalskick så återbetalar vi hela köpesumman.",
+    question: "Hur funkar retur?",
+    answer: "Fri retur inom Sverige.",
   },
 ];
 

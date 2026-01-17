@@ -24,10 +24,19 @@ const GallerySection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
-          <h2 className="smajl-heading-lg text-center mb-4">Tagna med smajl</h2>
-          <p className="smajl-body text-center text-muted-foreground mb-12 max-w-lg mx-auto">
-            Äkta ögonblick, inte perfekta bilder. Så här ser livet ut genom smajl.
+          <h2 className="smajl-heading-lg mb-4">Bilder tagna med smajl</h2>
+          <p className="smajl-body text-muted-foreground max-w-xl mx-auto mb-2">
+            Äkta ögonblick. Precis som de är.
+          </p>
+          <p className="smajl-body-sm text-muted-foreground max-w-xl mx-auto">
+            Alla bilder du ser här är tagna med smajl retro kamera.
+            <br />
+            Middagar. Skratt. Fest. Vardag.
+          </p>
+          <p className="smajl-body-sm text-muted-foreground mt-4 max-w-xl mx-auto">
+            Inga filter i efterhand. Ingen redigering.
           </p>
         </motion.div>
 

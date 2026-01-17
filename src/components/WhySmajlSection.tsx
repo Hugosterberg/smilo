@@ -1,26 +1,26 @@
 import { motion } from "framer-motion";
-import { Camera, Clock, Heart, Cable } from "lucide-react";
+import { Camera, Heart, Sparkles, Smartphone } from "lucide-react";
 
 const features = [
   {
     icon: Camera,
     title: "Mer närvaro",
-    description: "Ingen skärm. Inga notiser. Bara du och stunden.",
-  },
-  {
-    icon: Clock,
-    title: "Minnen som känns",
-    description: "Bilder med karaktär – inte perfekta, men äkta.",
+    description: "Utan skärm finns inget att kontrollera. Du är där – på riktigt.",
   },
   {
     icon: Heart,
-    title: "För vardag & fest",
-    description: "Middagar, resor, stranddagar och sena kvällar.",
+    title: "Minnen med känsla",
+    description: "Bilderna blir inte perfekta. De blir personliga.",
   },
   {
-    icon: Cable,
-    title: "Dina bilder, när du vill",
-    description: "För över bilderna till mobilen när det passar dig.",
+    icon: Sparkles,
+    title: "För vardag & fest",
+    description: "Middagar, resor, kvällar, spontana stunder.",
+  },
+  {
+    icon: Smartphone,
+    title: "Till mobilen när du vill",
+    description: "Alla bilder kan enkelt föras över när det passar dig.",
   },
 ];
 
@@ -35,7 +35,7 @@ const WhySmajlSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          Varför smajl?
+          Varför välja smajl?
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
