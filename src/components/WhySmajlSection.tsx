@@ -26,10 +26,10 @@ const features = [
 
 const WhySmajlSection = () => {
   return (
-    <section className="smajl-section bg-secondary/30">
+    <section className="smajl-section bg-smajl-cream">
       <div className="smajl-container">
         <motion.h2 
-          className="smajl-heading-lg text-center mb-16"
+          className="smajl-heading-lg text-center mb-4 text-smajl-brown"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -38,21 +38,29 @@ const WhySmajlSection = () => {
           Varför välja smajl?
         </motion.h2>
         
+        <motion.div
+          className="w-16 h-1 bg-smajl-gold mx-auto mb-16 rounded-full"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        />
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              className="smajl-card text-center"
+              className="text-center p-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="w-14 h-14 mx-auto mb-6 rounded-2xl bg-smajl-coral-soft flex items-center justify-center">
-                <feature.icon className="w-7 h-7 text-primary" />
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-smajl-olive/10 flex items-center justify-center">
+                <feature.icon className="w-8 h-8 text-smajl-olive" />
               </div>
-              <h3 className="font-display text-xl mb-3">{feature.title}</h3>
-              <p className="smajl-body-sm text-muted-foreground">
+              <h3 className="font-semibold text-xl mb-3 text-smajl-brown">{feature.title}</h3>
+              <p className="smajl-body-sm text-smajl-brown-light">
                 {feature.description}
               </p>
             </motion.div>

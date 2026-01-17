@@ -2,114 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
 
-/* smajl Design System - Warm, Scandinavian, Nostalgic */
+/* smajl Design System - Based on brand colors from logo
+   Colors: Olive Green, Cream/Beige, Dark Brown, Golden Yellow
+*/
 
 @layer base {
   :root {
-    /* Warm cream background */
-    --background: 40 33% 98%;
-    --foreground: 30 10% 20%;
+    /* Cream/warm white background */
+    --background: 43 45% 96%;
+    --foreground: 25 45% 15%;
 
     /* Cards with subtle warmth */
-    --card: 40 30% 99%;
-    --card-foreground: 30 10% 20%;
+    --card: 43 40% 98%;
+    --card-foreground: 25 45% 15%;
 
-    --popover: 40 30% 99%;
-    --popover-foreground: 30 10% 20%;
+    --popover: 43 40% 98%;
+    --popover-foreground: 25 45% 15%;
 
-    /* Soft coral/terracotta primary */
-    --primary: 16 65% 55%;
-    --primary-foreground: 40 33% 98%;
+    /* Olive green primary - from logo */
+    --primary: 85 30% 35%;
+    --primary-foreground: 43 45% 96%;
 
-    /* Warm secondary */
-    --secondary: 35 30% 94%;
-    --secondary-foreground: 30 10% 25%;
+    /* Cream secondary */
+    --secondary: 43 35% 90%;
+    --secondary-foreground: 25 45% 20%;
 
     /* Muted warm tones */
-    --muted: 35 20% 93%;
-    --muted-foreground: 30 10% 45%;
+    --muted: 43 25% 92%;
+    --muted-foreground: 25 20% 45%;
 
-    /* Soft accent */
-    --accent: 35 40% 92%;
-    --accent-foreground: 30 10% 20%;
+    /* Golden yellow accent - from logo */
+    --accent: 43 80% 55%;
+    --accent-foreground: 25 45% 15%;
 
     --destructive: 0 65% 50%;
-    --destructive-foreground: 40 33% 98%;
+    --destructive-foreground: 43 45% 96%;
 
-    --border: 35 20% 88%;
-    --input: 35 20% 88%;
-    --ring: 16 65% 55%;
+    /* Brown borders */
+    --border: 30 25% 82%;
+    --input: 30 25% 82%;
+    --ring: 85 30% 35%;
 
     --radius: 1rem;
 
-    /* Custom smajl tokens */
-    --smajl-cream: 40 33% 98%;
-    --smajl-warm-white: 40 30% 99%;
-    --smajl-coral: 16 65% 55%;
-    --smajl-coral-soft: 16 50% 92%;
-    --smajl-text: 30 10% 20%;
-    --smajl-text-muted: 30 10% 45%;
-    --smajl-border: 35 20% 88%;
+    /* Custom smajl brand tokens */
+    --smajl-cream: 43 45% 92%;
+    --smajl-cream-light: 43 45% 96%;
+    --smajl-olive: 85 30% 35%;
+    --smajl-olive-light: 85 25% 45%;
+    --smajl-olive-dark: 85 35% 28%;
+    --smajl-brown: 25 50% 18%;
+    --smajl-brown-light: 25 35% 30%;
+    --smajl-gold: 43 80% 55%;
+    --smajl-gold-soft: 43 60% 85%;
     
-    /* Product colors */
-    --smajl-black: 0 0% 15%;
-    --smajl-white: 0 0% 95%;
-    --smajl-pink: 350 60% 75%;
-    --smajl-blue: 200 50% 70%;
-    --smajl-green: 150 40% 65%;
-    --smajl-yellow: 45 80% 70%;
-    --smajl-red: 0 60% 55%;
+    /* Product color variations */
+    --smajl-product-black: 0 0% 15%;
+    --smajl-product-green: 85 30% 35%;
+    --smajl-product-brown: 25 40% 30%;
+    --smajl-product-blue: 200 35% 50%;
+    --smajl-product-yellow: 43 70% 60%;
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(30 20% 50% / 0.1);
-    --shadow-card: 0 8px 30px -8px hsl(30 20% 50% / 0.12);
-    --shadow-hover: 0 12px 40px -8px hsl(30 20% 50% / 0.18);
+    --shadow-soft: 0 4px 20px -4px hsl(25 30% 30% / 0.08);
+    --shadow-card: 0 8px 30px -8px hsl(25 30% 30% / 0.12);
+    --shadow-hover: 0 12px 40px -8px hsl(25 30% 30% / 0.18);
 
     /* Typography */
-    --font-display: 'Fraunces', serif;
     --font-body: 'DM Sans', sans-serif;
 
-    /* Sidebar (keeping defaults) */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 43 45% 96%;
+    --sidebar-foreground: 25 45% 15%;
+    --sidebar-primary: 85 30% 35%;
+    --sidebar-primary-foreground: 43 45% 96%;
+    --sidebar-accent: 43 35% 90%;
+    --sidebar-accent-foreground: 25 45% 15%;
+    --sidebar-border: 30 25% 82%;
+    --sidebar-ring: 85 30% 35%;
   }
 
   .dark {
-    --background: 30 10% 10%;
-    --foreground: 40 20% 95%;
-    --card: 30 10% 12%;
-    --card-foreground: 40 20% 95%;
-    --popover: 30 10% 12%;
-    --popover-foreground: 40 20% 95%;
-    --primary: 16 65% 55%;
-    --primary-foreground: 40 33% 98%;
-    --secondary: 30 10% 18%;
-    --secondary-foreground: 40 20% 90%;
-    --muted: 30 10% 18%;
-    --muted-foreground: 30 10% 60%;
-    --accent: 30 10% 18%;
-    --accent-foreground: 40 20% 95%;
+    --background: 25 40% 8%;
+    --foreground: 43 40% 95%;
+    --card: 25 35% 12%;
+    --card-foreground: 43 40% 95%;
+    --popover: 25 35% 12%;
+    --popover-foreground: 43 40% 95%;
+    --primary: 85 35% 45%;
+    --primary-foreground: 25 40% 8%;
+    --secondary: 25 30% 18%;
+    --secondary-foreground: 43 40% 90%;
+    --muted: 25 30% 18%;
+    --muted-foreground: 43 20% 60%;
+    --accent: 43 70% 50%;
+    --accent-foreground: 25 40% 8%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 40 20% 95%;
-    --border: 30 10% 20%;
-    --input: 30 10% 20%;
-    --ring: 16 65% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 43 40% 95%;
+    --border: 25 30% 20%;
+    --input: 25 30% 20%;
+    --ring: 85 35% 45%;
+    --sidebar-background: 25 40% 8%;
+    --sidebar-foreground: 43 40% 95%;
+    --sidebar-primary: 85 35% 45%;
+    --sidebar-primary-foreground: 25 40% 8%;
+    --sidebar-accent: 25 30% 15%;
+    --sidebar-accent-foreground: 43 40% 95%;
+    --sidebar-border: 25 30% 20%;
+    --sidebar-ring: 85 35% 45%;
   }
 }
 
@@ -128,8 +130,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-weight: 600;
     letter-spacing: -0.02em;
   }
 }
@@ -144,28 +146,23 @@
   }
 
   .smajl-heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl leading-tight;
-    font-family: var(--font-display);
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
   }
 
   .smajl-heading-lg {
-    @apply text-3xl md:text-4xl leading-tight;
-    font-family: var(--font-display);
+    @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
   }
 
   .smajl-heading-md {
-    @apply text-2xl md:text-3xl leading-snug;
-    font-family: var(--font-display);
+    @apply text-2xl md:text-3xl font-semibold leading-snug;
   }
 
   .smajl-body {
     @apply text-base md:text-lg leading-relaxed;
-    font-family: var(--font-body);
   }
 
   .smajl-body-sm {
     @apply text-sm md:text-base leading-relaxed;
-    font-family: var(--font-body);
   }
 
   .smajl-card {
@@ -179,12 +176,10 @@
     transform: translateY(-2px);
   }
 
-  .smajl-gradient-warm {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--smajl-cream)) 0%,
-      hsl(var(--smajl-coral-soft)) 100%
-    );
+  .smajl-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium;
+    background: hsl(var(--smajl-gold-soft));
+    color: hsl(var(--smajl-brown));
   }
 }
 
