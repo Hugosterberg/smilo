@@ -5,14 +5,22 @@ import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
+import gallery7 from "@/assets/gallery-7.jpg";
+import gallery8 from "@/assets/gallery-8.jpg";
+import gallery9 from "@/assets/gallery-9.jpg";
+import gallery10 from "@/assets/gallery-10.jpg";
 
 const images = [
-  { src: gallery1, alt: "Vänner som skålar på en fest" },
-  { src: gallery2, alt: "Sommardag på stranden" },
-  { src: gallery3, alt: "Mysig middag med levande ljus" },
-  { src: gallery4, alt: "Vänner som skrattar tillsammans" },
-  { src: gallery5, alt: "Solnedgång under en resa" },
-  { src: gallery6, alt: "Födelsedagsfirande med tårta" },
+  { src: gallery1, alt: "Spontan selfie hemma" },
+  { src: gallery2, alt: "Uppklädd för fest" },
+  { src: gallery3, alt: "Mysig middag med vänner" },
+  { src: gallery4, alt: "Bästa vänner selfie" },
+  { src: gallery5, alt: "Matlagning i köket" },
+  { src: gallery6, alt: "Ljuständning på kvällen" },
+  { src: gallery7, alt: "Par vid middagsbordet" },
+  { src: gallery8, alt: "Vänner med tomtebloss" },
+  { src: gallery9, alt: "Stilig kille vid fönstret" },
+  { src: gallery10, alt: "Rolig stund på festen" },
 ];
 
 const GallerySection = () => {
@@ -42,7 +50,7 @@ const GallerySection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {images.map((image, index) => (
             <motion.div
               key={index}
@@ -50,7 +58,7 @@ const GallerySection = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ scale: 1.02 }}
             >
               <img
