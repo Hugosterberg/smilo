@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
-import heroLifestyle from "@/assets/hero-lifestyle.jpg";
+import heroCamera from "@/assets/hero-camera.jpg";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen bg-smajl-cream-light overflow-hidden">
       {/* Warm gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-smajl-cream via-smajl-cream-light to-smajl-gold-soft/30 z-0" />
+      <div className="absolute inset-0 bg-gradient-to-br from-smajl-cream via-smajl-cream-light to-smajl-gold-soft/20 z-0" />
       
       {/* Subtle texture pattern */}
       <div 
@@ -21,7 +21,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Main hero content */}
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-6 lg:px-16 pt-24 pb-12 gap-12 lg:gap-20">
+        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-6 lg:px-16 pt-24 pb-12 gap-8 lg:gap-16">
           
           {/* Left side - Text content */}
           <motion.div 
@@ -33,7 +33,7 @@ const HeroSection = () => {
             <motion.img 
               src={smajlLogoFull} 
               alt="Smajl" 
-              className="h-20 md:h-28 w-auto mx-auto lg:mx-0 mb-8"
+              className="h-16 md:h-24 w-auto mx-auto lg:mx-0 mb-6"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -74,25 +74,46 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right side - Image */}
+          {/* Right side - Product Image */}
           <motion.div 
-            className="flex-1 max-w-lg lg:max-w-xl"
-            initial={{ opacity: 0, x: 30, rotate: -2 }}
-            animate={{ opacity: 1, x: 0, rotate: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="flex-1 max-w-md lg:max-w-lg xl:max-w-xl flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
           >
             <div className="relative">
-              {/* Decorative frame */}
-              <div className="absolute -inset-4 bg-white/60 rounded-3xl shadow-soft -rotate-2" />
-              <div className="absolute -inset-4 border-2 border-smajl-gold/20 rounded-3xl rotate-1" />
+              {/* Glow effect behind camera */}
+              <div className="absolute inset-0 bg-smajl-olive/10 blur-3xl rounded-full scale-150" />
               
-              {/* Main image */}
-              <img 
-                src={heroLifestyle} 
-                alt="Ögonblick fångade med Smajl" 
-                className="relative rounded-2xl shadow-card w-full aspect-[4/5] object-cover"
-              />
-              
+              {/* Floating animation wrapper */}
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="relative"
+              >
+                {/* Main camera image */}
+                <img 
+                  src={heroCamera} 
+                  alt="Smajl Kamera - Olive Green Edition" 
+                  className="relative w-full max-w-[400px] lg:max-w-[500px] drop-shadow-2xl"
+                />
+                
+                {/* Decorative badge */}
+                <motion.div 
+                  className="absolute -bottom-4 -right-4 bg-smajl-olive text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                >
+                  ✨ Nyhet 2025
+                </motion.div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
