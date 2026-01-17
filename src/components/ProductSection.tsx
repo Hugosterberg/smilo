@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Camera, Cable, CreditCard } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Real product images
 import productBlack from "@/assets/product-black.jpg";
@@ -11,6 +17,24 @@ import productAllColors from "@/assets/product-all-colors.jpg";
 import productBack from "@/assets/product-back.jpg";
 
 import smajlLogoIcon from "@/assets/smajl-logo-icon.png";
+
+// What's included items
+const includedItems = [
+  { icon: Camera, title: "smajl retro kamera" },
+  { icon: Cable, title: "USB-C-kabel" },
+  { icon: CreditCard, title: "Minneskort" },
+];
+
+// Specifications
+const specs = [
+  { label: "Sensor", value: "12 MP CMOS-sensor" },
+  { label: "Blixt", value: "LED- & xenonblixt" },
+  { label: "Filter", value: "Flera inbyggda filter" },
+  { label: "Lagring", value: "Minneskort ingår (utbyggbart)" },
+  { label: "Anslutning", value: "USB-C" },
+  { label: "Vikt", value: "Ca 95 g" },
+  { label: "Storlek", value: "Ca 115 × 65 × 34 mm" },
+];
 
 interface CameraColor {
   id: string;
@@ -204,9 +228,46 @@ const ProductSection = () => {
               </Button>
             </motion.div>
 
-            <p className="text-sm text-center text-muted-foreground">
+            <p className="text-sm text-center text-muted-foreground mb-8">
               Leverans inom Sverige
             </p>
+
+            {/* What's Included */}
+            <div className="border-t border-border pt-6 mb-6">
+              <p className="text-sm font-semibold uppercase tracking-wider mb-4 text-smajl-brown">Detta ingår</p>
+              <div className="flex gap-6">
+                {includedItems.map((item) => (
+                  <div key={item.title} className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-smajl-cream flex items-center justify-center">
+                      <item.icon className="w-4 h-4 text-smajl-olive" />
+                    </div>
+                    <span className="text-sm text-smajl-brown">{item.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Specifications Accordion */}
+            <Accordion type="single" collapsible className="border-t border-border">
+              <AccordionItem value="specs" className="border-b-0">
+                <AccordionTrigger className="text-sm font-semibold uppercase tracking-wider text-smajl-brown hover:no-underline py-4">
+                  Specifikationer
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="space-y-2">
+                    {specs.map((spec) => (
+                      <div
+                        key={spec.label}
+                        className="flex justify-between py-1.5 text-sm"
+                      >
+                        <span className="text-muted-foreground">{spec.label}</span>
+                        <span className="font-medium text-smajl-brown">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </motion.div>
         </div>
       </div>
