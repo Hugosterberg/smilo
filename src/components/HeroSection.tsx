@@ -1,14 +1,15 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import heroImage from "@/assets/hero-lifestyle.jpg";
+
+// Use real lifestyle image for hero background
+import productLifestyle from "@/assets/product-lifestyle.jpg";
+import productUnboxing from "@/assets/product-unboxing.jpg";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 // Gallery images for collage
 import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
 
 const HeroSection = () => {
   return (
@@ -16,16 +17,16 @@ const HeroSection = () => {
       {/* Image Grid Background - Inspired by klikcamera */}
       <div className="absolute inset-0 z-0 grid grid-cols-2 md:grid-cols-4">
         <div className="relative overflow-hidden">
-          <img src={heroImage} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-smajl-brown/30" />
+          <img src={productLifestyle} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-smajl-brown/20" />
         </div>
         <div className="relative overflow-hidden">
           <img src={gallery1} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-smajl-brown/30" />
         </div>
         <div className="relative overflow-hidden hidden md:block">
-          <img src={gallery2} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-smajl-brown/30" />
+          <img src={productUnboxing} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-smajl-brown/20" />
         </div>
         <div className="relative overflow-hidden hidden md:block">
           <img src={gallery3} alt="" className="w-full h-full object-cover" />
