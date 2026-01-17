@@ -7,7 +7,7 @@ const comparisonFeatures = [
   { feature: "Skärmfri & distraktion-fri", smajl: true, disposable: true, film: true },
   { feature: "Retro-känsla i bilderna", smajl: true, disposable: true, film: true },
   { feature: "Direkt överföring till mobilen", smajl: true, disposable: false, film: false },
-  { feature: "500+ bilder per laddning", smajl: true, disposable: false, film: false },
+  { feature: "200+ bilder per laddning", smajl: true, disposable: false, film: false },
   { feature: "Återanvändbar & laddningsbar", smajl: true, disposable: false, film: false },
   { feature: "Inga framkallningskostnader", smajl: true, disposable: false, film: false },
 ];
