@@ -13,16 +13,17 @@ import cameraYellow from "@/assets/camera-yellow.jpg";
 interface CameraColor {
   id: string;
   name: string;
+  fullName: string;
   image: string;
   colorClass: string;
 }
 
 const cameraColors: CameraColor[] = [
-  { id: "black", name: "Svart", image: cameraBlack, colorClass: "bg-smajl-black" },
-  { id: "pink", name: "Rosa", image: cameraPink, colorClass: "bg-smajl-pink" },
-  { id: "blue", name: "Blå", image: cameraBlue, colorClass: "bg-smajl-blue" },
-  { id: "green", name: "Grön", image: cameraGreen, colorClass: "bg-smajl-green" },
-  { id: "yellow", name: "Gul", image: cameraYellow, colorClass: "bg-smajl-yellow" },
+  { id: "black", name: "Svart", fullName: "smajl retro kamera – svart", image: cameraBlack, colorClass: "bg-smajl-black" },
+  { id: "green", name: "Grön", fullName: "smajl retro kamera – grön", image: cameraGreen, colorClass: "bg-smajl-green" },
+  { id: "brown", name: "Brun", fullName: "smajl retro kamera – brun", image: cameraPink, colorClass: "bg-amber-700" },
+  { id: "blue", name: "Blå", fullName: "smajl retro kamera – blå", image: cameraBlue, colorClass: "bg-smajl-blue" },
+  { id: "yellow", name: "Gul", fullName: "smajl retro kamera – gul", image: cameraYellow, colorClass: "bg-smajl-yellow" },
 ];
 
 const ProductSection = () => {
@@ -48,7 +49,7 @@ const ProductSection = () => {
                 <motion.img
                   key={selectedColor.id}
                   src={selectedColor.image}
-                  alt={`smajl retro kamera i ${selectedColor.name}`}
+                  alt={selectedColor.fullName}
                   className="w-full h-full object-cover"
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -85,14 +86,16 @@ const ProductSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <h2 className="smajl-heading-md mb-4">smajl retro kamera</h2>
+            <h2 className="smajl-heading-md mb-4">{selectedColor.fullName}</h2>
             <p className="smajl-body text-muted-foreground mb-8">
-              En enkel digitalkamera som hjälper dig att vara i nuet – och spara minnena till senare.
+              En liten digital kamera som påminner om hur fotografering kändes förr –
+              <br className="hidden sm:block" />
+              fast med dagens enkelhet.
             </p>
 
             {/* Color Selection - Desktop */}
             <div className="hidden lg:block mb-8">
-              <p className="text-sm font-medium mb-3">Välj färg: {selectedColor.name}</p>
+              <p className="text-sm font-medium mb-3">Välj färg</p>
               <div className="flex gap-3">
                 {cameraColors.map((color) => (
                   <motion.button
@@ -109,6 +112,7 @@ const ProductSection = () => {
                   />
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-2">{selectedColor.name}</p>
             </div>
 
             {/* Price */}
@@ -123,7 +127,7 @@ const ProductSection = () => {
                 {totalPrice} kr
               </motion.p>
               <p className="text-sm text-muted-foreground mt-1">
-                Fri frakt & fri retur
+                Fri frakt och fri retur inom Sverige.
               </p>
             </div>
 
@@ -154,7 +158,7 @@ const ProductSection = () => {
                 <div>
                   <p className="text-sm font-medium">Lägg till USB-C-adapter (+99 kr)</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Behövs för iPhone 14 eller äldre
+                    Krävs för iPhone 14 eller äldre
                   </p>
                 </div>
               </label>

@@ -7,12 +7,12 @@ import {
 
 const specs = [
   { label: "Sensor", value: "12 MP CMOS-sensor" },
-  { label: "Blixt", value: "LED & xenonblixt" },
-  { label: "Filter", value: "Flera filterlägen" },
-  { label: "Lagring", value: "Minneskort medföljer" },
+  { label: "Blixt", value: "LED- & xenonblixt" },
+  { label: "Filter", value: "Flera inbyggda filter" },
+  { label: "Lagring", value: "Minneskort ingår (utbyggbart)" },
   { label: "Anslutning", value: "USB-C" },
   { label: "Vikt", value: "Ca 95 g" },
-  { label: "Mått", value: "Ca 115 × 65 × 34 mm" },
+  { label: "Storlek", value: "Ca 115 × 65 × 34 mm" },
 ];
 
 const TechnicalSection = () => {
@@ -22,7 +22,7 @@ const TechnicalSection = () => {
         <Accordion type="single" collapsible>
           <AccordionItem value="specs" className="border-border">
             <AccordionTrigger className="font-display text-xl hover:no-underline">
-              Teknisk information
+              Specifikationer
             </AccordionTrigger>
             <AccordionContent>
               <div className="pt-4 space-y-3">
