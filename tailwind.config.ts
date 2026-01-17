@@ -57,11 +57,40 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // smajl custom colors
+        smajl: {
+          cream: "hsl(var(--smajl-cream))",
+          "warm-white": "hsl(var(--smajl-warm-white))",
+          coral: "hsl(var(--smajl-coral))",
+          "coral-soft": "hsl(var(--smajl-coral-soft))",
+          text: "hsl(var(--smajl-text))",
+          "text-muted": "hsl(var(--smajl-text-muted))",
+          border: "hsl(var(--smajl-border))",
+          // Product colors
+          black: "hsl(var(--smajl-black))",
+          white: "hsl(var(--smajl-white))",
+          pink: "hsl(var(--smajl-pink))",
+          blue: "hsl(var(--smajl-blue))",
+          green: "hsl(var(--smajl-green))",
+          yellow: "hsl(var(--smajl-yellow))",
+          red: "hsl(var(--smajl-red))",
+        },
+      },
+      fontFamily: {
+        display: ['Fraunces', 'serif'],
+        body: ['DM Sans', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
+      },
+      boxShadow: {
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-card)",
+        hover: "var(--shadow-hover)",
       },
       keyframes: {
         "accordion-down": {
