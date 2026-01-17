@@ -8,19 +8,17 @@ import gallery6 from "@/assets/gallery-6.jpg";
 import gallery7 from "@/assets/gallery-7.jpg";
 import gallery8 from "@/assets/gallery-8.jpg";
 import gallery9 from "@/assets/gallery-9.jpg";
-import gallery10 from "@/assets/gallery-10.jpg";
 
 const images = [
-  { src: gallery1, alt: "Spontan selfie hemma" },
-  { src: gallery2, alt: "Uppklädd för fest" },
-  { src: gallery3, alt: "Mysig middag med vänner" },
-  { src: gallery4, alt: "Bästa vänner selfie" },
-  { src: gallery5, alt: "Matlagning i köket" },
-  { src: gallery6, alt: "Ljuständning på kvällen" },
-  { src: gallery7, alt: "Par vid middagsbordet" },
-  { src: gallery8, alt: "Vänner med tomtebloss" },
-  { src: gallery9, alt: "Stilig kille vid fönstret" },
-  { src: gallery10, alt: "Rolig stund på festen" },
+  { src: gallery1, alt: "Stilig kille i vit kavaj" },
+  { src: gallery2, alt: "Par på romantisk middag" },
+  { src: gallery3, alt: "Bästa vännerna i soffan" },
+  { src: gallery4, alt: "Matlagning med vänner i köket" },
+  { src: gallery5, alt: "Förrätt tillsammans" },
+  { src: gallery6, alt: "Skratt under middagsspelet" },
+  { src: gallery7, alt: "Stilig kille i kostym" },
+  { src: gallery8, alt: "Mysig middagsfest med vänner" },
+  { src: gallery9, alt: "Vinprovning vid bordet" },
 ];
 
 const GallerySection = () => {
