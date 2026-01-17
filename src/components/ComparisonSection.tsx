@@ -24,10 +24,10 @@ const ComparisonSection = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="smajl-heading-lg text-smajl-brown mb-4">
-            Varför välja <span className="italic text-smajl-olive">Smajl</span>?
+            Det bästa av <span className="italic text-smajl-olive">två världar</span>
           </h2>
           <p className="smajl-body text-smajl-brown-light max-w-xl mx-auto">
-            Allt det bästa från analoga kameror – utan krånglet
+            Retrocharm möter modern bekvämlighet ✨
           </p>
         </motion.div>
 

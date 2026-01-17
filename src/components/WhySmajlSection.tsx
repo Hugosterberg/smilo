@@ -35,7 +35,7 @@ const WhySmajlSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          Varför välja Smajl?
+          Mer <span className="italic text-smajl-olive">liv</span>, mindre skärm
         </motion.h2>
         
         <motion.div
