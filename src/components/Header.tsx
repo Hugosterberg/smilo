@@ -1,155 +1,120 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const navLinks = [
-  { label: "Handla", href: "#produkt", emoji: "📷" },
-  { label: "Spåra paket", href: "#spara", emoji: "📦" },
-  { label: "Kontakt", href: "#kontakt", emoji: "💌" },
+  { label: "Handla", href: "#produkt" },
+  { label: "Spåra paket", href: "#spara" },
+  { label: "Kontakt", href: "#kontakt" },
 ];
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Warm gradient background */}
-      <div className="absolute inset-0 bg-smajl-cream" />
-      
-      <div className="relative smajl-container">
-        <nav className="flex items-center justify-between py-4 md:py-5">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-smajl-cream">
+      <div className="smajl-container">
+        {/* Main header row */}
+        <div className="flex items-center justify-between py-5 md:py-6">
           
-          {/* Left side - Logo */}
+          {/* Logo - centered on mobile, left on desktop */}
           <motion.a 
             href="#" 
-            className="relative z-10"
-            whileHover={{ rotate: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400 }}
+            className="md:order-1"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300 }}
           >
             <img 
               src={smajlLogoFull} 
               alt="smajl" 
-              className="h-10 md:h-12 w-auto"
+              className="h-11 md:h-14 w-auto"
             />
           </motion.a>
 
-          {/* Center - Decorative element (desktop only) */}
-          <motion.div 
-            className="hidden lg:flex items-center gap-2 text-smajl-gold"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <Sparkles className="w-4 h-4" />
-            <span className="text-xs italic text-smajl-brown-light">fånga ögonblicken</span>
-            <Sparkles className="w-4 h-4" />
-          </motion.div>
+          {/* Desktop Navigation - simple elegant links */}
+          <nav className="hidden md:flex items-center gap-12 order-2">
+            {navLinks.map((link, index) => (
+              <motion.a
+                key={link.label}
+                href={link.href}
+                className="relative text-smajl-brown-light hover:text-smajl-olive transition-colors duration-500 text-[15px] tracking-wide"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 + index * 0.1 }}
+              >
+                {link.label}
+                <motion.span 
+                  className="absolute -bottom-1 left-0 right-0 h-[2px] bg-smajl-gold origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileHover={{ scaleX: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.a>
+            ))}
+          </nav>
 
-          {/* Right side - Navigation (desktop) */}
-          <div className="hidden md:flex items-center">
-            <div className="flex items-center bg-white/60 backdrop-blur-sm rounded-full px-2 py-1.5 shadow-soft">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  className="group relative flex items-center gap-2 px-4 py-2 rounded-full text-sm text-smajl-brown hover:bg-smajl-gold/20 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-                >
-                  <span className="text-base group-hover:scale-110 transition-transform">{link.emoji}</span>
-                  <span className="font-medium">{link.label}</span>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <motion.button
+          {/* Mobile menu toggle - just text */}
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center gap-2 px-4 py-2 bg-white/60 rounded-full text-smajl-brown shadow-soft"
-            whileTap={{ scale: 0.95 }}
-            aria-label="Öppna meny"
+            className="md:hidden text-smajl-brown-light text-[15px] tracking-wide"
           >
-            <span className="text-sm font-medium">Meny</span>
-            <AnimatePresence mode="wait">
-              {mobileMenuOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X className="w-5 h-5" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="w-5 h-5" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
-        </nav>
+            {mobileMenuOpen ? "Stäng" : "Meny"}
+          </button>
+        </div>
+
+        {/* Subtle decorative line */}
+        <div className="h-px bg-gradient-to-r from-transparent via-smajl-gold/30 to-transparent" />
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - full screen takeover */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-smajl-brown/20 backdrop-blur-sm md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="md:hidden absolute top-full left-4 right-4 mt-2 bg-white rounded-3xl shadow-card overflow-hidden"
-            >
-              <div className="p-4 space-y-1">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 bg-smajl-cream z-40 md:hidden"
+          >
+            <div className="flex flex-col items-center justify-center min-h-screen px-8">
+              {/* Close button at top */}
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="absolute top-6 right-6 text-smajl-brown-light text-[15px]"
+              >
+                Stäng
+              </button>
+
+              {/* Navigation links - large and centered */}
+              <nav className="flex flex-col items-center gap-8">
                 {navLinks.map((link, index) => (
                   <motion.a
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-4 py-4 px-4 text-smajl-brown hover:bg-smajl-cream rounded-2xl transition-all duration-300"
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.08 }}
-                    whileTap={{ scale: 0.98, x: 4 }}
+                    className="text-3xl text-smajl-brown hover:text-smajl-olive transition-colors"
+                    style={{ fontFamily: "'Fraunces', serif" }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -30 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
-                    <span className="text-2xl">{link.emoji}</span>
-                    <span className="text-lg font-medium">{link.label}</span>
+                    {link.label}
                   </motion.a>
                 ))}
-              </div>
-              
-              {/* Footer with tagline */}
-              <div className="px-6 py-4 bg-smajl-cream/50 text-center">
-                <p className="text-sm italic text-smajl-brown-light">
-                  ✨ Fånga ögonblicken, lev i stunden ✨
-                </p>
-              </div>
-            </motion.div>
-          </>
+              </nav>
+
+              {/* Tagline at bottom */}
+              <motion.p 
+                className="absolute bottom-12 text-sm italic text-smajl-brown-light"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Fånga ögonblicken
+              </motion.p>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
