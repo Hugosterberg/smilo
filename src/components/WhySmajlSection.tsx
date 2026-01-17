@@ -26,7 +26,7 @@ const features = [
 
 const WhySmajlSection = () => {
   return (
-    <section className="smajl-section bg-smajl-cream">
+    <section id="varfor-smajl" className="smajl-section bg-smajl-cream scroll-mt-20">
       <div className="smajl-container">
         <motion.h2 
           className="smajl-heading-lg text-center mb-4 text-smajl-brown"

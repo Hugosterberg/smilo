@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const HowItWorksSection = () => {
   return (
-    <section className="smajl-section bg-smajl-olive text-smajl-cream-light">
+    <section id="hur-funkar-det" className="smajl-section bg-smajl-olive text-smajl-cream-light scroll-mt-20">
       <div className="smajl-container">
         <motion.div
           className="text-center mb-12"
