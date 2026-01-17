@@ -28,7 +28,7 @@ const features = [
 
 // What's included items
 const includedItems = [
-  { icon: Camera, title: "smajl retro kamera" },
+  { icon: Camera, title: "Smajl retro kamera" },
   { icon: Cable, title: "USB-C-kabel" },
   { icon: CreditCard, title: "Minneskort" },
 ];
@@ -61,9 +61,9 @@ interface CameraColor {
 
 // Colors: vit (white), svart (black), rosa (pink), brun (brown), grön (green)
 const cameraColors: CameraColor[] = [
-  { id: "black", name: "Svart", fullName: "smajl retro kamera – svart", image: productBlack, colorClass: "bg-zinc-900" },
-  { id: "green", name: "Grön", fullName: "smajl retro kamera – grön", image: productGreen, colorClass: "bg-[#6B7B4B]" },
-  { id: "brown", name: "Brun", fullName: "smajl retro kamera – brun", image: productBrown, colorClass: "bg-[#8B5A3C]" },
+  { id: "black", name: "Svart", fullName: "Smajl retro kamera – svart", image: productBlack, colorClass: "bg-zinc-900" },
+  { id: "green", name: "Grön", fullName: "Smajl retro kamera – grön", image: productGreen, colorClass: "bg-[#6B7B4B]" },
+  { id: "brown", name: "Brun", fullName: "Smajl retro kamera – brun", image: productBrown, colorClass: "bg-[#8B5A3C]" },
 ];
 
 const ProductSection = () => {

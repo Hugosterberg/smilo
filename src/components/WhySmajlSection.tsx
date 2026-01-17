@@ -35,7 +35,7 @@ const WhySmajlSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          Varför välja smajl?
+          Varför välja Smajl?
         </motion.h2>
         
         <motion.div

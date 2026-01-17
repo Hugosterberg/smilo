@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="text-center mb-8">
           <img 
             src={smajlLogoFull} 
-            alt="smajl" 
+            alt="Smajl" 
             className="h-24 w-auto mx-auto mb-8 brightness-110"
           />
           <p className="smajl-body-sm text-smajl-cream/70">
@@ -29,7 +29,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-center pt-8 border-t border-smajl-cream/10">
           <p className="text-sm text-smajl-cream/50">
-            © smajl
+            © Smajl
           </p>
         </div>
       </div>
