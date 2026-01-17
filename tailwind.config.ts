@@ -77,7 +77,8 @@ export default {
         },
       },
       fontFamily: {
-        body: ['DM Sans', 'sans-serif'],
+        heading: ['Fraunces', 'serif'],
+        body: ['Nunito', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
