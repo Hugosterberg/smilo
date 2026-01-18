@@ -25,7 +25,7 @@ const faqs = [
       },
       {
         question: "Hur många bilder får plats?",
-        answer: "Kameran har ett internt minne som rymmer upp till 500 bilder. När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna.",
+        answer: "Kameran levereras med ett 4GB minneskort som rymmer ca 1300 bilder. Behöver du mer lagring? Kameran stöder minneskort upp till 16GB (ca 5000 bilder). När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna.",
       },
       {
         question: "Vilken upplösning har bilderna?",
