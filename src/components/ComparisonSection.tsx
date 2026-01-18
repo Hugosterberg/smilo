@@ -11,7 +11,6 @@ const comparisonFeatures = [
   { feature: "Återanvändbar & laddningsbar", smajl: true, disposable: false, polaroid: true },
   { feature: "Inga framkallnings-/filmkostnader", smajl: true, disposable: false, polaroid: false },
   { feature: "Kompakt & lättanvänd", smajl: true, disposable: true, polaroid: false },
-  { feature: "Billig att köpa", smajl: true, disposable: true, polaroid: false },
 ];
 
 const ComparisonSection = () => {
@@ -55,7 +54,7 @@ const ComparisonSection = () => {
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <p className="font-semibold text-smajl-brown text-xs sm:text-sm">Smajl</p>
+                <p className="font-semibold text-smajl-brown text-[10px] sm:text-sm leading-tight">Smajl retro kamera</p>
               </div>
               
               {/* Disposable Column Header */}
