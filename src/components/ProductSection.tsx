@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star } from "lucide-react";
+import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, Sparkles } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -66,12 +66,45 @@ const cameraColors: CameraColor[] = [
   { id: "brown", name: "Brun", fullName: "Smajl retro kamera – brun", image: productBrown, colorClass: "bg-[#8B5A3C]" },
 ];
 
+// Quantity pricing options
+const quantityOptions = [
+  { 
+    quantity: 1, 
+    price: 785, 
+    originalPrice: 785, 
+    label: "1 kamera", 
+    description: "Perfekt för dig",
+    icon: Camera,
+    popular: false 
+  },
+  { 
+    quantity: 2, 
+    price: 1199, 
+    originalPrice: 1570, 
+    label: "2 kameror", 
+    description: "En till dig & en till en vän",
+    icon: Gift,
+    popular: true 
+  },
+  { 
+    quantity: 3, 
+    price: 1649, 
+    originalPrice: 2355, 
+    label: "3 kameror", 
+    description: "Hela gänget inför resan!",
+    icon: Users,
+    popular: false 
+  },
+];
+
 const ProductSection = () => {
   const [selectedColor, setSelectedColor] = useState(cameraColors[0]);
   const [adapterAdded, setAdapterAdded] = useState(false);
   const [activeImage, setActiveImage] = useState<string>(selectedColor.image);
+  const [selectedQuantity, setSelectedQuantity] = useState(quantityOptions[0]);
 
-  const totalPrice = 800 + (adapterAdded ? 99 : 0);
+  const adapterPrice = adapterAdded ? 99 * selectedQuantity.quantity : 0;
+  const totalPrice = selectedQuantity.price + adapterPrice;
 
   // Gallery images for selected color - only show selected color's images
   const getGalleryImages = () => {
@@ -148,18 +181,74 @@ const ProductSection = () => {
             </div>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-smajl-brown mb-2">{selectedColor.fullName}</h2>
             
+            {/* Quantity Selection */}
+            <div className="mb-6">
+              <p className="text-sm font-medium text-smajl-brown mb-3">Välj antal</p>
+              <div className="space-y-2">
+                {quantityOptions.map((option) => (
+                  <motion.button
+                    key={option.quantity}
+                    onClick={() => setSelectedQuantity(option)}
+                    className={`w-full p-3 rounded-xl border-2 transition-all relative ${
+                      selectedQuantity.quantity === option.quantity
+                        ? "border-smajl-olive bg-smajl-olive/5"
+                        : "border-border hover:border-smajl-olive/50 bg-white"
+                    }`}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
+                    {option.popular && (
+                      <span className="absolute -top-2.5 left-4 px-2 py-0.5 bg-smajl-gold text-smajl-brown text-xs font-semibold rounded-full flex items-center gap-1">
+                        <Sparkles className="w-3 h-3" />
+                        Populärast
+                      </span>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                          selectedQuantity.quantity === option.quantity
+                            ? "bg-smajl-olive text-smajl-cream"
+                            : "bg-smajl-cream text-smajl-olive"
+                        }`}>
+                          <option.icon className="w-5 h-5" />
+                        </div>
+                        <div className="text-left">
+                          <p className="font-semibold text-smajl-brown">{option.label}</p>
+                          <p className="text-xs text-muted-foreground">{option.description}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-bold text-smajl-brown">{option.price} kr</p>
+                        {option.originalPrice > option.price && (
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground line-through">{option.originalPrice} kr</span>
+                            <span className="text-xs font-semibold text-smajl-olive">
+                              Spara {option.originalPrice - option.price} kr
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
             {/* Price & Reviews */}
-            <div className="flex items-center gap-4 mb-6">
-              <motion.p 
-                className="text-3xl font-bold text-smajl-brown"
-                key={totalPrice}
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                {totalPrice} kr
-              </motion.p>
-              <div className="flex items-center gap-1 text-smajl-gold">
+            <div className="flex items-center gap-4 mb-6 p-4 rounded-xl bg-smajl-cream/50">
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Totalt</p>
+                <motion.p 
+                  className="text-3xl font-bold text-smajl-brown"
+                  key={totalPrice}
+                  initial={{ scale: 1.1 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {totalPrice} kr
+                </motion.p>
+              </div>
+              <div className="ml-auto flex items-center gap-1 text-smajl-gold">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
@@ -234,7 +323,9 @@ const ProductSection = () => {
                   </AnimatePresence>
                 </motion.button>
                 <div>
-                  <p className="text-sm font-semibold text-smajl-brown">Lägg till USB-C-adapter (+99 kr)</p>
+                  <p className="text-sm font-semibold text-smajl-brown">
+                    Lägg till USB-C-adapter (+{99 * selectedQuantity.quantity} kr för {selectedQuantity.quantity} st)
+                  </p>
                   <p className="text-xs text-muted-foreground">
                     Krävs för iPhone 14 eller äldre
                   </p>
@@ -248,7 +339,7 @@ const ProductSection = () => {
               whileTap={{ scale: 0.98 }}
             >
               <Button variant="hero" size="xl" className="w-full mb-4">
-                Lägg i varukorg
+                Lägg i varukorg – {selectedQuantity.quantity} {selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}
               </Button>
             </motion.div>
             <p className="text-xs text-center text-muted-foreground mb-6">
