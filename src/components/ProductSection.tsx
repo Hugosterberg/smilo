@@ -30,7 +30,7 @@ const features = [
 const includedItems = [
   { icon: Camera, title: "Smajl retro kamera" },
   { icon: Cable, title: "USB-C-kabel" },
-  { icon: CreditCard, title: "Minneskort" },
+  { icon: CreditCard, title: "4GB minneskort (ca 1300 bilder)" },
 ];
 
 // Trust badges
@@ -45,7 +45,7 @@ const specs = [
   { label: "Sensor", value: "12 MP CMOS-sensor" },
   { label: "Blixt", value: "LED- & xenonblixt" },
   { label: "Filter", value: "Flera inbyggda filter" },
-  { label: "Lagring", value: "Minneskort ingår (utbyggbart)" },
+  { label: "Lagring", value: "4GB minneskort ingår (stöder upp till 16GB)" },
   { label: "Anslutning", value: "USB-C" },
   { label: "Vikt", value: "Ca 95 g" },
   { label: "Storlek", value: "Ca 115 × 65 × 34 mm" },
