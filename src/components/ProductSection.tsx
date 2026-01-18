@@ -98,26 +98,52 @@ const quantityOptions = [
 ];
 
 const ProductSection = () => {
-  const [selectedColor, setSelectedColor] = useState(cameraColors[0]);
   const [adapterAdded, setAdapterAdded] = useState(false);
-  const [activeImage, setActiveImage] = useState<string>(selectedColor.image);
   const [selectedQuantity, setSelectedQuantity] = useState(quantityOptions[0]);
+  // Array of selected colors for each camera (index 0 = camera 1, etc.)
+  const [selectedColors, setSelectedColors] = useState<CameraColor[]>([cameraColors[0]]);
+  const [activeImage, setActiveImage] = useState<string>(cameraColors[0].image);
+  const [activeColorIndex, setActiveColorIndex] = useState(0);
 
   const adapterPrice = adapterAdded ? 99 * selectedQuantity.quantity : 0;
   const totalPrice = selectedQuantity.price + adapterPrice;
 
-  // Gallery images for selected color - only show selected color's images
+  // Update selected colors array when quantity changes
+  const handleQuantityChange = (option: typeof quantityOptions[0]) => {
+    setSelectedQuantity(option);
+    // Adjust selectedColors array to match new quantity
+    setSelectedColors(prev => {
+      const newColors = [...prev];
+      while (newColors.length < option.quantity) {
+        newColors.push(cameraColors[0]); // Default to first color for new cameras
+      }
+      return newColors.slice(0, option.quantity);
+    });
+    // Reset active index if it's out of bounds
+    if (activeColorIndex >= option.quantity) {
+      setActiveColorIndex(0);
+      setActiveImage(selectedColors[0]?.image || cameraColors[0].image);
+    }
+  };
+
+  // Gallery images for the currently viewed camera
   const getGalleryImages = () => {
+    const currentColor = selectedColors[activeColorIndex] || cameraColors[0];
     return [
-      { id: 'main', src: selectedColor.image, alt: `${selectedColor.fullName} - framsida` },
-      { id: 'back', src: productBack, alt: `${selectedColor.fullName} - baksida` },
+      { id: 'main', src: currentColor.image, alt: `${currentColor.fullName} - framsida` },
+      { id: 'back', src: productBack, alt: `${currentColor.fullName} - baksida` },
       { id: 'all', src: productAllColors, alt: 'Alla färger' },
     ];
   };
 
-  const handleColorChange = (color: CameraColor) => {
-    setSelectedColor(color);
+  const handleColorChange = (colorIndex: number, color: CameraColor) => {
+    setSelectedColors(prev => {
+      const newColors = [...prev];
+      newColors[colorIndex] = color;
+      return newColors;
+    });
     setActiveImage(color.image);
+    setActiveColorIndex(colorIndex);
   };
 
   return (
@@ -138,7 +164,7 @@ const ProductSection = () => {
                 <motion.img
                   key={activeImage}
                   src={activeImage}
-                  alt={selectedColor.fullName}
+                  alt={selectedColors[activeColorIndex]?.fullName || 'Smajl kamera'}
                   className="w-full h-full object-contain p-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -179,7 +205,7 @@ const ProductSection = () => {
               <img src={smajlLogoIcon} alt="" className="h-8 w-auto" />
               <span className="text-xs font-semibold uppercase tracking-wider text-smajl-olive bg-smajl-olive/10 px-2 py-1 rounded">Retro Kamera</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-smajl-brown mb-2">{selectedColor.fullName}</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-smajl-brown mb-2">Smajl retro kamera</h2>
             
             {/* Quantity Selection */}
             <div className="mb-6">
@@ -188,7 +214,7 @@ const ProductSection = () => {
                 {quantityOptions.map((option) => (
                   <motion.button
                     key={option.quantity}
-                    onClick={() => setSelectedQuantity(option)}
+                    onClick={() => handleQuantityChange(option)}
                     className={`w-full p-3 rounded-xl border-2 transition-all relative ${
                       selectedQuantity.quantity === option.quantity
                         ? "border-smajl-olive bg-smajl-olive/5"
@@ -273,27 +299,47 @@ const ProductSection = () => {
               ))}
             </div>
 
-            {/* Color Selection */}
+            {/* Color Selection - Per Camera */}
             <div className="mb-6">
-              <p className="text-sm font-medium text-smajl-brown mb-3">Färg: <span className="font-semibold">{selectedColor.name}</span></p>
-              <div className="flex gap-2">
-                {cameraColors.map((color) => (
-                  <motion.button
-                    key={color.id}
-                    onClick={() => handleColorChange(color)}
-                    className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all ${
-                      selectedColor.id === color.id
-                        ? "border-smajl-olive"
-                        : "border-transparent hover:border-smajl-olive/50"
-                    }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <img src={color.image} alt={color.name} className="w-full h-full object-contain p-1 bg-white" />
-                  </motion.button>
+              <p className="text-sm font-medium text-smajl-brown mb-3">
+                {selectedQuantity.quantity === 1 
+                  ? 'Välj färg' 
+                  : `Välj färg för varje kamera`}
+              </p>
+              
+              <div className="space-y-4">
+                {Array.from({ length: selectedQuantity.quantity }).map((_, cameraIndex) => (
+                  <div key={cameraIndex} className="space-y-2">
+                    {selectedQuantity.quantity > 1 && (
+                      <p className="text-xs font-semibold text-smajl-olive">
+                        Kamera {cameraIndex + 1}
+                      </p>
+                    )}
+                    <div className="flex gap-2">
+                      {cameraColors.map((color) => (
+                        <motion.button
+                          key={color.id}
+                          onClick={() => handleColorChange(cameraIndex, color)}
+                          className={`w-12 h-12 rounded-xl overflow-hidden border-2 transition-all ${
+                            selectedColors[cameraIndex]?.id === color.id
+                              ? "border-smajl-olive ring-2 ring-smajl-olive/20"
+                              : "border-transparent hover:border-smajl-olive/50"
+                          }`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <img src={color.image} alt={color.name} className="w-full h-full object-contain p-0.5 bg-white" />
+                        </motion.button>
+                      ))}
+                      <span className="text-xs text-muted-foreground self-center ml-2">
+                        {selectedColors[cameraIndex]?.name || 'Välj färg'}
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
+              
+              <p className="text-xs text-muted-foreground mt-3">
                 Fler färger kommer snart: Vit, Rosa
               </p>
             </div>
