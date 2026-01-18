@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Menu } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import smajlLogoFull from "@/assets/smajl-logo-full.png";
 
 const navLinks = [
-  { label: "Produkten", href: "#produkt" },
-  { label: "Galleri", href: "#galleri" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Produkten", href: "/#produkt" },
+  { label: "Galleri", href: "/#galleri" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,32 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
+    
+    // Check if it's an internal page link or a hash link
+    if (href.startsWith('/#')) {
+      const hash = href.substring(1); // Remove leading /
+      if (location.pathname !== '/') {
+        navigate('/' + hash);
+      } else {
+        // Already on home page, just scroll to section
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else if (href.startsWith('/')) {
+      navigate(href);
+    } else {
+      // Regular hash link
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <header 
@@ -34,25 +63,26 @@ const Header = () => {
         <div className="flex items-center justify-between py-4 md:py-6">
           
           {/* Left - Logo */}
-          <motion.a 
-            href="#" 
-            className="relative z-10"
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
-            <img 
-              src={smajlLogoFull} 
-              alt="smajl" 
-              className="h-10 md:h-14 w-auto"
-            />
-          </motion.a>
+          <Link to="/">
+            <motion.div
+              className="relative z-10"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <img 
+                src={smajlLogoFull} 
+                alt="smajl" 
+                className="h-10 md:h-14 w-auto"
+              />
+            </motion.div>
+          </Link>
 
           {/* Center - Navigation links (desktop) */}
           <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link, index) => (
-              <motion.a
+              <motion.button
                 key={link.label}
-                href={link.href}
+                onClick={() => handleNavClick(link.href)}
                 className="relative text-[15px] text-smajl-brown hover:text-smajl-olive transition-colors duration-300 font-medium group"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -60,7 +90,7 @@ const Header = () => {
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-smajl-olive transition-all duration-300 group-hover:w-full" />
-              </motion.a>
+              </motion.button>
             ))}
           </nav>
 
@@ -133,23 +163,21 @@ const Header = () => {
             {/* Navigation */}
             <nav className="flex flex-col items-center justify-center gap-8 pt-24 relative z-10">
               {navLinks.map((link, index) => (
-                <motion.a
+                <motion.button
                   key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(link.href)}
                   className="text-4xl text-smajl-brown hover:text-smajl-olive transition-colors font-heading"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
                 >
                   {link.label}
-                </motion.a>
+                </motion.button>
               ))}
               
               {/* CTA in mobile menu */}
-              <motion.a
-                href="#produkt"
-                onClick={() => setMobileMenuOpen(false)}
+              <motion.button
+                onClick={() => handleNavClick('/#produkt')}
                 className="mt-8 px-8 py-4 bg-smajl-olive text-white rounded-full text-lg font-medium shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -157,7 +185,7 @@ const Header = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 Köp nu
-              </motion.a>
+              </motion.button>
             </nav>
           </motion.div>
         )}
