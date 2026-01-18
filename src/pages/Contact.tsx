@@ -9,13 +9,14 @@ import {
   MessageCircle, 
   Send, 
   MapPin, 
-  Clock, 
   CheckCircle,
   HelpCircle,
   Package,
   RotateCcw,
-  Sparkles
+  Sparkles,
+  Truck
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -36,19 +37,22 @@ const quickLinks = [
     icon: HelpCircle,
     title: "Vanliga frågor",
     description: "Hitta svar på de vanligaste frågorna",
-    href: "/#faq",
+    href: "/faq",
+    isInternal: true,
   },
   {
     icon: Package,
     title: "Spåra din order",
     description: "Se var ditt paket befinner sig",
     href: "#",
+    isInternal: false,
   },
   {
     icon: RotateCcw,
     title: "Returer & byten",
     description: "30 dagars öppet köp",
     href: "#",
+    isInternal: false,
   },
 ];
 
@@ -135,25 +139,28 @@ const Contact = () => {
       <section className="py-8 border-y border-border bg-white/50">
         <div className="smajl-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {quickLinks.map((link, index) => (
-              <motion.a
-                key={link.title}
-                href={link.href}
-                className="flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-smajl-cream/50 transition-all group border border-transparent hover:border-smajl-olive/20"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="w-12 h-12 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                  <link.icon className="w-5 h-5 text-smajl-olive" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-smajl-brown">{link.title}</h3>
-                  <p className="text-sm text-muted-foreground">{link.description}</p>
-                </div>
-              </motion.a>
-            ))}
+            {quickLinks.map((link, index) => {
+              const MotionComponent = link.isInternal ? motion(Link) : motion.a;
+              return (
+                <MotionComponent
+                  key={link.title}
+                  {...(link.isInternal ? { to: link.href } : { href: link.href })}
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-smajl-cream/50 transition-all group border border-transparent hover:border-smajl-olive/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
+                    <link.icon className="w-5 h-5 text-smajl-olive" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-smajl-brown">{link.title}</h3>
+                    <p className="text-sm text-muted-foreground">{link.description}</p>
+                  </div>
+                </MotionComponent>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -329,22 +336,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Response Time */}
-              <div className="bg-white rounded-2xl p-6 shadow-soft">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-smajl-gold/20 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-5 h-5 text-smajl-brown" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-smajl-brown mb-1">Öppettider</h3>
-                    <p className="text-muted-foreground">
-                      Måndag – Fredag<br />
-                      09:00 – 17:00
-                    </p>
-                  </div>
-                </div>
-              </div>
-
               {/* Location */}
               <div className="bg-white rounded-2xl p-6 shadow-soft">
                 <div className="flex items-start gap-4">
@@ -354,7 +345,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold text-smajl-brown mb-1">Plats</h3>
                     <p className="text-muted-foreground">
-                      Stockholm, Sverige
+                      Gävle, Sverige
                     </p>
                     <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
@@ -364,21 +355,27 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* FAQ Callout */}
-              <motion.a
-                href="/#faq"
-                className="block bg-gradient-to-br from-smajl-olive to-smajl-olive-dark rounded-2xl p-6 text-white shadow-card hover:shadow-hover transition-shadow"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              {/* Delivery FAQ Callout */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
               >
-                <HelpCircle className="w-8 h-8 mb-4 opacity-80" />
-                <h3 className="font-display text-xl font-bold mb-2">
-                  Behöver du snabbt svar?
-                </h3>
-                <p className="text-white/80 text-sm">
-                  Kolla in våra vanliga frågor – kanske hittar du svaret direkt!
-                </p>
-              </motion.a>
+                <Link
+                  to="/leverans-faq"
+                  className="block bg-gradient-to-br from-smajl-olive to-smajl-olive-dark rounded-2xl p-6 text-white shadow-card hover:shadow-hover transition-shadow"
+                >
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Truck className="w-8 h-8 mb-4 opacity-80" />
+                    <h3 className="font-display text-xl font-bold mb-2">
+                      Behöver du snabbt svar?
+                    </h3>
+                    <p className="text-white/80 text-sm">
+                      Kolla in vanliga frågor om leverans – kanske hittar du svaret direkt!
+                    </p>
+                  </motion.div>
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </div>
