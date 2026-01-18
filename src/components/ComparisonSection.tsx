@@ -7,13 +7,11 @@ const comparisonFeatures = [
   { feature: "Retro-känsla i bilderna", smajl: true, disposable: true, polaroid: true },
   { feature: "Skärmfri & distraktion-fri", smajl: true, disposable: true, polaroid: true },
   { feature: "Överför bilder direkt till mobilen", smajl: true, disposable: false, polaroid: false },
-  { feature: "Tusentals bilder utan extra kostnad", smajl: true, disposable: false, polaroid: false },
+  { feature: "Massvis med bilder på en och samma laddning", smajl: true, disposable: false, polaroid: false },
   { feature: "Återanvändbar & laddningsbar", smajl: true, disposable: false, polaroid: true },
   { feature: "Inga framkallnings-/filmkostnader", smajl: true, disposable: false, polaroid: false },
   { feature: "Kompakt & lättanvänd", smajl: true, disposable: true, polaroid: false },
-  { feature: "Fysiska bilder direkt", smajl: false, disposable: false, polaroid: true },
   { feature: "Billig att köpa", smajl: true, disposable: true, polaroid: false },
-  { feature: "Perfekt för barn", smajl: true, disposable: true, polaroid: false },
 ];
 
 const ComparisonSection = () => {
