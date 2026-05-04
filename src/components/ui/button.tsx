@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-smajl-olive-dark shadow-soft hover:shadow-card active:scale-[0.98]",
+        default: "bg-primary text-primary-foreground hover:bg-smilo-olive-dark shadow-soft hover:shadow-card active:scale-[0.98]",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border-2 border-smajl-brown bg-transparent text-smajl-brown hover:bg-smajl-brown hover:text-smajl-cream",
+        outline: "border-2 border-smilo-brown bg-transparent text-smilo-brown hover:bg-smilo-brown hover:text-smilo-cream",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // smajl specific variants
-        hero: "bg-smajl-olive text-smajl-cream-light hover:bg-smajl-olive-dark shadow-card hover:shadow-hover active:scale-[0.98] text-base md:text-lg px-8 py-4 tracking-widest",
-        gold: "bg-smajl-gold text-smajl-brown hover:bg-smajl-gold/90 shadow-soft hover:shadow-card",
-        cream: "bg-smajl-cream text-smajl-brown hover:bg-smajl-cream/80 border border-smajl-brown/20",
+        // Smilo specific variants
+        hero: "bg-smilo-olive text-smilo-cream-light hover:bg-smilo-olive-dark shadow-card hover:shadow-hover active:scale-[0.98] text-base md:text-lg px-8 py-4 tracking-widest",
+        gold: "bg-smilo-gold text-smilo-brown hover:bg-smilo-gold/90 shadow-soft hover:shadow-card",
+        cream: "bg-smilo-cream text-smilo-brown hover:bg-smilo-cream/80 border border-smilo-brown/20",
       },
       size: {
         default: "h-12 px-6 py-3",

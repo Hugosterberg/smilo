@@ -23,8 +23,8 @@ const images = [
 
 const GallerySection = () => {
   return (
-    <section className="smajl-section bg-smajl-cream">
-      <div className="smajl-container">
+    <section className="smilo-section bg-smilo-cream">
+      <div className="smilo-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,18 +32,18 @@ const GallerySection = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="smajl-heading-lg mb-4 text-smajl-brown">Bilder tagna med smajl</h2>
+          <h2 className="smilo-heading-lg mb-4 text-smilo-brown">Bilder tagna med Smilo</h2>
           <motion.div
-            className="w-16 h-1 bg-smajl-gold mx-auto mb-6 rounded-full"
+            className="w-16 h-1 bg-smilo-gold mx-auto mb-6 rounded-full"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           />
-          <p className="smajl-body text-smajl-brown-light max-w-xl mx-auto mb-2">
+          <p className="smilo-body text-smilo-brown-light max-w-xl mx-auto mb-2">
             Äkta ögonblick. Precis som de är.
           </p>
-          <p className="smajl-body-sm text-smajl-brown-light/70 max-w-xl mx-auto">
+          <p className="smilo-body-sm text-smilo-brown-light/70 max-w-xl mx-auto">
             Inga filter i efterhand. Ingen redigering.
           </p>
         </motion.div>

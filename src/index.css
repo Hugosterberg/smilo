@@ -4,7 +4,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
-/* smajl Design System - Based on brand colors from logo
+/* Smilo Design System - Based on brand colors from logo
    Colors: Olive Green, Cream/Beige, Dark Brown, Golden Yellow
 */
 
@@ -47,23 +47,23 @@
 
     --radius: 1rem;
 
-    /* Custom smajl brand tokens */
-    --smajl-cream: 43 45% 92%;
-    --smajl-cream-light: 43 45% 96%;
-    --smajl-olive: 85 30% 35%;
-    --smajl-olive-light: 85 25% 45%;
-    --smajl-olive-dark: 85 35% 28%;
-    --smajl-brown: 25 50% 18%;
-    --smajl-brown-light: 25 35% 30%;
-    --smajl-gold: 43 80% 55%;
-    --smajl-gold-soft: 43 60% 85%;
-    
+    /* Custom Smilo brand tokens */
+    --smilo-cream: 43 45% 92%;
+    --smilo-cream-light: 43 45% 96%;
+    --smilo-olive: 85 30% 35%;
+    --smilo-olive-light: 85 25% 45%;
+    --smilo-olive-dark: 85 35% 28%;
+    --smilo-brown: 25 50% 18%;
+    --smilo-brown-light: 25 35% 30%;
+    --smilo-gold: 43 80% 55%;
+    --smilo-gold-soft: 43 60% 85%;
+
     /* Product color variations */
-    --smajl-product-black: 0 0% 15%;
-    --smajl-product-green: 85 30% 35%;
-    --smajl-product-brown: 25 40% 30%;
-    --smajl-product-blue: 200 35% 50%;
-    --smajl-product-yellow: 43 70% 60%;
+    --smilo-product-black: 0 0% 15%;
+    --smilo-product-green: 85 30% 35%;
+    --smilo-product-brown: 25 40% 30%;
+    --smilo-product-blue: 200 35% 50%;
+    --smilo-product-yellow: 43 70% 60%;
 
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(25 30% 30% / 0.08);
@@ -139,49 +139,49 @@
 }
 
 @layer components {
-  .smajl-container {
+  .smilo-container {
     @apply max-w-6xl mx-auto px-6 lg:px-8;
   }
 
-  .smajl-section {
+  .smilo-section {
     @apply py-16 md:py-24 lg:py-32;
   }
 
-  .smajl-heading-xl {
+  .smilo-heading-xl {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
   }
 
-  .smajl-heading-lg {
+  .smilo-heading-lg {
     @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
   }
 
-  .smajl-heading-md {
+  .smilo-heading-md {
     @apply text-2xl md:text-3xl font-semibold leading-snug;
   }
 
-  .smajl-body {
+  .smilo-body {
     @apply text-base md:text-lg leading-relaxed;
   }
 
-  .smajl-body-sm {
+  .smilo-body-sm {
     @apply text-sm md:text-base leading-relaxed;
   }
 
-  .smajl-card {
+  .smilo-card {
     @apply bg-card rounded-2xl p-6 md:p-8;
     box-shadow: var(--shadow-card);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
-  .smajl-card:hover {
+  .smilo-card:hover {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
 
-  .smajl-badge {
+  .smilo-badge {
     @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium;
-    background: hsl(var(--smajl-gold-soft));
-    color: hsl(var(--smajl-brown));
+    background: hsl(var(--smilo-gold-soft));
+    color: hsl(var(--smilo-brown));
   }
 }
 

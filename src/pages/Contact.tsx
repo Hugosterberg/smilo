@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { 
-  Mail, 
-  MessageCircle, 
-  Send, 
-  MapPin, 
+import {
+  Mail,
+  MessageCircle,
+  Send,
+  MapPin,
   CheckCircle,
   HelpCircle,
   Package,
@@ -71,7 +71,6 @@ const Contact = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof ContactFormData]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -79,8 +78,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate form
+
     const result = contactSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -94,13 +92,13 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     setIsSubmitting(false);
     setIsSubmitted(true);
-    
+
     toast({
       title: "Meddelande skickat! ✨",
       description: "Vi återkommer till dig så snart vi kan.",
@@ -110,25 +108,25 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smajl-cream to-background">
-        <div className="smajl-container">
-          <motion.div 
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+        <div className="smilo-container">
+          <motion.div
             className="text-center max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smajl-gold/20 text-smajl-brown text-sm font-medium mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smilo-gold/20 text-smilo-brown text-sm font-medium mb-6">
               <MessageCircle className="w-4 h-4" />
               Vi finns här för dig
             </span>
-            <h1 className="smajl-heading-xl text-smajl-brown mb-4">
+            <h1 className="smilo-heading-xl text-smilo-brown mb-4">
               Kontakta oss
             </h1>
-            <p className="smajl-body text-muted-foreground">
-              Har du frågor om din beställning, produkten eller något annat? 
+            <p className="smilo-body text-muted-foreground">
+              Har du frågor om din beställning, produkten eller något annat?
               Vi svarar vanligtvis inom 24 timmar.
             </p>
           </motion.div>
@@ -137,7 +135,7 @@ const Contact = () => {
 
       {/* Quick Links */}
       <section className="py-8 border-y border-border bg-white/50">
-        <div className="smajl-container">
+        <div className="smilo-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {quickLinks.map((link, index) => {
               const MotionComponent = link.isInternal ? motion(Link) : motion.a;
@@ -145,17 +143,17 @@ const Contact = () => {
                 <MotionComponent
                   key={link.title}
                   {...(link.isInternal ? { to: link.href } : { href: link.href })}
-                  className="flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-smajl-cream/50 transition-all group border border-transparent hover:border-smajl-olive/20"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-smilo-cream/50 transition-all group border border-transparent hover:border-smilo-olive/20"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   whileHover={{ scale: 1.02 }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                    <link.icon className="w-5 h-5 text-smajl-olive" />
+                  <div className="w-12 h-12 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
+                    <link.icon className="w-5 h-5 text-smilo-olive" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-smajl-brown">{link.title}</h3>
+                    <h3 className="font-semibold text-smilo-brown">{link.title}</h3>
                     <p className="text-sm text-muted-foreground">{link.description}</p>
                   </div>
                 </MotionComponent>
@@ -167,10 +165,10 @@ const Contact = () => {
 
       {/* Main Content */}
       <section className="py-16 md:py-24">
-        <div className="smajl-container">
+        <div className="smilo-container">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Contact Form */}
-            <motion.div 
+            <motion.div
               className="lg:col-span-3"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -178,24 +176,24 @@ const Contact = () => {
             >
               <div className="bg-white rounded-3xl p-6 md:p-10 shadow-card">
                 {isSubmitted ? (
-                  <motion.div 
+                  <motion.div
                     className="text-center py-12"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <div className="w-20 h-20 rounded-full bg-smajl-olive/10 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-10 h-10 text-smajl-olive" />
+                    <div className="w-20 h-20 rounded-full bg-smilo-olive/10 flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle className="w-10 h-10 text-smilo-olive" />
                     </div>
-                    <h2 className="text-2xl font-display font-bold text-smajl-brown mb-3">
+                    <h2 className="text-2xl font-display font-bold text-smilo-brown mb-3">
                       Tack för ditt meddelande!
                     </h2>
                     <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                      Vi har tagit emot ditt meddelande och återkommer till dig så snart vi kan, 
+                      Vi har tagit emot ditt meddelande och återkommer till dig så snart vi kan,
                       vanligtvis inom 24 timmar.
                     </p>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={() => {
                         setIsSubmitted(false);
                         setFormData({ name: "", email: "", subject: "", message: "" });
@@ -207,7 +205,7 @@ const Contact = () => {
                 ) : (
                   <>
                     <div className="mb-8">
-                      <h2 className="text-2xl font-display font-bold text-smajl-brown mb-2">
+                      <h2 className="text-2xl font-display font-bold text-smilo-brown mb-2">
                         Skicka ett meddelande
                       </h2>
                       <p className="text-muted-foreground">
@@ -279,10 +277,10 @@ const Contact = () => {
                         )}
                       </div>
 
-                      <Button 
-                        type="submit" 
-                        variant="hero" 
-                        size="lg" 
+                      <Button
+                        type="submit"
+                        variant="hero"
+                        size="lg"
                         className="w-full md:w-auto"
                         disabled={isSubmitting}
                       >
@@ -309,7 +307,7 @@ const Contact = () => {
             </motion.div>
 
             {/* Contact Info Sidebar */}
-            <motion.div 
+            <motion.div
               className="lg:col-span-2 space-y-6"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -318,16 +316,16 @@ const Contact = () => {
               {/* Email */}
               <div className="bg-white rounded-2xl p-6 shadow-soft">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-smajl-olive/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-smajl-olive" />
+                  <div className="w-12 h-12 rounded-xl bg-smilo-olive/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-smilo-olive" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-smajl-brown mb-1">E-post</h3>
-                    <a 
-                      href="mailto:hej@smajl.se" 
-                      className="text-smajl-olive hover:underline"
+                    <h3 className="font-semibold text-smilo-brown mb-1">E-post</h3>
+                    <a
+                      href="mailto:hej@smilo.se"
+                      className="text-smilo-olive hover:underline"
                     >
-                      hej@smajl.se
+                      hej@smilo.se
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Vi svarar vanligtvis inom 24 timmar
@@ -339,11 +337,11 @@ const Contact = () => {
               {/* Location */}
               <div className="bg-white rounded-2xl p-6 shadow-soft">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-smajl-cream flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-smajl-brown" />
+                  <div className="w-12 h-12 rounded-xl bg-smilo-cream flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-smilo-brown" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-smajl-brown mb-1">Plats</h3>
+                    <h3 className="font-semibold text-smilo-brown mb-1">Plats</h3>
                     <p className="text-muted-foreground">
                       Gävle, Sverige
                     </p>
@@ -363,7 +361,7 @@ const Contact = () => {
               >
                 <Link
                   to="/leverans-faq"
-                  className="block bg-gradient-to-br from-smajl-olive to-smajl-olive-dark rounded-2xl p-6 text-white shadow-card hover:shadow-hover transition-shadow"
+                  className="block bg-gradient-to-br from-smilo-olive to-smilo-olive-dark rounded-2xl p-6 text-white shadow-card hover:shadow-hover transition-shadow"
                 >
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <Truck className="w-8 h-8 mb-4 opacity-80" />

@@ -24,28 +24,28 @@ const features = [
   },
 ];
 
-const WhySmajlSection = () => {
+const WhySmiloSection = () => {
   return (
-    <section id="varfor-smajl" className="smajl-section bg-smajl-cream scroll-mt-20">
-      <div className="smajl-container">
-        <motion.h2 
-          className="smajl-heading-lg text-center mb-4 text-smajl-brown"
+    <section id="varfor-smilo" className="smilo-section bg-smilo-cream scroll-mt-20">
+      <div className="smilo-container">
+        <motion.h2
+          className="smilo-heading-lg text-center mb-4 text-smilo-brown"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          Mer <span className="italic text-smajl-olive">liv</span>, mindre skärm
+          Mer <span className="italic text-smilo-olive">liv</span>, mindre skärm
         </motion.h2>
-        
+
         <motion.div
-          className="w-16 h-1 bg-smajl-gold mx-auto mb-16 rounded-full"
+          className="w-16 h-1 bg-smilo-gold mx-auto mb-16 rounded-full"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         />
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {features.map((feature, index) => (
             <motion.div
@@ -56,11 +56,11 @@ const WhySmajlSection = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-smajl-olive/10 flex items-center justify-center">
-                <feature.icon className="w-8 h-8 text-smajl-olive" />
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-smilo-olive/10 flex items-center justify-center">
+                <feature.icon className="w-8 h-8 text-smilo-olive" />
               </div>
-              <h3 className="font-semibold text-xl mb-3 text-smajl-brown">{feature.title}</h3>
-              <p className="smajl-body-sm text-smajl-brown-light">
+              <h3 className="font-semibold text-xl mb-3 text-smilo-brown">{feature.title}</h3>
+              <p className="smilo-body-sm text-smilo-brown-light">
                 {feature.description}
               </p>
             </motion.div>
@@ -71,4 +71,4 @@ const WhySmajlSection = () => {
   );
 };
 
-export default WhySmajlSection;
+export default WhySmiloSection;

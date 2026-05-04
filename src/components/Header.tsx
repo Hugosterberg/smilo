@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Menu } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import smajlLogoFull from "@/assets/smajl-logo-full.png";
+import smiloLogoFull from "@/assets/smilo-logo-full.png";
 
 const navLinks = [
   { label: "Produkten", href: "/#produkt" },
@@ -27,14 +27,12 @@ const Header = () => {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
-    
-    // Check if it's an internal page link or a hash link
+
     if (href.startsWith('/#')) {
-      const hash = href.substring(1); // Remove leading /
+      const hash = href.substring(1);
       if (location.pathname !== '/') {
         navigate('/' + hash);
       } else {
-        // Already on home page, just scroll to section
         const element = document.querySelector(hash);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
@@ -43,7 +41,6 @@ const Header = () => {
     } else if (href.startsWith('/')) {
       navigate(href);
     } else {
-      // Regular hash link
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
@@ -52,16 +49,16 @@ const Header = () => {
   };
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? "bg-smajl-cream/95 backdrop-blur-md shadow-sm" 
+        scrolled
+          ? "bg-smilo-cream/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="smajl-container">
+      <div className="smilo-container">
         <div className="flex items-center justify-between py-4 md:py-6">
-          
+
           {/* Left - Logo */}
           <Link to="/">
             <motion.div
@@ -69,9 +66,9 @@ const Header = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <img 
-                src={smajlLogoFull} 
-                alt="smajl" 
+              <img
+                src={smiloLogoFull}
+                alt="Smilo"
                 className="h-10 md:h-14 w-auto"
               />
             </motion.div>
@@ -83,13 +80,13 @@ const Header = () => {
               <motion.button
                 key={link.label}
                 onClick={() => handleNavClick(link.href)}
-                className="relative text-[15px] text-smajl-brown hover:text-smajl-olive transition-colors duration-300 font-medium group"
+                className="relative text-[15px] text-smilo-brown hover:text-smilo-olive transition-colors duration-300 font-medium group"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-smajl-olive transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-smilo-olive transition-all duration-300 group-hover:w-full" />
               </motion.button>
             ))}
           </nav>
@@ -97,14 +94,14 @@ const Header = () => {
           {/* Right - Cart & Mobile Menu */}
           <div className="flex items-center gap-4">
             <motion.button
-              className="relative text-smajl-brown hover:text-smajl-olive transition-colors"
+              className="relative text-smilo-brown hover:text-smilo-olive transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
               {cartCount > 0 && (
-                <motion.span 
-                  className="absolute -top-1 -right-1 w-4 h-4 bg-smajl-olive text-white text-[10px] rounded-full flex items-center justify-center"
+                <motion.span
+                  className="absolute -top-1 -right-1 w-4 h-4 bg-smilo-olive text-white text-[10px] rounded-full flex items-center justify-center"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 500 }}
@@ -117,7 +114,7 @@ const Header = () => {
             {/* Mobile menu button */}
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden text-smajl-brown hover:text-smajl-olive transition-colors"
+              className="md:hidden text-smilo-brown hover:text-smilo-olive transition-colors"
               whileTap={{ scale: 0.95 }}
             >
               <Menu className="w-6 h-6" strokeWidth={1.5} />
@@ -134,26 +131,26 @@ const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-smajl-cream z-50 md:hidden"
+            className="fixed inset-0 bg-smilo-cream z-50 md:hidden"
           >
             {/* Animated background elements */}
             <motion.div
-              className="absolute top-20 right-10 w-64 h-64 rounded-full bg-smajl-olive/10 blur-3xl"
+              className="absolute top-20 right-10 w-64 h-64 rounded-full bg-smilo-olive/10 blur-3xl"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 4, repeat: Infinity }}
             />
             <motion.div
-              className="absolute bottom-32 left-5 w-48 h-48 rounded-full bg-smajl-gold-soft/30 blur-3xl"
+              className="absolute bottom-32 left-5 w-48 h-48 rounded-full bg-smilo-gold-soft/30 blur-3xl"
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 5, repeat: Infinity, delay: 1 }}
             />
 
             {/* Header */}
-            <div className="smajl-container py-4 flex justify-between items-center relative z-10">
-              <img src={smajlLogoFull} alt="smajl" className="h-10 w-auto" />
+            <div className="smilo-container py-4 flex justify-between items-center relative z-10">
+              <img src={smiloLogoFull} alt="Smilo" className="h-10 w-auto" />
               <motion.button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-smajl-brown p-2"
+                className="text-smilo-brown p-2"
                 whileTap={{ scale: 0.9, rotate: 90 }}
               >
                 <X className="w-6 h-6" strokeWidth={1.5} />
@@ -166,7 +163,7 @@ const Header = () => {
                 <motion.button
                   key={link.label}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-4xl text-smajl-brown hover:text-smajl-olive transition-colors font-heading"
+                  className="text-4xl text-smilo-brown hover:text-smilo-olive transition-colors font-heading"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
@@ -174,11 +171,11 @@ const Header = () => {
                   {link.label}
                 </motion.button>
               ))}
-              
+
               {/* CTA in mobile menu */}
               <motion.button
                 onClick={() => handleNavClick('/#produkt')}
-                className="mt-8 px-8 py-4 bg-smajl-olive text-white rounded-full text-lg font-medium shadow-lg"
+                className="mt-8 px-8 py-4 bg-smilo-olive text-white rounded-full text-lg font-medium shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}

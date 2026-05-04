@@ -40,12 +40,12 @@ const deliveryFaqs = [
   {
     icon: RefreshCcw,
     question: "Hur gör jag om paketet är skadat?",
-    answer: "Kontakta oss omedelbart om paketet eller produkten är skadad vid leverans. Fotografera skadan och mejla oss på hej@smajl.se så löser vi det direkt.",
+    answer: "Kontakta oss omedelbart om paketet eller produkten är skadad vid leverans. Fotografera skadan och mejla oss på hej@smilo.se så löser vi det direkt.",
   },
   {
     icon: MapPin,
     question: "Kan jag ändra leveransadress efter beställning?",
-    answer: "Ja, om paketet inte skickats ännu! Kontakta oss så snart som möjligt på hej@smajl.se med ditt ordernummer och den nya adressen.",
+    answer: "Ja, om paketet inte skickats ännu! Kontakta oss så snart som möjligt på hej@smilo.se med ditt ordernummer och den nya adressen.",
   },
   {
     icon: Truck,
@@ -68,32 +68,32 @@ const DeliveryFAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smajl-cream to-background">
-        <div className="smajl-container">
-          <motion.div 
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+        <div className="smilo-container">
+          <motion.div
             className="text-center max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link 
-              to="/kontakt" 
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smajl-brown transition-colors mb-6"
+            <Link
+              to="/kontakt"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smilo-brown transition-colors mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
               Tillbaka till kontakt
             </Link>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smajl-olive/10 text-smajl-olive text-sm font-medium mb-6 ml-4">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smilo-olive/10 text-smilo-olive text-sm font-medium mb-6 ml-4">
               <Truck className="w-4 h-4" />
               Snabba svar
             </span>
-            <h1 className="smajl-heading-xl text-smajl-brown mb-4">
+            <h1 className="smilo-heading-xl text-smilo-brown mb-4">
               Frågor om leverans
             </h1>
-            <p className="smajl-body text-muted-foreground">
-              Allt du behöver veta om frakt, leverans och betalning. 
+            <p className="smilo-body text-muted-foreground">
+              Allt du behöver veta om frakt, leverans och betalning.
               Vi vill att din upplevelse ska vara lika smidig som vår kamera!
             </p>
           </motion.div>
@@ -102,7 +102,7 @@ const DeliveryFAQ = () => {
 
       {/* Delivery Info Cards */}
       <section className="py-8 border-y border-border bg-white/50">
-        <div className="smajl-container">
+        <div className="smilo-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <motion.div
               className="flex items-center gap-4 p-4 rounded-2xl bg-white"
@@ -110,41 +110,41 @@ const DeliveryFAQ = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-smajl-olive/10 flex items-center justify-center">
-                <Truck className="w-5 h-5 text-smajl-olive" />
+              <div className="w-12 h-12 rounded-xl bg-smilo-olive/10 flex items-center justify-center">
+                <Truck className="w-5 h-5 text-smilo-olive" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown">Fri frakt</h3>
+                <h3 className="font-semibold text-smilo-brown">Fri frakt</h3>
                 <p className="text-sm text-muted-foreground">På alla beställningar</p>
               </div>
             </motion.div>
-            
+
             <motion.div
               className="flex items-center gap-4 p-4 rounded-2xl bg-white"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-smajl-gold/20 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-smajl-brown" />
+              <div className="w-12 h-12 rounded-xl bg-smilo-gold/20 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-smilo-brown" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown">2-4 arbetsdagar</h3>
+                <h3 className="font-semibold text-smilo-brown">2-4 arbetsdagar</h3>
                 <p className="text-sm text-muted-foreground">Snabb leverans</p>
               </div>
             </motion.div>
-            
+
             <motion.div
               className="flex items-center gap-4 p-4 rounded-2xl bg-white"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-smajl-cream flex items-center justify-center">
-                <RefreshCcw className="w-5 h-5 text-smajl-brown" />
+              <div className="w-12 h-12 rounded-xl bg-smilo-cream flex items-center justify-center">
+                <RefreshCcw className="w-5 h-5 text-smilo-brown" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown">30 dagars öppet köp</h3>
+                <h3 className="font-semibold text-smilo-brown">30 dagars öppet köp</h3>
                 <p className="text-sm text-muted-foreground">Fri retur</p>
               </div>
             </motion.div>
@@ -154,7 +154,7 @@ const DeliveryFAQ = () => {
 
       {/* FAQ Content */}
       <section className="py-16 md:py-24">
-        <div className="smajl-container max-w-3xl">
+        <div className="smilo-container max-w-3xl">
           <Accordion type="single" collapsible className="space-y-4">
             {deliveryFaqs.map((faq, index) => (
               <motion.div
@@ -169,10 +169,10 @@ const DeliveryFAQ = () => {
                 >
                   <AccordionTrigger className="hover:no-underline text-left py-5">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-smajl-olive/10 flex items-center justify-center flex-shrink-0">
-                        <faq.icon className="w-5 h-5 text-smajl-olive" />
+                      <div className="w-10 h-10 rounded-xl bg-smilo-olive/10 flex items-center justify-center flex-shrink-0">
+                        <faq.icon className="w-5 h-5 text-smilo-olive" />
                       </div>
-                      <span className="font-semibold text-lg text-smajl-brown">{faq.question}</span>
+                      <span className="font-semibold text-lg text-smilo-brown">{faq.question}</span>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5 pl-14 leading-relaxed">
@@ -184,7 +184,7 @@ const DeliveryFAQ = () => {
           </Accordion>
 
           {/* Quick Links */}
-          <motion.div 
+          <motion.div
             className="mt-16 grid md:grid-cols-2 gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,33 +192,33 @@ const DeliveryFAQ = () => {
           >
             <Link
               to="/faq"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smajl-cream hover:bg-smajl-gold/20 transition-all group border border-transparent hover:border-smajl-olive/20"
+              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
             >
-              <div className="w-14 h-14 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                <HelpCircle className="w-6 h-6 text-smajl-olive" />
+              <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
+                <HelpCircle className="w-6 h-6 text-smilo-olive" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown text-lg">Fler frågor?</h3>
+                <h3 className="font-semibold text-smilo-brown text-lg">Fler frågor?</h3>
                 <p className="text-muted-foreground">Se alla vanliga frågor</p>
               </div>
             </Link>
-            
+
             <Link
               to="/kontakt"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smajl-cream hover:bg-smajl-gold/20 transition-all group border border-transparent hover:border-smajl-olive/20"
+              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
             >
-              <div className="w-14 h-14 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                <Mail className="w-6 h-6 text-smajl-olive" />
+              <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
+                <Mail className="w-6 h-6 text-smilo-olive" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown text-lg">Behöver du mer hjälp?</h3>
+                <h3 className="font-semibold text-smilo-brown text-lg">Behöver du mer hjälp?</h3>
                 <p className="text-muted-foreground">Kontakta vår kundtjänst</p>
               </div>
             </Link>
           </motion.div>
 
           {/* CTA */}
-          <motion.div 
+          <motion.div
             className="mt-16 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -226,7 +226,7 @@ const DeliveryFAQ = () => {
           >
             <p className="text-muted-foreground mb-4">Redo att beställa?</p>
             <Button variant="hero" size="lg" asChild>
-              <Link to="/#produkt">Köp Smajl-kameran</Link>
+              <Link to="/#produkt">Köp Smilo-kameran</Link>
             </Button>
           </motion.div>
         </div>

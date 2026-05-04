@@ -17,7 +17,7 @@ const faqs = [
     questions: [
       {
         question: "Är detta en engångskamera?",
-        answer: "Nej. Smajl är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning.",
+        answer: "Nej. Smilo är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning.",
       },
       {
         question: "Kan jag se bilderna direkt?",
@@ -86,32 +86,32 @@ const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smajl-cream to-background">
-        <div className="smajl-container">
-          <motion.div 
+      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+        <div className="smilo-container">
+          <motion.div
             className="text-center max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link 
-              to="/" 
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smajl-brown transition-colors mb-6"
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smilo-brown transition-colors mb-6"
             >
               <ArrowLeft className="w-4 h-4" />
               Tillbaka till startsidan
             </Link>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smajl-gold/20 text-smajl-brown text-sm font-medium mb-6 ml-4">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smilo-gold/20 text-smilo-brown text-sm font-medium mb-6 ml-4">
               <HelpCircle className="w-4 h-4" />
               Vi hjälper dig
             </span>
-            <h1 className="smajl-heading-xl text-smajl-brown mb-4">
+            <h1 className="smilo-heading-xl text-smilo-brown mb-4">
               Vanliga frågor
             </h1>
-            <p className="smajl-body text-muted-foreground">
-              Här hittar du svar på de vanligaste frågorna om Smajl-kameran. 
+            <p className="smilo-body text-muted-foreground">
+              Här hittar du svar på de vanligaste frågorna om Smilo-kameran.
               Hittar du inte svaret? Kontakta oss så hjälper vi dig!
             </p>
           </motion.div>
@@ -120,7 +120,7 @@ const FAQ = () => {
 
       {/* FAQ Content */}
       <section className="py-16 md:py-24">
-        <div className="smajl-container max-w-4xl">
+        <div className="smilo-container max-w-4xl">
           <div className="space-y-12">
             {faqs.map((category, categoryIndex) => (
               <motion.div
@@ -129,8 +129,8 @@ const FAQ = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: categoryIndex * 0.1 }}
               >
-                <h2 className="text-xl font-display font-bold text-smajl-brown mb-4 flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-smajl-olive/10 flex items-center justify-center text-sm text-smajl-olive font-semibold">
+                <h2 className="text-xl font-display font-bold text-smilo-brown mb-4 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-smilo-olive/10 flex items-center justify-center text-sm text-smilo-olive font-semibold">
                     {categoryIndex + 1}
                   </span>
                   {category.category}
@@ -142,7 +142,7 @@ const FAQ = () => {
                       value={`${category.category}-${index}`}
                       className="bg-white rounded-2xl px-6 border-0 shadow-soft"
                     >
-                      <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left py-5 text-smajl-brown">
+                      <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left py-5 text-smilo-brown">
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
@@ -156,7 +156,7 @@ const FAQ = () => {
           </div>
 
           {/* Quick Links */}
-          <motion.div 
+          <motion.div
             className="mt-16 grid md:grid-cols-2 gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,33 +164,33 @@ const FAQ = () => {
           >
             <Link
               to="/leverans-faq"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smajl-cream hover:bg-smajl-gold/20 transition-all group border border-transparent hover:border-smajl-olive/20"
+              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
             >
-              <div className="w-14 h-14 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                <Truck className="w-6 h-6 text-smajl-olive" />
+              <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
+                <Truck className="w-6 h-6 text-smilo-olive" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown text-lg">Frågor om leverans?</h3>
+                <h3 className="font-semibold text-smilo-brown text-lg">Frågor om leverans?</h3>
                 <p className="text-muted-foreground">Se alla frågor om frakt och leverans</p>
               </div>
             </Link>
-            
+
             <Link
               to="/kontakt"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smajl-cream hover:bg-smajl-gold/20 transition-all group border border-transparent hover:border-smajl-olive/20"
+              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
             >
-              <div className="w-14 h-14 rounded-xl bg-smajl-olive/10 flex items-center justify-center group-hover:bg-smajl-olive/20 transition-colors">
-                <Mail className="w-6 h-6 text-smajl-olive" />
+              <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
+                <Mail className="w-6 h-6 text-smilo-olive" />
               </div>
               <div>
-                <h3 className="font-semibold text-smajl-brown text-lg">Hittar du inte svaret?</h3>
+                <h3 className="font-semibold text-smilo-brown text-lg">Hittar du inte svaret?</h3>
                 <p className="text-muted-foreground">Kontakta oss så hjälper vi dig</p>
               </div>
             </Link>
           </motion.div>
 
           {/* CTA */}
-          <motion.div 
+          <motion.div
             className="mt-16 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -198,7 +198,7 @@ const FAQ = () => {
           >
             <p className="text-muted-foreground mb-4">Redo att fånga minnena?</p>
             <Button variant="hero" size="lg" asChild>
-              <Link to="/#produkt">Köp Smajl-kameran</Link>
+              <Link to="/#produkt">Köp Smilo-kameran</Link>
             </Button>
           </motion.div>
         </div>

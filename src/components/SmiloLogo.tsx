@@ -1,4 +1,4 @@
-const SmajlLogo = ({ className = "" }: { className?: string }) => {
+const SmiloLogo = ({ className = "" }: { className?: string }) => {
   return (
     <svg
       viewBox="0 0 120 40"
@@ -6,7 +6,6 @@ const SmajlLogo = ({ className = "" }: { className?: string }) => {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Simple smajl wordmark */}
       <text
         x="0"
         y="30"
@@ -16,10 +15,10 @@ const SmajlLogo = ({ className = "" }: { className?: string }) => {
         fill="currentColor"
         letterSpacing="-0.02em"
       >
-        smajl
+        Smilo
       </text>
     </svg>
   );
 };
 
-export default SmajlLogo;
+export default SmiloLogo;
