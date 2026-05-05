@@ -1,12 +1,12 @@
-import Header from '@/components/Header'
-import HeroSection from '@/components/HeroSection'
-import WhySmiloSection from '@/components/WhySmiloSection'
-import ComparisonSection from '@/components/ComparisonSection'
-import ProductSection from '@/components/ProductSection'
-import HowItWorksSection from '@/components/HowItWorksSection'
-import GallerySection from '@/components/GallerySection'
-import FAQSection from '@/components/FAQSection'
-import Footer from '@/components/Footer'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import HeroSection from '@/components/sections/HeroSection'
+import WhySmiloSection from '@/components/sections/WhySmiloSection'
+import ComparisonSection from '@/components/sections/ComparisonSection'
+import ProductSection from '@/components/sections/ProductSection'
+import HowItWorksSection from '@/components/sections/HowItWorksSection'
+import GallerySection from '@/components/sections/GallerySection'
+import FAQSection from '@/components/sections/FAQSection'
 
 export default function Home() {
   return (

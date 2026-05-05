@@ -10,8 +10,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const deliveryFaqs = [
   { icon: Truck, question: "Hur lång är leveranstiden?", answer: "Vi skickar din beställning inom 1-2 arbetsdagar. Normal leveranstid är 2-4 arbetsdagar inom Sverige. Du får en spårningslänk via e-post så fort paketet skickats." },
