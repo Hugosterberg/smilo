@@ -1,13 +1,16 @@
+'use client'
+
 import { motion } from "framer-motion";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
-import gallery6 from "@/assets/gallery-6.jpg";
-import gallery7 from "@/assets/gallery-7.jpg";
-import gallery8 from "@/assets/gallery-8.jpg";
-import gallery9 from "@/assets/gallery-9.jpg";
+import Image from "next/image";
+const gallery1 = "/assets/gallery-1.jpg";
+const gallery2 = "/assets/gallery-2.jpg";
+const gallery3 = "/assets/gallery-3.jpg";
+const gallery4 = "/assets/gallery-4.jpg";
+const gallery5 = "/assets/gallery-5.jpg";
+const gallery6 = "/assets/gallery-6.jpg";
+const gallery7 = "/assets/gallery-7.jpg";
+const gallery8 = "/assets/gallery-8.jpg";
+const gallery9 = "/assets/gallery-9.jpg";
 
 const images = [
   { src: gallery1, alt: "Stilig kille i vit kavaj" },
@@ -52,16 +55,18 @@ const GallerySection = () => {
           {images.map((image, index) => (
             <motion.div
               key={index}
-              className="aspect-square rounded-2xl overflow-hidden shadow-card"
+              className="relative aspect-square rounded-2xl overflow-hidden shadow-card"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
               whileHover={{ scale: 1.02 }}
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </motion.div>

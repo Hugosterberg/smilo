@@ -1,5 +1,7 @@
+'use client'
+
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { HelpCircle, ArrowLeft, Mail, Truck } from "lucide-react";
 import {
   Accordion,
@@ -15,79 +17,42 @@ const faqs = [
   {
     category: "Om produkten",
     questions: [
-      {
-        question: "Är detta en engångskamera?",
-        answer: "Nej. Smilo är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning.",
-      },
-      {
-        question: "Kan jag se bilderna direkt?",
-        answer: "Nej. Kameran har ingen skärm – medvetet. Det skapar en mer genuin upplevelse där du fokuserar på ögonblicket istället för att granska varje bild.",
-      },
-      {
-        question: "Hur många bilder får plats?",
-        answer: "Kameran levereras med ett 4GB minneskort som rymmer ca 1300 bilder. Behöver du mer lagring? Kameran stöder minneskort upp till 16GB (ca 5000 bilder). När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna.",
-      },
-      {
-        question: "Vilken upplösning har bilderna?",
-        answer: "Bilderna har en retro-inspirerad upplösning som ger den där autentiska känslan. Perfekt för sociala medier och utskrifter i mindre format.",
-      },
+      { question: "Är detta en engångskamera?", answer: "Nej. Smilo är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning." },
+      { question: "Kan jag se bilderna direkt?", answer: "Nej. Kameran har ingen skärm – medvetet. Det skapar en mer genuin upplevelse där du fokuserar på ögonblicket istället för att granska varje bild." },
+      { question: "Hur många bilder får plats?", answer: "Kameran levereras med ett 4GB minneskort som rymmer ca 1300 bilder. Behöver du mer lagring? Kameran stöder minneskort upp till 16GB (ca 5000 bilder). När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna." },
+      { question: "Vilken upplösning har bilderna?", answer: "Bilderna har en retro-inspirerad upplösning som ger den där autentiska känslan. Perfekt för sociala medier och utskrifter i mindre format." },
     ],
   },
   {
     category: "Kompatibilitet",
     questions: [
-      {
-        question: "Fungerar den med iPhone och Android?",
-        answer: "Ja. Android och nyare iPhone (med USB-C) fungerar direkt. Äldre iPhone med Lightning-kontakt kräver en adapter som du kan lägga till vid köp.",
-      },
-      {
-        question: "Behöver jag ladda ner en app?",
-        answer: "Nej. Allt sker via mobilens inbyggda filhanterare. Koppla in kameran och dra över bilderna – enkelt som det ska vara.",
-      },
-      {
-        question: "Kan jag radera bilderna från mobilen?",
-        answer: "Ja, medan kameran är inkopplad kan du hantera bilderna precis som vilken USB-enhet som helst – radera, kopiera eller flytta.",
-      },
+      { question: "Fungerar den med iPhone och Android?", answer: "Ja. Android och nyare iPhone (med USB-C) fungerar direkt. Äldre iPhone med Lightning-kontakt kräver en adapter som du kan lägga till vid köp." },
+      { question: "Behöver jag ladda ner en app?", answer: "Nej. Allt sker via mobilens inbyggda filhanterare. Koppla in kameran och dra över bilderna – enkelt som det ska vara." },
+      { question: "Kan jag radera bilderna från mobilen?", answer: "Ja, medan kameran är inkopplad kan du hantera bilderna precis som vilken USB-enhet som helst – radera, kopiera eller flytta." },
     ],
   },
   {
     category: "Batteri & laddning",
     questions: [
-      {
-        question: "Hur länge håller batteriet?",
-        answer: "Batteriet räcker till ca 200-300 bilder per laddning, beroende på hur ofta du använder blixt.",
-      },
-      {
-        question: "Hur laddar jag kameran?",
-        answer: "Kameran laddas via USB-C. En full laddning tar ungefär 2 timmar.",
-      },
+      { question: "Hur länge håller batteriet?", answer: "Batteriet räcker till ca 200-300 bilder per laddning, beroende på hur ofta du använder blixt." },
+      { question: "Hur laddar jag kameran?", answer: "Kameran laddas via USB-C. En full laddning tar ungefär 2 timmar." },
     ],
   },
   {
     category: "Köp & retur",
     questions: [
-      {
-        question: "Hur funkar retur?",
-        answer: "Vi erbjuder fri retur inom 30 dagar. Om du inte är nöjd, kontakta oss så ordnar vi en retursedel.",
-      },
-      {
-        question: "Får jag rabatt om jag köper flera?",
-        answer: "Ja! Vi erbjuder mängdrabatt: 2 kameror för 1199 kr (spara 371 kr) eller 3 kameror för 1649 kr (spara 706 kr).",
-      },
-      {
-        question: "Finns det garanti?",
-        answer: "Ja, alla kameror har 12 månaders garanti mot tillverkningsfel.",
-      },
+      { question: "Hur funkar retur?", answer: "Vi erbjuder fri retur inom 30 dagar. Om du inte är nöjd, kontakta oss så ordnar vi en retursedel." },
+      { question: "Får jag rabatt om jag köper flera?", answer: "Ja! Vi erbjuder mängdrabatt: 2 kameror för 1199 kr (spara 371 kr) eller 3 kameror för 1649 kr (spara 706 kr)." },
+      { question: "Finns det garanti?", answer: "Ja, alla kameror har 12 månaders garanti mot tillverkningsfel." },
     ],
   },
 ];
 
-const FAQ = () => {
+export default function FAQPage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
         <div className="smilo-container">
           <motion.div
@@ -96,10 +61,7 @@ const FAQ = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smilo-brown transition-colors mb-6"
-            >
+            <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-smilo-brown transition-colors mb-6">
               <ArrowLeft className="w-4 h-4" />
               Tillbaka till startsidan
             </Link>
@@ -107,9 +69,7 @@ const FAQ = () => {
               <HelpCircle className="w-4 h-4" />
               Vi hjälper dig
             </span>
-            <h1 className="smilo-heading-xl text-smilo-brown mb-4">
-              Vanliga frågor
-            </h1>
+            <h1 className="smilo-heading-xl text-smilo-brown mb-4">Vanliga frågor</h1>
             <p className="smilo-body text-muted-foreground">
               Här hittar du svar på de vanligaste frågorna om Smilo-kameran.
               Hittar du inte svaret? Kontakta oss så hjälper vi dig!
@@ -118,7 +78,6 @@ const FAQ = () => {
         </div>
       </section>
 
-      {/* FAQ Content */}
       <section className="py-16 md:py-24">
         <div className="smilo-container max-w-4xl">
           <div className="space-y-12">
@@ -155,17 +114,13 @@ const FAQ = () => {
             ))}
           </div>
 
-          {/* Quick Links */}
           <motion.div
             className="mt-16 grid md:grid-cols-2 gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.5 }}
           >
-            <Link
-              to="/leverans-faq"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
-            >
+            <Link href="/leverans-faq" className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20">
               <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
                 <Truck className="w-6 h-6 text-smilo-olive" />
               </div>
@@ -174,11 +129,7 @@ const FAQ = () => {
                 <p className="text-muted-foreground">Se alla frågor om frakt och leverans</p>
               </div>
             </Link>
-
-            <Link
-              to="/kontakt"
-              className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20"
-            >
+            <Link href="/kontakt" className="flex items-center gap-4 p-6 rounded-2xl bg-smilo-cream hover:bg-smilo-gold/20 transition-all group border border-transparent hover:border-smilo-olive/20">
               <div className="w-14 h-14 rounded-xl bg-smilo-olive/10 flex items-center justify-center group-hover:bg-smilo-olive/20 transition-colors">
                 <Mail className="w-6 h-6 text-smilo-olive" />
               </div>
@@ -189,16 +140,10 @@ const FAQ = () => {
             </Link>
           </motion.div>
 
-          {/* CTA */}
-          <motion.div
-            className="mt-16 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
+          <motion.div className="mt-16 text-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
             <p className="text-muted-foreground mb-4">Redo att fånga minnena?</p>
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/#produkt">Köp Smilo-kameran</Link>
+            <Button size="lg" asChild>
+              <Link href="/#produkt">Köp Smilo-kameran</Link>
             </Button>
           </motion.div>
         </div>
@@ -207,6 +152,4 @@ const FAQ = () => {
       <Footer />
     </div>
   );
-};
-
-export default FAQ;
+}

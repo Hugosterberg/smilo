@@ -1,8 +1,13 @@
+'use client'
+
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Menu } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import smiloLogoFull from "@/assets/smilo-logo-full.png";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+
+const smiloLogoFull = "/assets/smilo-logo-full.png";
 
 const navLinks = [
   { label: "Produkten", href: "/#produkt" },
@@ -14,13 +19,11 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -30,51 +33,36 @@ const Header = () => {
 
     if (href.startsWith('/#')) {
       const hash = href.substring(1);
-      if (location.pathname !== '/') {
-        navigate('/' + hash);
+      if (pathname !== '/') {
+        router.push('/' + hash);
       } else {
         const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
-    } else if (href.startsWith('/')) {
-      navigate(href);
     } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      router.push(href);
     }
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-smilo-cream/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+        scrolled ? "bg-smilo-cream/95 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="smilo-container">
         <div className="flex items-center justify-between py-4 md:py-6">
 
-          {/* Left - Logo */}
-          <Link to="/">
+          <Link href="/">
             <motion.div
               className="relative z-10"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <img
-                src={smiloLogoFull}
-                alt="Smilo"
-                className="h-10 md:h-14 w-auto"
-              />
+              <Image src={smiloLogoFull} alt="Smilo" width={210} height={80} className="h-10 md:h-14 w-auto" priority />
             </motion.div>
           </Link>
 
-          {/* Center - Navigation links (desktop) */}
           <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link, index) => (
               <motion.button
@@ -91,7 +79,6 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Right - Cart & Mobile Menu */}
           <div className="flex items-center gap-4">
             <motion.button
               className="relative text-smilo-brown hover:text-smilo-olive transition-colors"
@@ -111,7 +98,6 @@ const Header = () => {
               )}
             </motion.button>
 
-            {/* Mobile menu button */}
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden text-smilo-brown hover:text-smilo-olive transition-colors"
@@ -123,7 +109,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - Full screen with animation */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -133,7 +118,6 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-smilo-cream z-50 md:hidden"
           >
-            {/* Animated background elements */}
             <motion.div
               className="absolute top-20 right-10 w-64 h-64 rounded-full bg-smilo-olive/10 blur-3xl"
               animate={{ scale: [1, 1.2, 1] }}
@@ -145,9 +129,8 @@ const Header = () => {
               transition={{ duration: 5, repeat: Infinity, delay: 1 }}
             />
 
-            {/* Header */}
             <div className="smilo-container py-4 flex justify-between items-center relative z-10">
-              <img src={smiloLogoFull} alt="Smilo" className="h-10 w-auto" />
+              <Image src={smiloLogoFull} alt="Smilo" width={150} height={57} className="h-10 w-auto" priority />
               <motion.button
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-smilo-brown p-2"
@@ -157,7 +140,6 @@ const Header = () => {
               </motion.button>
             </div>
 
-            {/* Navigation */}
             <nav className="flex flex-col items-center justify-center gap-8 pt-24 relative z-10">
               {navLinks.map((link, index) => (
                 <motion.button
@@ -172,7 +154,6 @@ const Header = () => {
                 </motion.button>
               ))}
 
-              {/* CTA in mobile menu */}
               <motion.button
                 onClick={() => handleNavClick('/#produkt')}
                 className="mt-8 px-8 py-4 bg-smilo-olive text-white rounded-full text-lg font-medium shadow-lg"

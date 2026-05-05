@@ -1,7 +1,10 @@
+'use client'
+
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
+import Image from "next/image";
 
-import productBlack from "@/assets/product-black.jpg";
+const productBlack = "/assets/product-black.jpg";
 
 const comparisonFeatures = [
   { feature: "Retro-känsla i bilderna", smilo: true, disposable: true, polaroid: true },
@@ -48,9 +51,11 @@ const ComparisonSection = () => {
               {/* Smilo Column Header */}
               <div className="text-center">
                 <div className="w-14 h-14 sm:w-20 sm:h-20 mx-auto mb-2 sm:mb-3 rounded-2xl bg-smilo-olive overflow-hidden p-1.5 sm:p-2">
-                  <img
+                  <Image
                     src={productBlack}
                     alt="Smilo kamera"
+                    width={96}
+                    height={96}
                     className="w-full h-full object-contain"
                   />
                 </div>

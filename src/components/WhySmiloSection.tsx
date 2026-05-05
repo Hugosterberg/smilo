@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from "framer-motion";
 import { Camera, Heart, Sparkles, Smartphone } from "lucide-react";
 

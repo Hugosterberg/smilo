@@ -1,6 +1,11 @@
+'use client'
+
 import { Facebook, Instagram, Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
-import smiloLogoFull from "@/assets/smilo-logo-full.png";
+import Image from "next/image";
+const smiloLogoFull = "/assets/smilo-logo-full.png";
+
+const MotionImage = motion(Image);
 
 const Footer = () => {
   return (
@@ -21,7 +26,7 @@ const Footer = () => {
             </h3>
             <div className="space-y-4 text-smilo-cream/80 leading-relaxed">
               <p className="text-base italic">
-                "Smilo föddes ur en enkel idé: att göra det lättare att vara närvarande i stunden."
+                &quot;Smilo föddes ur en enkel idé: att göra det lättare att vara närvarande i stunden.&quot;
               </p>
               <p className="text-sm">
                 Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
@@ -140,9 +145,11 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <motion.img
+            <MotionImage
               src={smiloLogoFull}
               alt="Smilo"
+              width={180}
+              height={69}
               className="h-20 w-auto brightness-110"
               whileHover={{ scale: 1.05, rotate: 2 }}
               transition={{ duration: 0.2 }}

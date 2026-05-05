@@ -1,7 +1,10 @@
+'use client'
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, Sparkles } from "lucide-react";
+import Image from "next/image";
 import {
   Accordion,
   AccordionContent,
@@ -9,14 +12,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Real product images
-import productBlack from "@/assets/product-black.jpg";
-import productGreen from "@/assets/product-green.jpg";
-import productBrown from "@/assets/product-brown.jpg";
-import productAllColors from "@/assets/product-all-colors.jpg";
-import productBack from "@/assets/product-back.jpg";
+const MotionImage = motion(Image);
 
-import smiloLogoIcon from "@/assets/smilo-logo-icon.png";
+// Real product images
+const productBlack = "/assets/product-black.jpg";
+const productGreen = "/assets/product-green.jpg";
+const productBrown = "/assets/product-brown.jpg";
+const productAllColors = "/assets/product-all-colors.jpg";
+const productBack = "/assets/product-back.jpg";
+
+const smiloLogoIcon = "/assets/smilo-logo-icon.png";
 
 // Product features
 const features = [
@@ -156,10 +161,12 @@ const ProductSection = () => {
             {/* Main Image */}
             <div className="aspect-square rounded-3xl overflow-hidden bg-white shadow-card">
               <AnimatePresence mode="wait">
-                <motion.img
+                <MotionImage
                   key={activeImage}
                   src={activeImage}
                   alt={selectedColors[activeColorIndex]?.fullName || 'Smilo kamera'}
+                  width={900}
+                  height={900}
                   className="w-full h-full object-contain p-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -181,7 +188,7 @@ const ProductSection = () => {
                       : 'hover:ring-2 hover:ring-smilo-olive/50'
                   }`}
                 >
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-contain p-2" />
+                  <Image src={img.src} alt={img.alt} width={80} height={80} className="w-full h-full object-contain p-2" />
                 </button>
               ))}
             </div>
@@ -197,7 +204,7 @@ const ProductSection = () => {
           >
             {/* Product Title & Logo */}
             <div className="flex items-center gap-3 mb-2">
-              <img src={smiloLogoIcon} alt="" className="h-8 w-auto" />
+              <Image src={smiloLogoIcon} alt="" width={40} height={40} className="h-8 w-auto" />
               <span className="text-xs font-semibold uppercase tracking-wider text-smilo-olive bg-smilo-olive/10 px-2 py-1 rounded">Retro Kamera</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-smilo-brown mb-2">Smilo retro kamera</h2>
@@ -323,7 +330,7 @@ const ProductSection = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <img src={color.image} alt={color.name} className="w-full h-full object-contain p-0.5 bg-white" />
+                          <Image src={color.image} alt={color.name} width={48} height={48} className="w-full h-full object-contain p-0.5 bg-white" />
                         </motion.button>
                       ))}
                       <span className="text-xs text-muted-foreground self-center ml-2">

@@ -1,23 +1,28 @@
+'use client'
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
-import heroCameraNoBg from "@/assets/hero-camera-nobg.png";
-import carousel1 from "@/assets/carousel-1.jpg";
-import carousel2 from "@/assets/carousel-2.jpg";
-import carousel3 from "@/assets/carousel-3.jpg";
-import carousel4 from "@/assets/carousel-4.jpg";
-import carousel5 from "@/assets/carousel-5.jpg";
-import carousel6 from "@/assets/carousel-6.jpg";
-import carousel7 from "@/assets/carousel-7.jpg";
-import carousel8 from "@/assets/carousel-8.jpg";
-import carousel9 from "@/assets/carousel-9.jpg";
-import carousel10 from "@/assets/carousel-10.jpg";
-import carousel11 from "@/assets/carousel-11.jpg";
-import carousel12 from "@/assets/carousel-12.jpg";
-import carousel13 from "@/assets/carousel-13.jpg";
-import carousel14 from "@/assets/carousel-14.jpg";
-import carousel15 from "@/assets/carousel-15.jpg";
-import carousel16 from "@/assets/carousel-16.jpg";
+const MotionImage = motion(Image);
+
+const heroCameraNoBg = "/assets/hero-camera-nobg.png";
+const carousel1 = "/assets/carousel-1.jpg";
+const carousel2 = "/assets/carousel-2.jpg";
+const carousel3 = "/assets/carousel-3.jpg";
+const carousel4 = "/assets/carousel-4.jpg";
+const carousel5 = "/assets/carousel-5.jpg";
+const carousel6 = "/assets/carousel-6.jpg";
+const carousel7 = "/assets/carousel-7.jpg";
+const carousel8 = "/assets/carousel-8.jpg";
+const carousel9 = "/assets/carousel-9.jpg";
+const carousel10 = "/assets/carousel-10.jpg";
+const carousel11 = "/assets/carousel-11.jpg";
+const carousel12 = "/assets/carousel-12.jpg";
+const carousel13 = "/assets/carousel-13.jpg";
+const carousel14 = "/assets/carousel-14.jpg";
+const carousel15 = "/assets/carousel-15.jpg";
+const carousel16 = "/assets/carousel-16.jpg";
 
 const carouselPhotos = [
   carousel1, carousel2, carousel3, carousel4, carousel5,
@@ -91,9 +96,11 @@ const HeroSection = () => {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-smilo-olive/10 blur-[60px] rounded-full scale-110" />
-              <motion.img
+              <MotionImage
                 src={heroCameraNoBg}
                 alt="Smilo Kamera"
+                width={520}
+                height={520}
                 className="relative w-64 md:w-80 lg:w-96 xl:w-[26rem] drop-shadow-2xl"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -119,11 +126,13 @@ const HeroSection = () => {
           {doubledPhotos.map((photo, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-48 md:w-64 lg:w-72 aspect-[4/3] rounded-lg overflow-hidden"
+              className="relative flex-shrink-0 w-48 md:w-64 lg:w-72 aspect-[4/3] rounded-lg overflow-hidden"
             >
-              <img
+              <Image
                 src={photo}
                 alt=""
+                fill
+                sizes="(min-width: 1024px) 18rem, (min-width: 768px) 16rem, 12rem"
                 className="w-full h-full object-cover"
               />
             </div>
