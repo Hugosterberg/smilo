@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, Sparkles } from "lucide-react";
+import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, Sparkles, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import Image from "next/image";
 import {
   Accordion,
@@ -108,6 +109,32 @@ const ProductSection = () => {
   const [selectedColors, setSelectedColors] = useState<CameraColor[]>([cameraColors[0]]);
   const [activeImage, setActiveImage] = useState<string>(cameraColors[0].image);
   const [activeColorIndex, setActiveColorIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          quantity: selectedQuantity.quantity,
+          colors: selectedColors.map(c => c.name),
+          adapterAdded,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.error ?? 'Något gick fel. Försök igen.');
+        return;
+      }
+      window.location.href = data.url;
+    } catch {
+      toast.error('Något gick fel. Försök igen.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const adapterPrice = adapterAdded ? 99 * selectedQuantity.quantity : 0;
   const totalPrice = selectedQuantity.price + adapterPrice;
@@ -381,13 +408,26 @@ const ProductSection = () => {
               </label>
             </div>
 
-            {/* Add to Cart */}
+            {/* Checkout */}
             <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: isLoading ? 1 : 1.02 }}
+              whileTap={{ scale: isLoading ? 1 : 0.98 }}
             >
-              <Button variant="hero" size="xl" className="w-full mb-4">
-                Lägg i varukorg – {selectedQuantity.quantity} {selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}
+              <Button
+                variant="hero"
+                size="xl"
+                className="w-full mb-4"
+                onClick={handleCheckout}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Skickar...
+                  </span>
+                ) : (
+                  `Gå till kassan – ${selectedQuantity.quantity} ${selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}`
+                )}
               </Button>
             </motion.div>
             <p className="text-xs text-center text-muted-foreground mb-6">
