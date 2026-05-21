@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const MotionImage = motion(Image);
 
-const heroCameraNoBg = "/assets/hero-camera-nobg.png";
+const heroCameraNoBg = "/assets/smilo-brown.png";
 const carousel1 = "/assets/carousel-1.jpg";
 const carousel2 = "/assets/carousel-2.jpg";
 const carousel3 = "/assets/carousel-3.jpg";

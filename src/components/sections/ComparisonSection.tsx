@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import Image from "next/image";
 
-const productBlack = "/assets/product-black.jpg";
+const productBlack = "/assets/smilo-black.png";
 
 const comparisonFeatures = [
   { feature: "Retro-känsla i bilderna", smilo: true, disposable: true, polaroid: true },

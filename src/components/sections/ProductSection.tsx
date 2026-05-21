@@ -16,11 +16,11 @@ import {
 const MotionImage = motion(Image);
 
 // Real product images
-const productBlack = "/assets/product-black.jpg";
-const productGreen = "/assets/product-green.jpg";
-const productBrown = "/assets/product-brown.jpg";
-const productAllColors = "/assets/product-all-colors.jpg";
-const productBack = "/assets/product-back.jpg";
+const productBlack = "/assets/smilo-black.png";
+const productGreen = "/assets/smilo-black.png";
+const productBrown = "/assets/smilo-brown.png";
+const productAllColors = "/assets/smilo-black.png";
+const productBack = "/assets/smilo-black.png";
 
 const smiloLogoIcon = "/assets/smilo-logo-icon.png";
 

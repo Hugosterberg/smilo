@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 
-const smiloLogoFull = "/assets/smilo-logo-full.png";
+const smiloLogoFull = "/assets/smilo-retro-camera-2-black.png";
 
 const navLinks = [
   { label: "Produkten", href: "/#produkt" },
@@ -59,7 +59,7 @@ const Header = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Image src={smiloLogoFull} alt="Smilo" width={210} height={80} className="h-10 md:h-14 w-auto" priority />
+              <Image src={smiloLogoFull} alt="Smilo" width={210} height={80} className="h-28 md:h-40 w-auto" priority />
             </motion.div>
           </Link>
 

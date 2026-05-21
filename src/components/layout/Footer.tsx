@@ -3,7 +3,7 @@
 import { Facebook, Instagram, Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-const smiloLogoFull = "/assets/smilo-logo-full.png";
+const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion(Image);
 
@@ -148,9 +148,9 @@ const Footer = () => {
             <MotionImage
               src={smiloLogoFull}
               alt="Smilo"
-              width={180}
-              height={69}
-              className="h-20 w-auto brightness-110"
+              width={360}
+              height={138}
+              className="h-40 w-auto brightness-110"
               whileHover={{ scale: 1.05, rotate: 2 }}
               transition={{ duration: 0.2 }}
             />

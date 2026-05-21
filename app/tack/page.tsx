@@ -13,7 +13,7 @@ export default function TackPage() {
     <main className="min-h-screen bg-smilo-cream flex flex-col items-center justify-center px-6 text-center">
       <div className="max-w-md">
         <Image
-          src="/assets/smilo-logo-full.png"
+          src="/assets/smilo-retro-camera-2.png"
           alt="Smilo"
           width={160}
           height={60}
