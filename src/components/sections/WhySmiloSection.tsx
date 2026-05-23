@@ -28,7 +28,7 @@ const features = [
 
 const WhySmiloSection = () => {
   return (
-    <section id="varfor-smilo" className="smilo-section bg-smilo-cream scroll-mt-20">
+    <section id="varfor-smilo" className="smilo-section smilo-scroll-anchor bg-smilo-cream">
       <div className="smilo-container">
         <motion.h2
           className="smilo-heading-lg text-center mb-4 text-smilo-brown"
@@ -37,18 +37,18 @@ const WhySmiloSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          Mer <span className="italic text-smilo-olive">liv</span>, mindre skärm
+          Mer <span className="smilo-heading-accent">liv</span>, mindre skärm
         </motion.h2>
 
         <motion.div
-          className="w-16 h-1 bg-smilo-gold mx-auto mb-16 rounded-full"
+          className="smilo-accent-bar mb-8 sm:mb-16"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}

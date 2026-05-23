@@ -2,75 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smilo Design System - Based on brand colors from logo
-   Colors: Olive Green, Cream/Beige, Dark Brown, Golden Yellow
-*/
+/* Smilo — digitalkamera + retro: papper, kamerakropp, blixt-amber, LCD-teal */
 
 @layer base {
   :root {
-    /* Cream/warm white background */
-    --background: 43 45% 96%;
-    --foreground: 25 45% 15%;
+    --background: 40 32% 94%;
+    --foreground: 24 28% 11%;
 
-    /* Cards with subtle warmth */
-    --card: 43 40% 98%;
-    --card-foreground: 25 45% 15%;
+    --card: 42 28% 97%;
+    --card-foreground: 24 28% 11%;
 
-    --popover: 43 40% 98%;
-    --popover-foreground: 25 45% 15%;
+    --popover: 42 28% 97%;
+    --popover-foreground: 24 28% 11%;
 
-    /* Olive green primary - from logo */
-    --primary: 85 30% 35%;
-    --primary-foreground: 43 45% 96%;
+    /* Kamerakropp / grafit */
+    --primary: 220 14% 18%;
+    --primary-foreground: 42 35% 96%;
 
-    /* Cream secondary */
-    --secondary: 43 35% 90%;
-    --secondary-foreground: 25 45% 20%;
+    --secondary: 38 26% 88%;
+    --secondary-foreground: 24 24% 14%;
 
-    /* Muted warm tones */
-    --muted: 43 25% 92%;
-    --muted-foreground: 25 20% 45%;
+    --muted: 36 22% 90%;
+    --muted-foreground: 24 14% 40%;
 
-    /* Golden yellow accent - from logo */
-    --accent: 43 80% 55%;
-    --accent-foreground: 25 45% 15%;
+    /* Blixt / Kodak-amber */
+    --accent: 32 92% 48%;
+    --accent-foreground: 24 32% 10%;
 
     --destructive: 0 65% 50%;
-    --destructive-foreground: 43 45% 96%;
+    --destructive-foreground: 42 35% 96%;
 
-    /* Brown borders */
-    --border: 30 25% 82%;
-    --input: 30 25% 82%;
-    --ring: 85 30% 35%;
+    --border: 34 18% 78%;
+    --input: 34 18% 78%;
+    --ring: 187 48% 34%;
 
-    --radius: 1rem;
+    --radius: 0.5rem;
 
-    /* Custom Smilo brand tokens */
-    --smilo-cream: 43 45% 92%;
-    --smilo-cream-light: 43 45% 96%;
-    --smilo-olive: 85 30% 35%;
-    --smilo-olive-light: 85 25% 45%;
-    --smilo-olive-dark: 85 35% 28%;
-    --smilo-brown: 25 50% 18%;
-    --smilo-brown-light: 25 35% 30%;
-    --smilo-gold: 43 80% 55%;
-    --smilo-gold-soft: 43 60% 85%;
+    /* Papper & sepia */
+    --smilo-cream: 38 30% 88%;
+    --smilo-cream-light: 42 32% 96%;
+    --smilo-sepia: 32 38% 84%;
+    --smilo-paper: 42 35% 97%;
 
-    /* Product color variations */
-    --smilo-product-black: 0 0% 15%;
-    --smilo-product-green: 85 30% 35%;
-    --smilo-product-brown: 25 40% 30%;
+    /* Kamera (tidigare oliv — nu gröngrå plast/chassi) */
+    --smilo-olive: 158 22% 28%;
+    --smilo-olive-light: 158 18% 38%;
+    --smilo-olive-dark: 158 26% 20%;
+
+    /* Bläck & trä */
+    --smilo-brown: 24 28% 11%;
+    --smilo-brown-light: 24 18% 32%;
+    --smilo-charcoal: 220 14% 18%;
+    --smilo-ink: 24 28% 11%;
+
+    /* Blixt / datumstämpel */
+    --smilo-gold: 32 92% 48%;
+    --smilo-gold-soft: 36 70% 88%;
+    --smilo-flash: 32 92% 48%;
+    --smilo-flash-dark: 28 88% 40%;
+
+    /* LCD / USB / digital */
+    --smilo-digital: 187 48% 34%;
+    --smilo-digital-light: 187 42% 90%;
+
+    --smilo-product-black: 0 0% 14%;
+    --smilo-product-green: 158 22% 28%;
+    --smilo-product-brown: 25 38% 28%;
     --smilo-product-blue: 200 35% 50%;
-    --smilo-product-yellow: 43 70% 60%;
+    --smilo-product-yellow: 32 88% 52%;
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(25 30% 30% / 0.08);
-    --shadow-card: 0 8px 30px -8px hsl(25 30% 30% / 0.12);
-    --shadow-hover: 0 12px 40px -8px hsl(25 30% 30% / 0.18);
+    --shadow-soft: 0 2px 0 hsl(24 30% 12% / 0.07), 0 4px 16px -4px hsl(220 20% 15% / 0.1);
+    --shadow-card: 0 1px 0 hsl(42 30% 88% / 0.95) inset, 0 6px 24px -6px hsl(24 25% 12% / 0.12);
+    --shadow-hover: 0 1px 0 hsl(42 30% 92% / 1) inset, 0 10px 32px -6px hsl(24 25% 10% / 0.18);
+    --shadow-retro: 3px 3px 0 hsl(24 30% 12% / 0.14);
+    --shadow-flash: 0 0 0 1px hsl(32 80% 38% / 0.35), 3px 4px 0 hsl(28 70% 30% / 0.25);
 
-    /* Typography */
-    --font-heading: var(--font-fraunces), serif;
-    --font-body: var(--font-nunito), sans-serif;
+    --font-heading: var(--font-fraunces), Georgia, serif;
+    --font-body: var(--font-lora), Georgia, serif;
+
+    --header-height: 4.25rem;
 
     /* Sidebar */
     --sidebar-background: 43 45% 96%;
@@ -123,38 +133,150 @@
     scroll-behavior: smooth;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
     font-family: var(--font-body);
+    background-image:
+      radial-gradient(ellipse 100% 70% at 80% 0%, hsl(32 70% 88% / 0.35), transparent 50%),
+      radial-gradient(ellipse 90% 60% at 10% 100%, hsl(187 40% 88% / 0.2), transparent 45%),
+      linear-gradient(180deg, hsl(var(--smilo-paper)) 0%, hsl(var(--background)) 100%);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    font-variation-settings: 'opsz' 72;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: hsl(var(--smilo-ink));
+    font-variation-settings: 'opsz' 72, 'SOFT' 0, 'WONK' 1;
   }
 }
 
 @layer components {
   .smilo-container {
-    @apply max-w-6xl mx-auto px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .smilo-section {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-12 sm:py-16 md:py-20 lg:py-28;
+  }
+
+  .smilo-page-hero {
+    @apply pt-[calc(var(--header-height)+1.5rem)] sm:pt-[calc(var(--header-height)+2rem)] md:pt-[calc(var(--header-height)+2.5rem)];
+  }
+
+  .smilo-scroll-anchor {
+    scroll-margin-top: calc(var(--header-height) + 1rem);
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --header-height: 4.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-height: 5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --header-height: 5.75rem;
+    }
   }
 
   .smilo-heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight;
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-[0.04em] sm:tracking-[0.06em] text-smilo-ink;
   }
 
   .smilo-heading-lg {
-    @apply text-3xl md:text-4xl font-bold leading-tight tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-[0.04em] sm:tracking-[0.05em] text-smilo-ink;
   }
 
   .smilo-heading-md {
-    @apply text-2xl md:text-3xl font-semibold leading-snug;
+    @apply text-xl sm:text-2xl md:text-3xl font-semibold leading-snug tracking-[0.04em] text-smilo-ink;
+  }
+
+  /* Kursiv accent — blixt / datumstämpel */
+  .smilo-heading-accent {
+    @apply italic text-smilo-flash font-medium;
+  }
+
+  .smilo-accent-bar {
+    @apply w-20 h-1 mx-auto mb-6 rounded-sm;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--smilo-charcoal)),
+      hsl(var(--smilo-flash)),
+      hsl(var(--smilo-digital))
+    );
+    box-shadow: var(--shadow-retro);
+  }
+
+  .smilo-retro-frame {
+    @apply border-2 border-smilo-brown/15 bg-card;
+    box-shadow: var(--shadow-card);
+  }
+
+  .smilo-retro-label {
+    @apply font-heading text-xs uppercase tracking-[0.22em] text-smilo-brown-light;
+  }
+
+  .smilo-retro-label::before {
+    content: "◆ ";
+    color: hsl(var(--smilo-digital));
+    font-size: 0.55rem;
+    vertical-align: middle;
+  }
+
+  /* Utvecklad bild / polaroid — analog ram + digital chin */
+  .developed-photo-print {
+    @apply bg-[#f7f4ed] p-2 pb-0 shadow-retro;
+    border: 1px solid hsl(var(--smilo-brown) / 0.12);
+    box-shadow:
+      0 1px 0 hsl(38 30% 88% / 0.9) inset,
+      2px 3px 0 hsl(22 40% 18% / 0.08),
+      0 8px 20px -6px hsl(22 35% 20% / 0.18);
+  }
+
+  .developed-photo-image {
+    box-shadow: inset 0 0 0 1px hsl(var(--smilo-brown) / 0.06);
+  }
+
+  .developed-photo-chin {
+    min-height: 2.25rem;
+  }
+
+  .developed-photo-date {
+    color: hsl(var(--smilo-flash-dark));
+    text-shadow: 0 0 4px hsl(42 40% 96% / 0.95);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .developed-photo-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .developed-photo.group:hover .developed-photo-print {
+    box-shadow:
+      0 1px 0 hsl(38 30% 92% / 0.95) inset,
+      3px 4px 0 hsl(22 40% 18% / 0.1),
+      0 12px 28px -8px hsl(22 35% 18% / 0.22);
   }
 
   .smilo-body {
@@ -166,7 +288,7 @@
   }
 
   .smilo-card {
-    @apply bg-card rounded-2xl p-6 md:p-8;
+    @apply bg-card rounded-lg p-6 md:p-8 border border-smilo-brown/10;
     box-shadow: var(--shadow-card);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
@@ -177,9 +299,279 @@
   }
 
   .smilo-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium;
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-sm font-medium border;
     background: hsl(var(--smilo-gold-soft));
-    color: hsl(var(--smilo-brown));
+    border-color: hsl(var(--smilo-flash) / 0.25);
+    color: hsl(var(--smilo-ink));
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  /* 35 mm film — amber/honung celluloid (inspirerat av negativfilm) */
+  @media (max-width: 639px) {
+    .smilo-film-frame {
+      padding: 0.28rem 0.34rem;
+    }
+
+    .smilo-film-frame__track--stack > * {
+      width: 100%;
+    }
+
+    .smilo-film-frame__track--stack a,
+    .smilo-film-frame__track--stack button {
+      width: 100%;
+    }
+  }
+
+  .smilo-film-frame {
+    --film-edge: hsl(28 38% 28%);
+    --film-hole: #c4925c;
+    position: relative;
+    padding: 0.36rem 0.48rem;
+    border-radius: 2px;
+    background-color: var(--film-edge);
+    background-image:
+      linear-gradient(
+        90deg,
+        hsl(26 42% 20% / 0.45) 0%,
+        transparent 7%,
+        transparent 93%,
+        hsl(26 42% 20% / 0.45) 100%
+      ),
+      linear-gradient(
+        180deg,
+        hsl(30 36% 22%) 0%,
+        hsl(32 38% 28%) 20%,
+        hsl(32 38% 28%) 80%,
+        hsl(30 36% 22%) 100%
+      );
+    box-shadow:
+      inset 0 1px 0 hsl(40 35% 45% / 0.25),
+      inset 0 -1px 0 hsl(24 35% 16% / 0.35),
+      0 2px 8px -2px hsl(28 30% 18% / 0.14);
+  }
+
+  .smilo-film-frame::before,
+  .smilo-film-frame::after {
+    content: "";
+    position: absolute;
+    left: 0.38rem;
+    right: 0.38rem;
+    height: 4px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
+    box-shadow: inset 0 1px 0 hsl(48 55% 78% / 0.2);
+    background-image: url("data:image/svg+xml,%3Csvg width='11' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='5' height='3.5' rx='0.45' fill='%23c4925c'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 11px 4px;
+  }
+
+  .smilo-film-frame::before {
+    top: 0.17rem;
+  }
+
+  .smilo-film-frame::after {
+    bottom: 0.17rem;
+  }
+
+  .smilo-film-frame__track {
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    border-radius: 1px;
+    background: linear-gradient(
+      180deg,
+      hsl(36 44% 48%) 0%,
+      hsl(38 52% 58%) 20%,
+      hsl(40 58% 66%) 50%,
+      hsl(38 52% 58%) 80%,
+      hsl(36 44% 48%) 100%
+    );
+    box-shadow:
+      inset 0 0 0 1px hsl(42 45% 72% / 0.35),
+      inset 0 1px 3px hsl(44 60% 82% / 0.25),
+      inset 0 -1px 3px hsl(28 38% 32% / 0.2);
+  }
+
+  .smilo-film-frame__track::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0.06;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 128 128' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+
+  .smilo-film-frame__track::after {
+    content: "";
+    position: absolute;
+    left: 0.35rem;
+    right: 0.35rem;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: 1px;
+    box-shadow:
+      inset 0 1px 0 hsl(48 70% 88% / 0.35),
+      inset 0 -1px 0 hsl(30 40% 38% / 0.15);
+  }
+
+  /* Sekundär knapp på filmbakgrund — hög kontrast */
+  .smilo-btn-on-film {
+    background: hsl(42 40% 97%) !important;
+    color: hsl(var(--smilo-ink)) !important;
+    border: 2px solid hsl(32 35% 42%) !important;
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.9),
+      2px 2px 0 hsl(28 38% 22% / 0.2) !important;
+  }
+
+  .smilo-btn-on-film:hover {
+    background: hsl(0 0% 100%) !important;
+    border-color: hsl(var(--smilo-charcoal)) !important;
+    color: hsl(var(--smilo-ink)) !important;
+  }
+
+  .smilo-film-frame--vertical {
+    padding: 0.42rem 0.38rem;
+  }
+
+  .smilo-film-frame--vertical::before,
+  .smilo-film-frame--vertical::after {
+    top: 0.36rem;
+    bottom: 0.36rem;
+    width: 4px;
+    height: auto;
+    background-image: url("data:image/svg+xml,%3Csvg width='4' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='3.5' height='5' rx='0.45' fill='%23c4925c'/%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-size: 4px 11px;
+  }
+
+  .smilo-film-frame--vertical::before {
+    left: 0.15rem;
+    right: auto;
+  }
+
+  .smilo-film-frame--vertical::after {
+    right: 0.15rem;
+    left: auto;
+  }
+
+  .smilo-film-divider {
+    width: min(100%, 12rem);
+    height: 9px;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(180deg, hsl(30 36% 22%), hsl(32 38% 28%) 45%, hsl(32 38% 28%) 55%, hsl(30 36% 22%));
+    border-radius: 1px;
+    position: relative;
+    box-shadow: 0 1px 3px hsl(28 30% 18% / 0.1);
+  }
+
+  .smilo-film-divider::before,
+  .smilo-film-divider::after {
+    content: "";
+    position: absolute;
+    left: 0.22rem;
+    right: 0.22rem;
+    height: 3px;
+    opacity: 0.9;
+    background-image: url("data:image/svg+xml,%3Csvg width='11' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='5' height='3.5' rx='0.45' fill='%23c4925c'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 11px 3px;
+  }
+
+  .smilo-film-divider::before {
+    top: 0.13rem;
+  }
+
+  .smilo-film-divider::after {
+    bottom: 0.13rem;
+  }
+
+  /* Header — retrokamera-nav */
+  .nav-retro-btn {
+    @apply inline-flex items-center justify-center gap-1.5 sm:gap-2 font-heading font-semibold uppercase border-2 rounded-sm transition-colors duration-200;
+    letter-spacing: 0.1em;
+    font-size: 0.58rem;
+  }
+
+  @media (min-width: 768px) {
+    .nav-retro-btn {
+      letter-spacing: 0.12em;
+      font-size: 0.62rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .nav-retro-btn {
+      letter-spacing: 0.14em;
+      font-size: 0.65rem;
+    }
+  }
+
+  .nav-retro-btn-default {
+    @apply bg-smilo-paper text-smilo-ink border-smilo-charcoal/30;
+    box-shadow:
+      inset 0 1px 0 hsl(42 35% 98% / 0.9),
+      2px 2px 0 hsl(24 30% 12% / 0.12);
+  }
+
+  .nav-retro-btn-default:hover {
+    @apply bg-smilo-cream border-smilo-charcoal/45;
+  }
+
+  .nav-retro-btn-action {
+    @apply bg-smilo-charcoal text-smilo-cream-light border-smilo-charcoal;
+    box-shadow:
+      inset 0 1px 0 hsl(220 12% 28% / 0.8),
+      inset 0 -2px 0 hsl(var(--smilo-flash) / 0.35),
+      2px 2px 0 hsl(24 30% 8% / 0.2);
+  }
+
+  .nav-retro-btn-action:hover {
+    @apply bg-smilo-ink border-smilo-ink;
+    box-shadow:
+      inset 0 1px 0 hsl(220 12% 32% / 0.9),
+      inset 0 -3px 0 hsl(var(--smilo-flash) / 0.5),
+      3px 3px 0 hsl(24 30% 8% / 0.22);
+  }
+
+  .nav-retro-btn-large {
+    @apply w-full max-w-[min(100%,20rem)] px-5 sm:px-8 py-3 sm:py-4 text-center text-[0.62rem] sm:text-sm tracking-[0.1em] sm:tracking-[0.18em];
+    font-size: 0.62rem;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 400px) {
+    .nav-retro-btn-large {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+    }
+  }
+
+  .nav-retro-btn-led {
+    @apply ml-1 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
+    box-shadow: 0 0 4px currentColor;
+  }
+
+  .group:hover .nav-retro-btn-led {
+    @apply opacity-100;
+  }
+
+  .smilo-badge-digital {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-sm font-medium border uppercase;
+    background: hsl(var(--smilo-digital-light));
+    border-color: hsl(var(--smilo-digital) / 0.3);
+    color: hsl(var(--smilo-digital));
+    font-family: var(--font-heading);
+    letter-spacing: 0.1em;
+    font-size: 0.7rem;
   }
 }
 

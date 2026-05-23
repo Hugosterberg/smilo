@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { HashScrollHandler } from '@/components/layout/HashScrollHandler'
 import HeroSection from '@/components/sections/HeroSection'
 import WhySmiloSection from '@/components/sections/WhySmiloSection'
 import ComparisonSection from '@/components/sections/ComparisonSection'
@@ -11,6 +12,7 @@ import FAQSection from '@/components/sections/FAQSection'
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <HashScrollHandler />
       <Header />
       <main>
         <HeroSection />

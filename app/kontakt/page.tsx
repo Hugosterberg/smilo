@@ -102,7 +102,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+      <section className="smilo-page-hero pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
         <div className="smilo-container">
           <motion.div
             className="text-center max-w-2xl mx-auto"
@@ -151,14 +151,14 @@ export default function ContactPage() {
 
       <section className="py-16 md:py-24">
         <div className="smilo-container">
-          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16">
             <motion.div
               className="lg:col-span-3"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="bg-white rounded-3xl p-6 md:p-10 shadow-card">
+              <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-10 shadow-card">
                 {isSubmitted ? (
                   <motion.div
                     className="text-center py-12"
@@ -269,8 +269,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-smilo-brown mb-1">E-post</h3>
-                    <a href="mailto:hej@smilo.se" className="text-smilo-olive hover:underline">
-                      hej@smilo.se
+                    <a href="mailto:info@smilo.se" className="text-smilo-olive hover:underline">
+                      info@smilo.se
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">Vi svarar vanligtvis inom 24 timmar</p>
                   </div>

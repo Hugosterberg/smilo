@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const HowItWorksSection = () => {
   return (
-    <section id="hur-funkar-det" className="smilo-section bg-smilo-olive text-smilo-cream-light scroll-mt-20">
+    <section id="hur-funkar-det" className="smilo-section smilo-scroll-anchor bg-smilo-olive text-smilo-cream-light">
       <div className="smilo-container">
         <motion.div
           className="text-center mb-12"
@@ -27,8 +27,8 @@ const HowItWorksSection = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="bg-smilo-olive-dark/50 backdrop-blur-sm rounded-3xl p-8 md:p-12">
-            <p className="text-xl font-semibold text-center mb-10 text-smilo-gold">
+          <div className="bg-smilo-olive-dark/50 backdrop-blur-sm rounded-lg border border-smilo-cream/15 p-5 sm:p-8 md:p-12 shadow-retro">
+            <p className="text-lg sm:text-xl font-semibold text-center mb-8 sm:mb-10 text-smilo-gold">
               Enkelt. Inga appar. Inget konto.
             </p>
 

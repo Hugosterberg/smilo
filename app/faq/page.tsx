@@ -53,7 +53,7 @@ export default function FAQPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+      <section className="smilo-page-hero pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
         <div className="smilo-container">
           <motion.div
             className="text-center max-w-2xl mx-auto"
@@ -65,7 +65,7 @@ export default function FAQPage() {
               <ArrowLeft className="w-4 h-4" />
               Tillbaka till startsidan
             </Link>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smilo-gold/20 text-smilo-brown text-sm font-medium mb-6 ml-4">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-smilo-gold/20 text-smilo-brown text-sm font-medium mb-6">
               <HelpCircle className="w-4 h-4" />
               Vi hjälper dig
             </span>
@@ -99,9 +99,9 @@ export default function FAQPage() {
                     <AccordionItem
                       key={index}
                       value={`${category.category}-${index}`}
-                      className="bg-white rounded-2xl px-6 border-0 shadow-soft"
+                      className="bg-white rounded-xl sm:rounded-2xl px-4 sm:px-6 border-0 shadow-soft"
                     >
-                      <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left py-5 text-smilo-brown">
+                      <AccordionTrigger className="font-semibold text-base sm:text-lg hover:no-underline text-left py-4 sm:py-5 text-smilo-brown">
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">

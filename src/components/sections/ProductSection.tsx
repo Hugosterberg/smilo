@@ -15,14 +15,10 @@ import {
 
 const MotionImage = motion(Image);
 
-// Real product images
-const productBlack = "/assets/smilo-black.png";
-const productGreen = "/assets/smilo-black.png";
-const productBrown = "/assets/smilo-brown.png";
-const productAllColors = "/assets/smilo-black.png";
-const productBack = "/assets/smilo-black.png";
-
-const smiloLogoIcon = "/assets/smilo-logo-icon.png";
+const productBlack = "/assets/smilo-black-transparent.png";
+const productGreen = "/assets/smilo-green-transparent.png";
+const productPink = "/assets/smilo-pink-transparent.png";
+const productBrown = "/assets/smilo-brown-transparent.png";
 
 // Product features
 const features = [
@@ -65,10 +61,10 @@ interface CameraColor {
   colorClass: string;
 }
 
-// Colors: vit (white), svart (black), rosa (pink), brun (brown), grön (green)
 const cameraColors: CameraColor[] = [
   { id: "black", name: "Svart", fullName: "Smilo retro kamera – svart", image: productBlack, colorClass: "bg-zinc-900" },
   { id: "green", name: "Grön", fullName: "Smilo retro kamera – grön", image: productGreen, colorClass: "bg-[#6B7B4B]" },
+  { id: "pink", name: "Rosa", fullName: "Smilo retro kamera – rosa", image: productPink, colorClass: "bg-[#D4A5A5]" },
   { id: "brown", name: "Brun", fullName: "Smilo retro kamera – brun", image: productBrown, colorClass: "bg-[#8B5A3C]" },
 ];
 
@@ -154,15 +150,6 @@ const ProductSection = () => {
     }
   };
 
-  const getGalleryImages = () => {
-    const currentColor = selectedColors[activeColorIndex] || cameraColors[0];
-    return [
-      { id: 'main', src: currentColor.image, alt: `${currentColor.fullName} - framsida` },
-      { id: 'back', src: productBack, alt: `${currentColor.fullName} - baksida` },
-      { id: 'all', src: productAllColors, alt: 'Alla färger' },
-    ];
-  };
-
   const handleColorChange = (colorIndex: number, color: CameraColor) => {
     setSelectedColors(prev => {
       const newColors = [...prev];
@@ -174,9 +161,9 @@ const ProductSection = () => {
   };
 
   return (
-    <section id="produkt" className="smilo-section scroll-mt-20 bg-background">
+    <section id="produkt" className="smilo-section smilo-scroll-anchor bg-background">
       <div className="smilo-container">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-14 xl:gap-16">
           {/* Product Images - Left Side */}
           <motion.div
             className="relative"
@@ -186,7 +173,7 @@ const ProductSection = () => {
             transition={{ duration: 0.6 }}
           >
             {/* Main Image */}
-            <div className="aspect-square rounded-3xl overflow-hidden bg-white shadow-card">
+            <div className="aspect-square rounded-lg overflow-hidden smilo-retro-frame bg-smilo-cream-light">
               <AnimatePresence mode="wait">
                 <MotionImage
                   key={activeImage}
@@ -194,7 +181,7 @@ const ProductSection = () => {
                   alt={selectedColors[activeColorIndex]?.fullName || 'Smilo kamera'}
                   width={900}
                   height={900}
-                  className="w-full h-full object-contain p-8"
+                  className="w-full h-full object-contain p-5 sm:p-6 md:p-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -203,19 +190,22 @@ const ProductSection = () => {
               </AnimatePresence>
             </div>
 
-            {/* Thumbnail Gallery */}
-            <div className="flex gap-3 justify-center mt-4">
-              {getGalleryImages().map((img) => (
+            {/* Färgminiatyrer */}
+            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mt-3 sm:mt-4">
+              {cameraColors.map((color) => (
                 <button
-                  key={img.id}
-                  onClick={() => setActiveImage(img.src)}
-                  className={`w-20 h-20 rounded-xl overflow-hidden bg-white shadow-soft transition-all ${
-                    activeImage === img.src
+                  key={color.id}
+                  type="button"
+                  onClick={() => handleColorChange(activeColorIndex, color)}
+                  className={`w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-white shadow-soft transition-all ${
+                    selectedColors[activeColorIndex]?.id === color.id
                       ? 'ring-2 ring-smilo-olive ring-offset-2'
                       : 'hover:ring-2 hover:ring-smilo-olive/50'
                   }`}
+                  aria-label={color.name}
+                  aria-pressed={selectedColors[activeColorIndex]?.id === color.id}
                 >
-                  <Image src={img.src} alt={img.alt} width={80} height={80} className="w-full h-full object-contain p-2" />
+                  <Image src={color.image} alt={color.fullName} width={80} height={80} className="w-full h-full object-contain p-2" />
                 </button>
               ))}
             </div>
@@ -223,28 +213,35 @@ const ProductSection = () => {
 
           {/* Product Info - Right Side */}
           <motion.div
-            className="lg:sticky lg:top-24 lg:self-start"
+            className="w-full max-w-md mx-auto text-center lg:mx-0 lg:max-w-none lg:text-left lg:sticky lg:top-[calc(var(--header-height)+1rem)] lg:self-start"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {/* Product Title & Logo */}
-            <div className="flex items-center gap-3 mb-2">
-              <Image src={smiloLogoIcon} alt="" width={40} height={40} className="h-8 w-auto" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-smilo-olive bg-smilo-olive/10 px-2 py-1 rounded">Retro Kamera</span>
+            <div className="mb-5 sm:mb-6">
+              <h2 className="font-display leading-[1.05] text-smilo-ink">
+                <span className="block text-2xl sm:text-4xl font-bold tracking-[0.08em] sm:tracking-[0.14em] uppercase md:text-5xl">
+                  Smilo
+                </span>
+                <span className="mt-1 block sm:mt-1.5 text-xl sm:text-2xl font-medium tracking-[0.05em] sm:tracking-[0.06em] md:text-3xl">
+                  <span className="italic text-smilo-flash">retro</span>
+                  <span className="text-smilo-brown"> kamera</span>
+                </span>
+              </h2>
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-smilo-brown mb-2">Smilo retro kamera</h2>
 
             {/* Quantity Selection */}
             <div className="mb-6">
               <p className="text-sm font-medium text-smilo-brown mb-3">Välj antal</p>
-              <div className="space-y-2">
+              <div className="space-y-3 pt-1">
                 {quantityOptions.map((option) => (
                   <motion.button
                     key={option.quantity}
                     onClick={() => handleQuantityChange(option)}
-                    className={`w-full p-3 rounded-xl border-2 transition-all relative ${
+                    className={`w-full p-3 sm:p-3.5 rounded-xl border-2 transition-all relative ${
+                      option.popular ? 'mt-1' : ''
+                    } ${
                       selectedQuantity.quantity === option.quantity
                         ? "border-smilo-olive bg-smilo-olive/5"
                         : "border-border hover:border-smilo-olive/50 bg-white"
@@ -253,29 +250,29 @@ const ProductSection = () => {
                     whileTap={{ scale: 0.99 }}
                   >
                     {option.popular && (
-                      <span className="absolute -top-2.5 left-4 px-2 py-0.5 bg-smilo-gold text-smilo-brown text-xs font-semibold rounded-full flex items-center gap-1">
+                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 lg:left-4 lg:translate-x-0 px-2 py-0.5 bg-smilo-gold text-smilo-brown text-xs font-semibold rounded-full flex items-center gap-1 whitespace-nowrap">
                         <Sparkles className="w-3 h-3" />
                         Populärast
                       </span>
                     )}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    <div className="flex flex-col gap-3 items-center text-center sm:flex-row sm:items-center sm:justify-between lg:text-left">
+                      <div className="flex items-center gap-3 min-w-0 justify-center sm:justify-start w-full sm:w-auto">
+                        <div className={`w-10 h-10 shrink-0 rounded-lg flex items-center justify-center ${
                           selectedQuantity.quantity === option.quantity
                             ? "bg-smilo-olive text-smilo-cream"
                             : "bg-smilo-cream text-smilo-olive"
                         }`}>
                           <option.icon className="w-5 h-5" />
                         </div>
-                        <div className="text-left">
+                        <div className="min-w-0 text-center sm:text-left">
                           <p className="font-semibold text-smilo-brown">{option.label}</p>
-                          <p className="text-xs text-muted-foreground">{option.description}</p>
+                          <p className="text-xs text-muted-foreground line-clamp-2">{option.description}</p>
                         </div>
                       </div>
-                      <div className="text-right">
+                      <div className="shrink-0 text-center sm:text-right w-full sm:w-auto">
                         <p className="font-bold text-smilo-brown">{option.price} kr</p>
                         {option.originalPrice > option.price && (
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center justify-center sm:justify-end gap-2 flex-wrap">
                             <span className="text-xs text-muted-foreground line-through">{option.originalPrice} kr</span>
                             <span className="text-xs font-semibold text-smilo-olive">
                               Spara {option.originalPrice - option.price} kr
@@ -290,11 +287,11 @@ const ProductSection = () => {
             </div>
 
             {/* Price & Reviews */}
-            <div className="flex items-center gap-4 mb-6 p-4 rounded-xl bg-smilo-cream/50">
+            <div className="flex flex-col items-center gap-3 mb-6 p-4 rounded-xl bg-smilo-cream/50 sm:flex-row sm:items-center sm:gap-4 lg:items-center">
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Totalt</p>
                 <motion.p
-                  className="text-3xl font-bold text-smilo-brown"
+                  className="text-2xl sm:text-3xl font-bold text-smilo-brown"
                   key={totalPrice}
                   initial={{ scale: 1.1 }}
                   animate={{ scale: 1 }}
@@ -303,11 +300,11 @@ const ProductSection = () => {
                   {totalPrice} kr
                 </motion.p>
               </div>
-              <div className="ml-auto flex items-center gap-1 text-smilo-gold">
+              <div className="flex items-center justify-center gap-1 text-smilo-gold flex-wrap sm:ml-auto lg:ml-auto">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
+                  <Star key={i} className="w-4 h-4 fill-current shrink-0" />
                 ))}
-                <span className="text-sm text-muted-foreground ml-1">47 recensioner</span>
+                <span className="text-xs sm:text-sm text-muted-foreground ml-1">47 recensioner</span>
               </div>
             </div>
 
@@ -316,14 +313,14 @@ const ProductSection = () => {
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center gap-3"
+                  className="flex items-center justify-center lg:justify-start gap-3"
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  <feature.icon className="w-5 h-5 text-smilo-olive" />
-                  <span className="text-sm text-smilo-brown">{feature.text}</span>
+                  <feature.icon className="w-5 h-5 shrink-0 text-smilo-olive" />
+                  <span className="text-sm text-smilo-brown text-balance">{feature.text}</span>
                 </motion.div>
               ))}
             </div>
@@ -344,12 +341,12 @@ const ProductSection = () => {
                         Kamera {cameraIndex + 1}
                       </p>
                     )}
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
                       {cameraColors.map((color) => (
                         <motion.button
                           key={color.id}
                           onClick={() => handleColorChange(cameraIndex, color)}
-                          className={`w-12 h-12 rounded-xl overflow-hidden border-2 transition-all ${
+                          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all ${
                             selectedColors[cameraIndex]?.id === color.id
                               ? "border-smilo-olive ring-2 ring-smilo-olive/20"
                               : "border-transparent hover:border-smilo-olive/50"
@@ -360,7 +357,7 @@ const ProductSection = () => {
                           <Image src={color.image} alt={color.name} width={48} height={48} className="w-full h-full object-contain p-0.5 bg-white" />
                         </motion.button>
                       ))}
-                      <span className="text-xs text-muted-foreground self-center ml-2">
+                      <span className="w-full text-center text-xs text-muted-foreground sm:w-auto sm:text-left lg:text-left sm:self-center sm:ml-1 pt-0.5">
                         {selectedColors[cameraIndex]?.name || 'Välj färg'}
                       </span>
                     </div>
@@ -368,14 +365,11 @@ const ProductSection = () => {
                 ))}
               </div>
 
-              <p className="text-xs text-muted-foreground mt-3">
-                Fler färger kommer snart: Vit, Rosa
-              </p>
             </div>
 
             {/* Adapter Option */}
-            <div className="mb-6 p-4 rounded-xl bg-smilo-cream border border-smilo-gold/20">
-              <label className="flex items-start gap-3 cursor-pointer">
+            <div className="mb-6 p-4 rounded-xl bg-smilo-cream border border-smilo-gold/20 text-center lg:text-left">
+              <label className="flex flex-col items-center gap-3 cursor-pointer sm:flex-row sm:items-start lg:items-start">
                 <motion.button
                   onClick={() => setAdapterAdded(!adapterAdded)}
                   className={`mt-0.5 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors ${
@@ -426,7 +420,12 @@ const ProductSection = () => {
                     Skickar...
                   </span>
                 ) : (
-                  `Gå till kassan – ${selectedQuantity.quantity} ${selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}`
+                  <>
+                    <span className="sm:hidden">Gå till kassan</span>
+                    <span className="hidden sm:inline">
+                      {`Gå till kassan – ${selectedQuantity.quantity} ${selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}`}
+                    </span>
+                  </>
                 )}
               </Button>
             </motion.div>
@@ -435,11 +434,14 @@ const ProductSection = () => {
             </p>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-4 mb-6 py-4 border-y border-border">
+            <div className="grid grid-cols-1 min-[400px]:grid-cols-3 gap-4 mb-6 py-4 border-y border-border">
               {trustBadges.map((badge, index) => (
-                <div key={index} className="text-center">
-                  <badge.icon className="w-6 h-6 mx-auto mb-2 text-smilo-brown" />
-                  <p className="text-xs font-semibold text-smilo-brown">{badge.title}</p>
+                <div key={index} className="flex flex-col items-center text-center gap-2 min-[400px]:gap-0 px-2">
+                  <badge.icon className="w-6 h-6 shrink-0 mb-0 min-[400px]:mb-2 text-smilo-brown" />
+                  <div>
+                    <p className="text-xs font-semibold text-smilo-brown">{badge.title}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 line-clamp-2">{badge.subtitle}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -447,16 +449,16 @@ const ProductSection = () => {
             {/* Accordion Sections */}
             <Accordion type="single" collapsible className="space-y-0">
               <AccordionItem value="included" className="border-b border-border">
-                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4">
-                  <div className="flex items-center gap-2">
+                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4 justify-center lg:justify-between [&>svg]:lg:ml-auto">
+                  <div className="flex items-center justify-center lg:justify-start gap-2">
                     <Gift className="w-4 h-4" />
                     Detta ingår
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="flex gap-6 pb-4">
+                  <div className="flex flex-col items-center sm:flex-row sm:flex-wrap sm:items-start sm:justify-start gap-4 sm:gap-6 pb-4 lg:items-stretch">
                     {includedItems.map((item) => (
-                      <div key={item.title} className="flex items-center gap-2">
+                      <div key={item.title} className="flex items-center justify-center lg:justify-start gap-2 min-w-[140px]">
                         <div className="w-8 h-8 rounded-lg bg-smilo-cream flex items-center justify-center">
                           <item.icon className="w-4 h-4 text-smilo-olive" />
                         </div>
@@ -468,21 +470,21 @@ const ProductSection = () => {
               </AccordionItem>
 
               <AccordionItem value="specs" className="border-b border-border">
-                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4">
-                  <div className="flex items-center gap-2">
+                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4 justify-center lg:justify-between [&>svg]:lg:ml-auto">
+                  <div className="flex items-center justify-center lg:justify-start gap-2">
                     <Camera className="w-4 h-4" />
                     Specifikationer
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="space-y-2 pb-4">
+                  <div className="space-y-2 pb-4 text-center lg:text-left">
                     {specs.map((spec) => (
                       <div
                         key={spec.label}
-                        className="flex justify-between py-1.5 text-sm"
+                        className="flex flex-col gap-0.5 sm:flex-row sm:justify-between sm:items-start py-2 sm:py-1.5 text-sm border-b border-border/50 last:border-0 sm:border-0"
                       >
-                        <span className="text-muted-foreground">{spec.label}</span>
-                        <span className="font-medium text-smilo-brown">{spec.value}</span>
+                        <span className="text-muted-foreground shrink-0">{spec.label}</span>
+                        <span className="font-medium text-smilo-brown sm:text-right">{spec.value}</span>
                       </div>
                     ))}
                   </div>
@@ -490,14 +492,14 @@ const ProductSection = () => {
               </AccordionItem>
 
               <AccordionItem value="shipping" className="border-b-0">
-                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4">
-                  <div className="flex items-center gap-2">
+                <AccordionTrigger className="text-sm font-medium text-smilo-brown hover:no-underline py-4 justify-center lg:justify-between [&>svg]:lg:ml-auto">
+                  <div className="flex items-center justify-center lg:justify-start gap-2">
                     <RotateCcw className="w-4 h-4" />
                     Frakt & Returer
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="space-y-2 pb-4 text-sm text-muted-foreground">
+                  <div className="space-y-2 pb-4 text-sm text-muted-foreground text-center lg:text-left">
                     <p>• Fri frakt inom Sverige</p>
                     <p>• Leverans inom 2-4 arbetsdagar</p>
                     <p>• 30 dagars öppet köp</p>

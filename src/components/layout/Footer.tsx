@@ -7,70 +7,116 @@ const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion(Image);
 
+const socialLinks = [
+  { href: "#", label: "Facebook", Icon: Facebook, rotate: 5 },
+  { href: "#", label: "Instagram", Icon: Instagram, rotate: -5 },
+] as const;
+
+function SocialIconButton({
+  href,
+  label,
+  Icon,
+  rotate,
+}: {
+  href: string;
+  label: string;
+  Icon: typeof Facebook;
+  rotate: number;
+}) {
+  return (
+    <motion.a
+      href={href}
+      className="w-10 h-10 shrink-0 rounded-full bg-smilo-cream/10 flex items-center justify-center text-smilo-cream/70 hover:bg-smilo-gold hover:text-smilo-brown transition-all"
+      aria-label={label}
+      whileHover={{ scale: 1.1, rotate }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Icon className="w-5 h-5" />
+    </motion.a>
+  );
+}
+
 const Footer = () => {
   return (
     <footer className="bg-smilo-brown text-smilo-cream-light overflow-hidden">
       {/* Main Footer Content */}
-      <div className="smilo-container py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+      <div className="smilo-container py-8 sm:py-16 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-6 sm:gap-8">
           {/* About Section - Takes more space */}
           <motion.div
-            className="md:col-span-5"
+            className="sm:col-span-2 md:col-span-5 text-center sm:text-left max-w-md mx-auto sm:mx-0 sm:max-w-none w-full"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="font-display text-2xl font-bold mb-6 flex items-center gap-2">
-              Om oss <Sparkles className="w-5 h-5 text-smilo-gold" />
-            </h3>
-            <div className="space-y-4 text-smilo-cream/80 leading-relaxed">
-              <p className="text-base italic">
-                &quot;Smilo föddes ur en enkel idé: att göra det lättare att vara närvarande i stunden.&quot;
-              </p>
-              <p className="text-sm">
-                Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
-                Därför skapade vi Smilo – en digital kamera utan skärm, som låter dig ta bilden och fortsätta leva.
-              </p>
-              <p className="text-sm flex items-center gap-2">
-                <Heart className="w-4 h-4 text-smilo-gold fill-smilo-gold" />
-                Designad i Sverige för vardag, fest och alla stunder däremellan.
-              </p>
+            {/* Mobil: stjärna över, hjärta under, socialt + logga i rad */}
+            <div className="flex flex-col items-center sm:hidden">
+              <Sparkles className="w-6 h-6 text-smilo-gold mb-3" aria-hidden />
+              <h3 className="font-display text-xl font-bold mb-3">Om oss</h3>
+              <div className="space-y-2.5 text-smilo-cream/80 leading-relaxed text-sm">
+                <p className="italic text-balance">
+                  &quot;Smilo föddes ur en enkel idé: att göra det lättare att vara närvarande i stunden.&quot;
+                </p>
+                <p className="text-sm text-balance">
+                  Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
+                  Därför skapade vi Smilo – en digital kamera utan skärm, som låter dig ta bilden och fortsätta leva.
+                </p>
+                <p className="text-sm text-balance">
+                  Designad i Sverige för vardag, fest och alla stunder däremellan.
+                </p>
+              </div>
+              <Heart className="w-5 h-5 text-smilo-gold fill-smilo-gold my-4" aria-hidden />
+              <div className="flex items-center justify-center gap-3 w-full max-w-[17rem]">
+                <SocialIconButton {...socialLinks[0]} />
+                <Image
+                  src={smiloLogoFull}
+                  alt="Smilo"
+                  width={200}
+                  height={76}
+                  className="h-14 w-auto brightness-110 shrink-0"
+                />
+                <SocialIconButton {...socialLinks[1]} />
+              </div>
             </div>
 
-            {/* Social Icons */}
-            <div className="flex gap-4 mt-8">
-              <motion.a
-                href="#"
-                className="w-10 h-10 rounded-full bg-smilo-cream/10 flex items-center justify-center text-smilo-cream/70 hover:bg-smilo-gold hover:text-smilo-brown transition-all"
-                aria-label="Facebook"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Facebook className="w-5 h-5" />
-              </motion.a>
-              <motion.a
-                href="#"
-                className="w-10 h-10 rounded-full bg-smilo-cream/10 flex items-center justify-center text-smilo-cream/70 hover:bg-smilo-gold hover:text-smilo-brown transition-all"
-                aria-label="Instagram"
-                whileHover={{ scale: 1.1, rotate: -5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Instagram className="w-5 h-5" />
-              </motion.a>
+            {/* Desktop */}
+            <div className="hidden sm:block">
+              <h3 className="font-display text-2xl font-bold mb-6 flex items-center gap-2">
+                Om oss <Sparkles className="w-5 h-5 text-smilo-gold shrink-0" />
+              </h3>
+              <div className="space-y-4 text-smilo-cream/80 leading-relaxed">
+                <p className="text-base italic text-balance">
+                  &quot;Smilo föddes ur en enkel idé: att göra det lättare att vara närvarande i stunden.&quot;
+                </p>
+                <p className="text-sm text-balance">
+                  Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
+                  Därför skapade vi Smilo – en digital kamera utan skärm, som låter dig ta bilden och fortsätta leva.
+                </p>
+                <p className="text-sm flex items-center gap-2 text-balance">
+                  <Heart className="w-4 h-4 shrink-0 text-smilo-gold fill-smilo-gold" />
+                  Designad i Sverige för vardag, fest och alla stunder däremellan.
+                </p>
+              </div>
+              <div className="flex gap-4 mt-8">
+                {socialLinks.map((link) => (
+                  <SocialIconButton key={link.label} {...link} />
+                ))}
+              </div>
             </div>
           </motion.div>
 
+          <div className="grid grid-cols-2 gap-6 sm:contents">
           {/* Customer Care Section */}
           <motion.div
-            className="md:col-span-3"
+            className="md:col-span-3 text-center sm:text-left"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h3 className="font-display text-xl font-bold mb-6">Kundservice</h3>
-            <ul className="space-y-3">
+            <h3 className="font-display text-lg sm:text-xl font-bold mb-3 sm:mb-6">Kundservice</h3>
+            <ul className="space-y-2 sm:space-y-3 flex flex-col items-center sm:items-stretch">
               {[
                 "Spåra min order",
                 "Vanliga frågor",
@@ -87,7 +133,7 @@ const Footer = () => {
                 >
                   <a
                     href="#"
-                    className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block hover:translate-x-1 transform duration-200"
+                    className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block sm:hover:translate-x-1 sm:transform sm:duration-200"
                   >
                     {item}
                   </a>
@@ -98,14 +144,14 @@ const Footer = () => {
 
           {/* Legal Section */}
           <motion.div
-            className="md:col-span-2"
+            className="md:col-span-2 text-center sm:text-left"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="font-display text-xl font-bold mb-6">Juridiskt</h3>
-            <ul className="space-y-3">
+            <h3 className="font-display text-lg sm:text-xl font-bold mb-3 sm:mb-6">Juridiskt</h3>
+            <ul className="space-y-2 sm:space-y-3 flex flex-col items-center sm:items-stretch">
               {[
                 "Integritetspolicy",
                 "Köpvillkor"
@@ -119,7 +165,7 @@ const Footer = () => {
                 >
                   <a
                     href="#"
-                    className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block hover:translate-x-1 transform duration-200"
+                    className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block sm:hover:translate-x-1 sm:transform sm:duration-200"
                   >
                     {item}
                   </a>
@@ -127,7 +173,7 @@ const Footer = () => {
               ))}
             </ul>
 
-            <div className="mt-8 p-4 rounded-2xl bg-smilo-cream/5 border border-smilo-cream/10">
+            <div className="mt-4 sm:mt-8 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-smilo-cream/5 border border-smilo-cream/10 max-w-[14rem] mx-auto sm:mx-0 sm:max-w-none text-center sm:text-left">
               <p className="text-xs text-smilo-cream/50">
                 CE-märkt ✓
               </p>
@@ -136,10 +182,11 @@ const Footer = () => {
               </p>
             </div>
           </motion.div>
+          </div>
 
           {/* Logo Section */}
           <motion.div
-            className="md:col-span-2 flex flex-col items-center md:items-end justify-start"
+            className="hidden sm:flex sm:col-span-2 md:col-span-2 flex-col items-center sm:items-end justify-start order-last sm:order-none"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -150,7 +197,7 @@ const Footer = () => {
               alt="Smilo"
               width={360}
               height={138}
-              className="h-40 w-auto brightness-110"
+              className="h-20 sm:h-32 md:h-36 w-auto brightness-110"
               whileHover={{ scale: 1.05, rotate: 2 }}
               transition={{ duration: 0.2 }}
             />
@@ -160,11 +207,11 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-smilo-cream/10">
-        <div className="smilo-container py-6">
+        <div className="smilo-container py-5 sm:py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Copyright */}
             <motion.p
-              className="text-sm text-smilo-cream/50 flex items-center gap-2"
+              className="text-sm text-smilo-cream/50 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center md:justify-start md:text-left"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -177,7 +224,7 @@ const Footer = () => {
 
             {/* Payment Icons */}
             <motion.div
-              className="flex items-center gap-3 flex-wrap justify-center"
+              className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center max-w-full"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

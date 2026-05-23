@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function TackPage() {
   return (
-    <main className="min-h-screen bg-smilo-cream flex flex-col items-center justify-center px-6 text-center">
+    <main className="min-h-[100dvh] bg-smilo-cream flex flex-col items-center justify-center px-6 py-10 text-center pt-[max(2.5rem,env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-md">
         <Image
           src="/assets/smilo-retro-camera-2.png"

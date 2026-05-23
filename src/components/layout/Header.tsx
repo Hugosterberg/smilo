@@ -6,13 +6,14 @@ import { ShoppingBag, X, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { NavRetroButton } from "@/components/layout/NavRetroButton";
 
 const smiloLogoFull = "/assets/smilo-retro-camera-2-black.png";
 
 const navLinks = [
-  { label: "Produkten", href: "/#produkt" },
-  { label: "Galleri", href: "/#galleri" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "PRODUKTEN", href: "/#produkt" },
+  { label: "SMILO IN ACTION", href: "/#galleri", variant: "action" as const },
+  { label: "KONTAKT", href: "/kontakt" },
 ];
 
 const Header = () => {
@@ -28,6 +29,13 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
 
@@ -37,7 +45,9 @@ const Header = () => {
         router.push('/' + hash);
       } else {
         const element = document.querySelector(hash);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     } else {
       router.push(href);
@@ -46,44 +56,64 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ${
         scrolled ? "bg-smilo-cream/95 backdrop-blur-md shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="smilo-container">
-        <div className="flex items-center justify-between py-4 md:py-6">
+        <div className="flex items-center justify-between gap-3 py-3 sm:py-4 lg:py-5">
 
-          <Link href="/">
+          <Link href="/" className="shrink-0">
             <motion.div
               className="relative z-10"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
-              <Image src={smiloLogoFull} alt="Smilo" width={210} height={80} className="h-28 md:h-40 w-auto" priority />
+              <Image
+                src={smiloLogoFull}
+                alt="Smilo"
+                width={210}
+                height={80}
+                className="h-14 w-auto sm:h-16 md:h-20 lg:h-24"
+                priority
+              />
             </motion.div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link, index) => (
-              <motion.button
-                key={link.label}
-                onClick={() => handleNavClick(link.href)}
-                className="relative text-[15px] text-smilo-brown hover:text-smilo-olive transition-colors duration-300 font-medium group"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-smilo-olive transition-all duration-300 group-hover:w-full" />
-              </motion.button>
-            ))}
+          <nav
+            className="smilo-film-frame hidden md:block absolute left-1/2 -translate-x-1/2 max-w-[min(100%,30rem)] lg:max-w-[min(100%,38rem)]"
+            aria-label="Huvudmeny"
+          >
+            <div className="smilo-film-frame__track flex items-center gap-1.5 px-1.5 py-1 lg:gap-2 lg:px-2 lg:py-1.5 xl:gap-3">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.label}
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                >
+                  <NavRetroButton
+                    label={link.label}
+                    variant={link.variant === "action" ? "action" : "default"}
+                    onClick={() => handleNavClick(link.href)}
+                    aria-label={
+                      link.variant === "action"
+                        ? "Smilo in action – bilder tagna med Smilo"
+                        : undefined
+                    }
+                    className="px-2 py-1 md:px-2.5 md:py-1.5 xl:px-4 xl:py-2"
+                  />
+                </motion.div>
+              ))}
+            </div>
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <motion.button
               className="relative text-smilo-brown hover:text-smilo-olive transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              aria-label="Varukorg"
             >
               <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
               {cartCount > 0 && (
@@ -100,10 +130,11 @@ const Header = () => {
 
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden text-smilo-brown hover:text-smilo-olive transition-colors"
+              className="md:hidden nav-retro-btn nav-retro-btn-default px-3 py-2"
               whileTap={{ scale: 0.95 }}
+              aria-label="Öppna meny"
             >
-              <Menu className="w-6 h-6" strokeWidth={1.5} />
+              <Menu className="w-4 h-4" strokeWidth={2} />
             </motion.button>
           </div>
         </div>
@@ -116,7 +147,7 @@ const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-smilo-cream z-50 md:hidden"
+            className="fixed inset-0 z-[100] bg-smilo-cream md:hidden overflow-y-auto overscroll-contain pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
           >
             <motion.div
               className="absolute top-20 right-10 w-64 h-64 rounded-full bg-smilo-olive/10 blur-3xl"
@@ -133,36 +164,53 @@ const Header = () => {
               <Image src={smiloLogoFull} alt="Smilo" width={150} height={57} className="h-10 w-auto" priority />
               <motion.button
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-smilo-brown p-2"
+                className="nav-retro-btn nav-retro-btn-default px-3 py-2"
                 whileTap={{ scale: 0.9, rotate: 90 }}
+                aria-label="Stäng meny"
               >
-                <X className="w-6 h-6" strokeWidth={1.5} />
+                <X className="w-4 h-4" strokeWidth={2} />
               </motion.button>
             </div>
 
-            <nav className="flex flex-col items-center justify-center gap-8 pt-24 relative z-10">
-              {navLinks.map((link, index) => (
-                <motion.button
-                  key={link.label}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-4xl text-smilo-brown hover:text-smilo-olive transition-colors font-heading"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
+            <nav
+              className="flex flex-col items-center pt-16 sm:pt-20 px-6 sm:px-8 relative z-10"
+              aria-label="Mobilmeny"
+            >
+              <div className="smilo-film-frame smilo-film-frame--vertical w-full max-w-xs">
+                <div className="smilo-film-frame__track flex flex-col items-center gap-4 w-full px-4 py-5 sm:py-6">
+                  {navLinks.map((link, index) => (
+                    <motion.div
+                      key={link.label}
+                      className="w-full flex justify-center"
+                      initial={{ opacity: 0, x: -24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.08 + index * 0.08 }}
+                    >
+                      <NavRetroButton
+                        label={link.label}
+                        variant={link.variant === "action" ? "action" : "default"}
+                        onClick={() => handleNavClick(link.href)}
+                        large
+                        aria-label={
+                          link.variant === "action"
+                            ? "Smilo in action – bilder tagna med Smilo"
+                            : undefined
+                        }
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
 
               <motion.button
                 onClick={() => handleNavClick('/#produkt')}
-                className="mt-8 px-8 py-4 bg-smilo-olive text-white rounded-full text-lg font-medium shadow-lg"
+                className="mt-8 w-full max-w-xs px-8 py-4 bg-smilo-flash text-smilo-ink rounded-sm text-sm font-heading font-semibold uppercase tracking-[0.18em] shadow-flash border-2 border-smilo-flash-dark/40"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                whileTap={{ scale: 0.95 }}
+                transition={{ delay: 0.45 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Köp nu
+                KÖP NU
               </motion.button>
             </nav>
           </motion.div>

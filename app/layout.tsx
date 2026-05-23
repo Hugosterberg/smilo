@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Fraunces, Nunito } from 'next/font/google'
+import { Fraunces, Lora } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 
@@ -10,11 +10,17 @@ const fraunces = Fraunces({
   axes: ['opsz'],
 })
 
-const nunito = Nunito({
+const lora = Lora({
   subsets: ['latin'],
-  variable: '--font-nunito',
+  variable: '--font-lora',
   display: 'swap',
 })
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   title: 'Smilo – Retrokamera som överför bilder till mobilen',
@@ -47,8 +53,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sv" className={`${fraunces.variable} ${nunito.variable}`}>
-      <body>
+    <html lang="sv" className={`${fraunces.variable} ${lora.variable}`}>
+      <body className="antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

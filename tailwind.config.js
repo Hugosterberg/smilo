@@ -61,13 +61,21 @@ const tailwindConfig = {
         smilo: {
           cream: "hsl(var(--smilo-cream))",
           "cream-light": "hsl(var(--smilo-cream-light))",
+          paper: "hsl(var(--smilo-paper))",
+          sepia: "hsl(var(--smilo-sepia))",
           olive: "hsl(var(--smilo-olive))",
           "olive-light": "hsl(var(--smilo-olive-light))",
           "olive-dark": "hsl(var(--smilo-olive-dark))",
           brown: "hsl(var(--smilo-brown))",
           "brown-light": "hsl(var(--smilo-brown-light))",
+          ink: "hsl(var(--smilo-ink))",
+          charcoal: "hsl(var(--smilo-charcoal))",
           gold: "hsl(var(--smilo-gold))",
           "gold-soft": "hsl(var(--smilo-gold-soft))",
+          flash: "hsl(var(--smilo-flash))",
+          "flash-dark": "hsl(var(--smilo-flash-dark))",
+          digital: "hsl(var(--smilo-digital))",
+          "digital-light": "hsl(var(--smilo-digital-light))",
           // Product colors
           "product-black": "hsl(var(--smilo-product-black))",
           "product-green": "hsl(var(--smilo-product-green))",
@@ -77,8 +85,16 @@ const tailwindConfig = {
         },
       },
       fontFamily: {
-        heading: ['Fraunces', 'serif'],
-        body: ['Nunito', 'sans-serif'],
+        heading: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        body: ['var(--font-lora)', 'Georgia', 'serif'],
+        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        soft: "var(--shadow-soft)",
+        card: "var(--shadow-card)",
+        hover: "var(--shadow-hover)",
+        retro: "var(--shadow-retro)",
+        flash: "var(--shadow-flash)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -86,11 +102,6 @@ const tailwindConfig = {
         sm: "calc(var(--radius) - 4px)",
         "2xl": "1rem",
         "3xl": "1.5rem",
-      },
-      boxShadow: {
-        soft: "var(--shadow-soft)",
-        card: "var(--shadow-card)",
-        hover: "var(--shadow-hover)",
       },
       keyframes: {
         "accordion-down": {

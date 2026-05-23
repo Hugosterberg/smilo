@@ -19,8 +19,8 @@ const deliveryFaqs = [
   { icon: Package, question: "Hur skickas paketet?", answer: "Vi skickar med PostNord. Du kan välja att få paketet levererat till närmaste utlämningsställe eller direkt hem till dörren." },
   { icon: MapPin, question: "Kan jag spåra min leverans?", answer: "Ja! Så fort din beställning skickats får du ett mejl med spårningsinformation. Du kan följa paketets resa hela vägen till dig." },
   { icon: Clock, question: "Vad händer om jag inte är hemma vid leverans?", answer: "Oroa dig inte! Om du valt hemleverans och inte är hemma lämnas en avi, och paketet skickas till närmaste utlämningsställe. Du har 14 dagar på dig att hämta ut det." },
-  { icon: RefreshCcw, question: "Hur gör jag om paketet är skadat?", answer: "Kontakta oss omedelbart om paketet eller produkten är skadad vid leverans. Fotografera skadan och mejla oss på hej@smilo.se så löser vi det direkt." },
-  { icon: MapPin, question: "Kan jag ändra leveransadress efter beställning?", answer: "Ja, om paketet inte skickats ännu! Kontakta oss så snart som möjligt på hej@smilo.se med ditt ordernummer och den nya adressen." },
+  { icon: RefreshCcw, question: "Hur gör jag om paketet är skadat?", answer: "Kontakta oss omedelbart om paketet eller produkten är skadad vid leverans. Fotografera skadan och mejla oss på info@smilo.se så löser vi det direkt." },
+  { icon: MapPin, question: "Kan jag ändra leveransadress efter beställning?", answer: "Ja, om paketet inte skickats ännu! Kontakta oss så snart som möjligt på info@smilo.se med ditt ordernummer och den nya adressen." },
   { icon: Truck, question: "Skickar ni till hela Sverige?", answer: "Ja, vi skickar till alla adresser i Sverige. Leveranstiden kan vara något längre till mer avlägsna områden." },
   { icon: Package, question: "Skickar ni utomlands?", answer: "Just nu skickar vi endast inom Sverige. Vi hoppas kunna erbjuda internationell frakt längre fram!" },
   { icon: CreditCard, question: "Vilka betalningsmetoder accepterar ni?", answer: "Vi accepterar Swish, kortbetalning (Visa, Mastercard) och Klarna. Alla betalningar sker säkert och krypterat." },
@@ -31,7 +31,7 @@ export default function DeliveryFAQPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
+      <section className="smilo-page-hero pb-12 sm:pb-16 md:pb-20 bg-gradient-to-b from-smilo-cream to-background">
         <div className="smilo-container">
           <motion.div
             className="text-center max-w-2xl mx-auto"
