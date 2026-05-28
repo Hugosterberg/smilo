@@ -44,13 +44,13 @@ const quickLinks = [
     icon: Package,
     title: "Spåra din order",
     description: "Se var ditt paket befinner sig",
-    href: "#",
+    href: "/spara-order",
   },
   {
     icon: RotateCcw,
     title: "Returer & byten",
     description: "30 dagars öppet köp",
-    href: "#",
+    href: "/returer",
   },
 ];
 
@@ -88,14 +88,32 @@ export default function ContactPage() {
     }
 
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
 
-    toast({
-      title: "Meddelande skickat! ✨",
-      description: "Vi återkommer till dig så snart vi kan.",
-    });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error ?? "Kunde inte skicka meddelandet.");
+      }
+
+      setIsSubmitted(true);
+      toast({
+        title: "Meddelande skickat! ✨",
+        description: "Vi återkommer till dig så snart vi kan.",
+      });
+    } catch (err) {
+      toast({
+        title: "Något gick fel",
+        description: err instanceof Error ? err.message : "Försök igen om en stund.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

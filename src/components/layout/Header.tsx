@@ -204,7 +204,7 @@ const Header = () => {
 
               <motion.button
                 onClick={() => handleNavClick('/#produkt')}
-                className="mt-8 w-full max-w-xs px-8 py-4 bg-smilo-flash text-smilo-ink rounded-sm text-sm font-heading font-semibold uppercase tracking-[0.18em] shadow-flash border-2 border-smilo-flash-dark/40"
+                className="mt-8 w-full max-w-xs px-8 py-4 bg-smilo-digital text-smilo-cream-light rounded-sm text-sm font-heading font-semibold uppercase tracking-[0.18em] shadow-cta border-2 border-smilo-digital-dark/40"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45 }}

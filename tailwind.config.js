@@ -76,6 +76,7 @@ const tailwindConfig = {
           "flash-dark": "hsl(var(--smilo-flash-dark))",
           digital: "hsl(var(--smilo-digital))",
           "digital-light": "hsl(var(--smilo-digital-light))",
+          "digital-dark": "hsl(var(--smilo-digital-dark))",
           // Product colors
           "product-black": "hsl(var(--smilo-product-black))",
           "product-green": "hsl(var(--smilo-product-green))",
@@ -95,6 +96,7 @@ const tailwindConfig = {
         hover: "var(--shadow-hover)",
         retro: "var(--shadow-retro)",
         flash: "var(--shadow-flash)",
+        cta: "var(--shadow-cta)",
       },
       borderRadius: {
         lg: "var(--radius)",

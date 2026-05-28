@@ -14,7 +14,7 @@ Smilo är en e-handelsbutik för retrokameror med modern teknik — bilderna öv
 
 | Lager | Val |
 |---|---|
-| Frontend | React 18 + TypeScript + Vite |
+| Frontend | React 18 + TypeScript + NextJS |
 | Routing | React Router v6 |
 | UI-komponenter | shadcn/ui (Radix UI + Tailwind CSS) |
 | Animationer | Framer Motion |

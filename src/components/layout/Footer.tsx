@@ -3,6 +3,7 @@
 import { Facebook, Instagram, Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion(Image);
@@ -118,25 +119,25 @@ const Footer = () => {
             <h3 className="font-display text-lg sm:text-xl font-bold mb-3 sm:mb-6">Kundservice</h3>
             <ul className="space-y-2 sm:space-y-3 flex flex-col items-center sm:items-stretch">
               {[
-                "Spåra min order",
-                "Vanliga frågor",
-                "Frakt",
-                "Returer & byten",
-                "Kontakt"
+                { label: "Spåra min order", href: "/spara-order" },
+                { label: "Vanliga frågor", href: "/faq" },
+                { label: "Frakt", href: "/leverans-faq" },
+                { label: "Returer & byten", href: "/returer" },
+                { label: "Kontakt", href: "/kontakt" },
               ].map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={item.label}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
                 >
-                  <a
-                    href="#"
+                  <Link
+                    href={item.href}
                     className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block sm:hover:translate-x-1 sm:transform sm:duration-200"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -153,22 +154,22 @@ const Footer = () => {
             <h3 className="font-display text-lg sm:text-xl font-bold mb-3 sm:mb-6">Juridiskt</h3>
             <ul className="space-y-2 sm:space-y-3 flex flex-col items-center sm:items-stretch">
               {[
-                "Integritetspolicy",
-                "Köpvillkor"
+                { label: "Integritetspolicy", href: "/integritetspolicy" },
+                { label: "Köpvillkor", href: "/kopvillkor" },
               ].map((item, index) => (
                 <motion.li
-                  key={item}
+                  key={item.label}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
                 >
-                  <a
-                    href="#"
+                  <Link
+                    href={item.href}
                     className="text-sm text-smilo-cream/70 hover:text-smilo-gold transition-colors inline-block sm:hover:translate-x-1 sm:transform sm:duration-200"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -259,19 +260,20 @@ const Footer = () => {
                 </svg>
               </motion.div>
 
+              {/* Google Pay */}
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="bg-white rounded-md px-2.5 shadow-sm h-8 flex items-center gap-1">
+                <span className="text-[#4285F4] text-[13px] font-bold leading-none">G</span>
+                <span className="text-[#5F6368] text-[11px] font-semibold leading-none">Pay</span>
+              </motion.div>
+
               {/* Klarna */}
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="bg-[#FFB3C7] rounded-md p-1.5 shadow-sm h-8 flex items-center">
-                <svg viewBox="0 0 60 20" className="h-4 w-auto">
-                  <path fill="black" d="M47.8 4.5c-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9-1.3-2.9-2.9-2.9zm0 11.1h3.4V3.8h-3.4v11.8zM5.9 15.6H2.5V3.8h3.4v11.8zM17.3 3.8c0 2.8-1.1 5.4-3.1 7.3l4.4 4.5h-4.5l-4-4.1v4.1H6.7V3.8h3.4v3.8c1.6-1.3 2.6-3.2 2.8-3.8h4.4zm3.5 11.8h3.4V3.8h-3.4v11.8zm20.5-7.3c-.8-.5-1.8-.8-2.9-.8-2.1 0-3.5 1.2-3.5 3 0 1.7 1.4 3 3.4 3 1.1 0 2-.3 2.9-.8v3c-1 .4-2.1.6-3.2.6-3.7 0-6.4-2.4-6.4-5.8 0-3.3 2.7-5.7 6.5-5.7 1.1 0 2.2.2 3.2.6v2.9zm3.9 7.3h3.4V3.8h-3.4v11.8z"/>
-                </svg>
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="bg-[#FFB3C7] rounded-md px-2.5 shadow-sm h-8 flex items-center">
+                <span className="text-black text-[11px] font-bold tracking-tight">Klarna</span>
               </motion.div>
 
               {/* Swish */}
-              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="bg-white rounded-md p-1.5 shadow-sm h-8 flex items-center">
-                <svg viewBox="0 0 60 20" className="h-4 w-auto">
-                  <path fill="#00A041" d="M10 2c4.4 0 8 3.6 8 8s-3.6 8-8 8-8-3.6-8-8 3.6-8 8-8zm0 2.5c-3 0-5.5 2.5-5.5 5.5s2.5 5.5 5.5 5.5 5.5-2.5 5.5-5.5-2.5-5.5-5.5-5.5z"/>
-                  <path fill="#333" d="M22 6h2.8c1.5 0 2.6.4 3.3 1.1s1.1 1.8 1.1 3.1c0 1.3-.4 2.4-1.1 3.1s-1.8 1.1-3.3 1.1H22V6zm2.8 6.6c.7 0 1.3-.2 1.7-.6s.6-1 .6-1.8-.2-1.4-.6-1.8-.9-.6-1.7-.6H24v4.8h.8zm8.5-6.6h2v8.4h-2V6zm5.4 0h2.1l2.4 5.6L45.6 6h2.1v8.4h-1.9V8.9l-2.2 5.1h-1.4l-2.2-5.1v5.5h-1.9V6zm12.1 0h5.1v1.6h-3.1v2h2.8v1.5h-2.8v3.3h-2V6z"/>
-                </svg>
+              <motion.div whileHover={{ scale: 1.05, y: -2 }} className="bg-white rounded-md px-2.5 shadow-sm h-8 flex items-center">
+                <span className="text-[#E5007D] text-[11px] font-bold tracking-tight">Swish</span>
               </motion.div>
             </motion.div>
           </div>
