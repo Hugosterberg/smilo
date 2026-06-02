@@ -55,11 +55,17 @@ const Header = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500 ${
-        scrolled ? "bg-smilo-cream/95 backdrop-blur-md shadow-sm" : "bg-transparent"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)]">
+      {/* Bakgrundslager i eget kompositlager (translateZ) – annars tappar iOS Safari
+          repaint av backdrop-blur under scroll så headern "släpar efter". Ligger som
+          eget lager i stället för på <header>, så mobilmenyns fixed inte bryts. */}
+      <div
+        className={`pointer-events-none absolute inset-0 -z-10 transition-[background-color,box-shadow] duration-300 ${
+          scrolled ? "bg-smilo-cream/95 shadow-sm backdrop-blur-md" : "bg-transparent"
+        }`}
+        style={{ transform: "translateZ(0)" }}
+        aria-hidden
+      />
       <div className="smilo-container">
         <div className="flex items-center justify-between gap-3 py-3 sm:py-4 lg:py-5">
 
