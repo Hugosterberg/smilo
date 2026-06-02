@@ -8,7 +8,7 @@ import { DevelopedPhoto } from "@/components/shared/DevelopedPhoto";
 import { TiltCard } from "@/components/shared/TiltCard";
 import { CameraFlash } from "@/components/shared/CameraFlash";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 const heroCameraNoBg = "/assets/smilo-black-transparent.png";
 const carousel1 = "/assets/carousel-1.jpg";

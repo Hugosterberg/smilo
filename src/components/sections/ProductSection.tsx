@@ -15,7 +15,7 @@ import {
 import { TiltCard } from "@/components/shared/TiltCard";
 import { CameraFlash } from "@/components/shared/CameraFlash";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 const productBlack = "/assets/smilo-black-transparent.png";
 const productGreen = "/assets/smilo-green-transparent.png";

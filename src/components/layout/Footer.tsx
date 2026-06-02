@@ -7,7 +7,7 @@ import Link from "next/link";
 import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
 const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 const socialLinks = [
   { href: "#", label: "Facebook", Icon: Facebook, rotate: 5 },
