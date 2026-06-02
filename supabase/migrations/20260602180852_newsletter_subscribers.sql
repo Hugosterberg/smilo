@@ -14,4 +14,5 @@ create unique index if not exists newsletter_subscribers_email_unique
 alter table public.newsletter_subscribers enable row level security;
 
 -- Inga policies = ingen åtkomst för anon/authenticated. Insert sker enbart
--- server-side via service_role-nyckeln (förbigår RLS) i /api/newsletter.
+-- server-side via den hemliga nyckeln (sb_secret / service_role, förbigår RLS)
+-- i /api/newsletter.

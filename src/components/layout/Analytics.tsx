@@ -9,19 +9,32 @@ import Link from 'next/link';
 const STORAGE_KEY = 'smilo-cookie-consent';
 type Consent = 'granted' | 'denied';
 
+function isLocalHost() {
+  const h = window.location.hostname;
+  return (
+    h === 'localhost' ||
+    h === '127.0.0.1' ||
+    h === '0.0.0.0' ||
+    h.endsWith('.local')
+  );
+}
+
 // Laddar Google Analytics 4 och Microsoft Clarity, men FÖRST efter att
 // besökaren aktivt godkänt cookies. Skripten renderas dessutom bara när
-// respektive ID finns satt (NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_CLARITY_ID).
+// respektive ID finns satt (NEXT_PUBLIC_GA_ID / NEXT_PUBLIC_CLARITY_ID) och
+// aldrig på localhost — så dev-besök hamnar inte i den riktiga statistiken.
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-  const hasTracking = Boolean(gaId || clarityId);
+  const hasIds = Boolean(gaId || clarityId);
 
   const [consent, setConsent] = useState<Consent | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [trackable, setTrackable] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setTrackable(!isLocalHost());
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === 'granted' || stored === 'denied') {
       setConsent(stored);
@@ -33,6 +46,7 @@ export function Analytics() {
     setConsent(value);
   };
 
+  const hasTracking = hasIds && trackable;
   const loadScripts = mounted && hasTracking && consent === 'granted';
   const showBanner = mounted && hasTracking && consent === null;
 
