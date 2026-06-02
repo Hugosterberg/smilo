@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Fraunces, Lora } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
+import { Analytics } from '@/components/layout/Analytics'
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="sv" className={`${fraunces.variable} ${lora.variable}`}>
       <body className="antialiased">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   )

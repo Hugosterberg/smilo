@@ -4,6 +4,7 @@ import { Facebook, Instagram, Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
 const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion(Image);
@@ -203,6 +204,11 @@ const Footer = () => {
               transition={{ duration: 0.2 }}
             />
           </motion.div>
+        </div>
+
+        {/* Newsletter */}
+        <div className="mt-10 sm:mt-14 pt-8 sm:pt-10 border-t border-smilo-cream/10">
+          <NewsletterSignup />
         </div>
       </div>
 
