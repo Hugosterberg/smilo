@@ -3,6 +3,8 @@ import { Fraunces, Lora } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { Analytics } from '@/components/layout/Analytics'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { organizationSchema, websiteSchema } from '@/lib/seo'
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -24,38 +26,73 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Smilo – Retrokamera som överför bilder till mobilen',
-  description: 'Smilo är en digital retrokamera utan skärm – fånga ögonblicket och för enkelt över bilderna till mobilen via USB-C. Fri frakt inom Sverige.',
-  keywords: ['retro kamera', 'digital kamera', 'smilo', 'kamera utan skärm', 'analog känsla', 'minneskamera', 'present', 'bildöverföring'],
+  title: {
+    default: 'Smilo – Digitalkamera & smart retrokamera utan skärm',
+    template: '%s | Smilo',
+  },
+  description:
+    'Smart digitalkamera utan skärm – ett återanvändbart alternativ till engångskameran. Ta bilden i stunden och för enkelt över den till mobilen via USB-C. Fri frakt & retur i Sverige.',
+  keywords: [
+    'engångskamera',
+    'digitalkamera',
+    'digital kamera',
+    'smart kamera',
+    'kamera',
+    'retrokamera',
+    'retro kamera',
+    'kamera utan skärm',
+    'återanvändbar engångskamera',
+    'minneskamera',
+    'kamera present',
+    'smilo',
+  ],
   authors: [{ name: 'Smilo' }],
+  creator: 'Smilo',
+  publisher: 'Smilo',
+  applicationName: 'Smilo',
   metadataBase: new URL('https://smilo.se'),
   alternates: { canonical: '/' },
+  category: 'shopping',
   openGraph: {
-    title: 'Smilo – Retrokameran som låter dig leva i stunden',
-    description: 'Digital retrokamera utan skärm. Ta bilder, lev vidare – och för över bilderna till mobilen när du vill. Fri frakt & fri retur inom Sverige.',
+    title: 'Smilo – Smart digitalkamera utan skärm',
+    description:
+      'Digitalkamera utan skärm och ett återanvändbart alternativ till engångskameran. Ta bilder, lev vidare – för över till mobilen via USB-C. Fri frakt & retur i Sverige.',
     type: 'website',
     locale: 'sv_SE',
     siteName: 'Smilo',
     url: 'https://smilo.se',
-    images: [{ url: '/smilo-og.png', width: 1200, height: 1200 }],
+    images: [{ url: '/smilo-og.png', width: 1200, height: 1200, alt: 'Smilo digital retrokamera' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Smilo – Retrokameran som låter dig leva i stunden',
-    description: 'Digital retrokamera utan skärm. Ta bilder, lev vidare – och för över bilderna till mobilen när du vill.',
+    title: 'Smilo – Smart digitalkamera utan skärm',
+    description:
+      'Digitalkamera utan skärm – ett återanvändbart alternativ till engångskameran. För över bilderna till mobilen via USB-C.',
     images: ['/smilo-og.png'],
   },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }, { url: '/smilo-icon.png', type: 'image/png' }],
     apple: '/smilo-icon.png',
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sv" className={`${fraunces.variable} ${lora.variable}`}>
       <body className="antialiased">
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
         <Providers>{children}</Providers>
         <Analytics />
       </body>

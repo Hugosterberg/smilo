@@ -8,10 +8,14 @@ import ProductSection from '@/components/sections/ProductSection'
 import HowItWorksSection from '@/components/sections/HowItWorksSection'
 import GallerySection from '@/components/sections/GallerySection'
 import FAQSection from '@/components/sections/FAQSection'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { productSchema, faqSchema } from '@/lib/seo'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd data={productSchema} />
+      <JsonLd data={faqSchema} />
       <HashScrollHandler />
       <Header />
       <main>
