@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const BUNDLE_PRICES: Record<number, number> = {
-  1: 78500,   // 785 kr
-  2: 119900,  // 1199 kr
-  3: 164900,  // 1649 kr
+  1: 74900,   // 749 kr
+  2: 134900,  // 1349 kr
+  3: 189900,  // 1899 kr
+  5: 299500,  // 2995 kr
 };
 
 const ADAPTER_PRICE_PER_UNIT = 9900; // 99 kr per adapter
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
       adapterAdded: boolean;
     };
 
-    if (![1, 2, 3].includes(quantity)) {
+    if (![1, 2, 3, 5].includes(quantity)) {
       return NextResponse.json({ error: 'Ogiltigt antal' }, { status: 400 });
     }
 

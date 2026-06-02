@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, Sparkles, Loader2 } from "lucide-react";
+import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, PartyPopper, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import {
@@ -74,30 +74,39 @@ const cameraColors: CameraColor[] = [
 const quantityOptions = [
   {
     quantity: 1,
-    price: 785,
-    originalPrice: 785,
+    price: 749,
+    originalPrice: 749,
     label: "1 kamera",
     description: "Perfekt för dig",
     icon: Camera,
-    popular: false
+    tag: null as string | null,
   },
   {
     quantity: 2,
-    price: 1199,
-    originalPrice: 1570,
+    price: 1349,
+    originalPrice: 1498,
     label: "2 kameror",
     description: "En till dig & en till en vän",
     icon: Gift,
-    popular: true
+    tag: null as string | null,
   },
   {
     quantity: 3,
-    price: 1649,
-    originalPrice: 2355,
+    price: 1899,
+    originalPrice: 2247,
     label: "3 kameror",
-    description: "Hela gänget inför resan!",
+    description: "Hela gänget inför resan",
     icon: Users,
-    popular: false
+    tag: null as string | null,
+  },
+  {
+    quantity: 5,
+    price: 2995,
+    originalPrice: 3745,
+    label: "5 kameror",
+    description: "En till alla – fånga hela kvällen",
+    icon: PartyPopper,
+    tag: "Till festen!" as string | null,
   },
 ];
 
@@ -191,28 +200,44 @@ const ProductSection = () => {
                     transition={{ duration: 0.25 }}
                   />
                 </AnimatePresence>
-                <CameraFlash trigger={activeImage} />
+                <CameraFlash trigger={activeImage} origin={{ x: 55, y: 38 }} />
               </div>
             </TiltCard>
 
             {/* Färgminiatyrer */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mt-3 sm:mt-4">
-              {cameraColors.map((color) => (
-                <button
-                  key={color.id}
-                  type="button"
-                  onClick={() => handleColorChange(activeColorIndex, color)}
-                  className={`relative smilo-flash-ring w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-white shadow-soft transition-all hover:-translate-y-0.5 ${
-                    selectedColors[activeColorIndex]?.id === color.id
-                      ? 'ring-2 ring-smilo-olive ring-offset-2'
-                      : 'hover:ring-2 hover:ring-smilo-olive/50'
-                  }`}
-                  aria-label={color.name}
-                  aria-pressed={selectedColors[activeColorIndex]?.id === color.id}
-                >
-                  <Image src={color.image} alt={color.fullName} width={80} height={80} className="w-full h-full object-contain p-2" />
-                </button>
-              ))}
+            <div className="mt-4 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+              {cameraColors.map((color) => {
+                const selected = selectedColors[activeColorIndex]?.id === color.id;
+                return (
+                  <button
+                    key={color.id}
+                    type="button"
+                    onClick={() => handleColorChange(activeColorIndex, color)}
+                    className={`group/thumb relative smilo-flash-ring flex flex-col items-center gap-1.5 rounded-2xl bg-white p-2 transition-all hover:-translate-y-0.5 ${
+                      selected
+                        ? "ring-2 ring-smilo-olive ring-offset-2 shadow-card"
+                        : "ring-1 ring-border hover:ring-smilo-olive/50 shadow-soft"
+                    }`}
+                    aria-label={color.name}
+                    aria-pressed={selected}
+                  >
+                    <Image
+                      src={color.image}
+                      alt={color.fullName}
+                      width={80}
+                      height={80}
+                      className="h-12 w-12 object-contain transition-transform duration-200 group-hover/thumb:scale-105 sm:h-14 sm:w-14 md:h-16 md:w-16"
+                    />
+                    <span
+                      className={`text-[10px] font-medium tracking-wide transition-colors sm:text-[11px] ${
+                        selected ? "text-smilo-olive" : "text-muted-foreground"
+                      }`}
+                    >
+                      {color.name}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
 
@@ -239,55 +264,70 @@ const ProductSection = () => {
             {/* Quantity Selection */}
             <div className="mb-6">
               <p className="text-sm font-medium text-smilo-brown mb-3">Välj antal</p>
-              <div className="space-y-3 pt-1">
-                {quantityOptions.map((option) => (
-                  <motion.button
-                    key={option.quantity}
-                    onClick={() => handleQuantityChange(option)}
-                    className={`w-full p-3 sm:p-3.5 rounded-xl border-2 transition-all relative ${
-                      option.popular ? 'mt-1' : ''
-                    } ${
-                      selectedQuantity.quantity === option.quantity
-                        ? "border-smilo-olive bg-smilo-olive/5"
-                        : "border-border hover:border-smilo-olive/50 bg-white"
-                    }`}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                  >
-                    {option.popular && (
-                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 lg:left-4 lg:translate-x-0 px-2 py-0.5 bg-smilo-gold text-smilo-brown text-xs font-semibold rounded-full flex items-center gap-1 whitespace-nowrap">
-                        <Sparkles className="w-3 h-3" />
-                        Populärast
-                      </span>
-                    )}
-                    <div className="flex flex-col gap-3 items-center text-center sm:flex-row sm:items-center sm:justify-between lg:text-left">
-                      <div className="flex items-center gap-3 min-w-0 justify-center sm:justify-start w-full sm:w-auto">
-                        <div className={`w-10 h-10 shrink-0 rounded-lg flex items-center justify-center ${
-                          selectedQuantity.quantity === option.quantity
-                            ? "bg-smilo-olive text-smilo-cream"
-                            : "bg-smilo-cream text-smilo-olive"
-                        }`}>
-                          <option.icon className="w-5 h-5" />
+              <div className="space-y-3 pt-2">
+                {quantityOptions.map((option) => {
+                  const selected = selectedQuantity.quantity === option.quantity;
+                  const perUnit = Math.round(option.price / option.quantity);
+                  const saving = option.originalPrice - option.price;
+                  return (
+                    <motion.button
+                      key={option.quantity}
+                      onClick={() => handleQuantityChange(option)}
+                      aria-pressed={selected}
+                      className={`group relative w-full rounded-2xl border-2 p-3.5 sm:p-4 text-left transition-all ${
+                        selected
+                          ? "border-smilo-olive bg-smilo-olive/[0.06] shadow-card"
+                          : "border-border bg-white hover:border-smilo-olive/50 hover:shadow-soft"
+                      }`}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.99 }}
+                    >
+                      {option.tag && (
+                        <span className="absolute -top-2.5 right-3 inline-flex items-center gap-1 rounded-full bg-smilo-gold px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-smilo-brown shadow-sm">
+                          <PartyPopper className="h-3 w-3" />
+                          {option.tag}
+                        </span>
+                      )}
+                      <div className="flex items-center gap-3">
+                        <span
+                          className={`relative flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                            selected ? "border-smilo-olive" : "border-smilo-brown/25 group-hover:border-smilo-olive/50"
+                          }`}
+                          aria-hidden
+                        >
+                          <span
+                            className={`h-2.5 w-2.5 rounded-full bg-smilo-olive transition-transform duration-200 ${
+                              selected ? "scale-100" : "scale-0"
+                            }`}
+                          />
+                        </span>
+                        <div
+                          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                            selected ? "bg-smilo-olive text-smilo-cream-light" : "bg-smilo-cream text-smilo-olive"
+                          }`}
+                        >
+                          <option.icon className="h-5 w-5" />
                         </div>
-                        <div className="min-w-0 text-center sm:text-left">
-                          <p className="font-semibold text-smilo-brown">{option.label}</p>
-                          <p className="text-xs text-muted-foreground line-clamp-2">{option.description}</p>
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold leading-tight text-smilo-brown">{option.label}</p>
+                          <p className="truncate text-xs text-muted-foreground">{option.description}</p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <p className="text-lg font-bold leading-none text-smilo-brown">{option.price} kr</p>
+                          <p className="mt-1 text-[11px] text-muted-foreground">{perUnit} kr/st</p>
                         </div>
                       </div>
-                      <div className="shrink-0 text-center sm:text-right w-full sm:w-auto">
-                        <p className="font-bold text-smilo-brown">{option.price} kr</p>
-                        {option.originalPrice > option.price && (
-                          <div className="flex items-center justify-center sm:justify-end gap-2 flex-wrap">
-                            <span className="text-xs text-muted-foreground line-through">{option.originalPrice} kr</span>
-                            <span className="text-xs font-semibold text-smilo-olive">
-                              Spara {option.originalPrice - option.price} kr
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
+                      {saving > 0 && (
+                        <div className="mt-3 flex items-center justify-end gap-2 border-t border-border/60 pt-2">
+                          <span className="text-xs text-muted-foreground line-through">{option.originalPrice} kr</span>
+                          <span className="rounded-full bg-smilo-olive/10 px-2 py-0.5 text-xs font-semibold text-smilo-olive">
+                            Spara {saving} kr
+                          </span>
+                        </div>
+                      )}
+                    </motion.button>
+                  );
+                })}
               </div>
             </div>
 
