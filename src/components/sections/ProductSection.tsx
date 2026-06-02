@@ -12,6 +12,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { CameraFlash } from "@/components/shared/CameraFlash";
 
 const MotionImage = motion(Image);
 
@@ -173,22 +175,25 @@ const ProductSection = () => {
             transition={{ duration: 0.6 }}
           >
             {/* Main Image */}
-            <div className="aspect-square rounded-lg overflow-hidden smilo-retro-frame bg-smilo-cream-light">
-              <AnimatePresence mode="wait">
-                <MotionImage
-                  key={activeImage}
-                  src={activeImage}
-                  alt={selectedColors[activeColorIndex]?.fullName || 'Smilo kamera'}
-                  width={900}
-                  height={900}
-                  className="w-full h-full object-contain p-5 sm:p-6 md:p-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </AnimatePresence>
-            </div>
+            <TiltCard className="block" max={10} scale={1.03}>
+              <div className="relative aspect-square rounded-lg overflow-hidden smilo-retro-frame bg-smilo-cream-light">
+                <AnimatePresence mode="wait">
+                  <MotionImage
+                    key={activeImage}
+                    src={activeImage}
+                    alt={selectedColors[activeColorIndex]?.fullName || 'Smilo kamera'}
+                    width={900}
+                    height={900}
+                    className="w-full h-full object-contain p-5 sm:p-6 md:p-8"
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.02 }}
+                    transition={{ duration: 0.25 }}
+                  />
+                </AnimatePresence>
+                <CameraFlash trigger={activeImage} />
+              </div>
+            </TiltCard>
 
             {/* Färgminiatyrer */}
             <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mt-3 sm:mt-4">
@@ -197,7 +202,7 @@ const ProductSection = () => {
                   key={color.id}
                   type="button"
                   onClick={() => handleColorChange(activeColorIndex, color)}
-                  className={`w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-white shadow-soft transition-all ${
+                  className={`relative smilo-flash-ring w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-lg sm:rounded-xl overflow-hidden bg-white shadow-soft transition-all hover:-translate-y-0.5 ${
                     selectedColors[activeColorIndex]?.id === color.id
                       ? 'ring-2 ring-smilo-olive ring-offset-2'
                       : 'hover:ring-2 hover:ring-smilo-olive/50'
@@ -346,7 +351,7 @@ const ProductSection = () => {
                         <motion.button
                           key={color.id}
                           onClick={() => handleColorChange(cameraIndex, color)}
-                          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all ${
+                          className={`relative smilo-flash-ring w-11 h-11 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all ${
                             selectedColors[cameraIndex]?.id === color.id
                               ? "border-smilo-olive ring-2 ring-smilo-olive/20"
                               : "border-transparent hover:border-smilo-olive/50"
@@ -410,7 +415,7 @@ const ProductSection = () => {
               <Button
                 variant="hero"
                 size="xl"
-                className="w-full mb-4"
+                className="w-full mb-4 smilo-shine"
                 onClick={handleCheckout}
                 disabled={isLoading}
               >

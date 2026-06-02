@@ -70,7 +70,7 @@ export function NewsletterSignup() {
         <button
           type="submit"
           disabled={isLoading}
-          className="shrink-0 rounded-full bg-smilo-gold text-smilo-brown font-semibold text-sm px-5 py-2.5 hover:brightness-105 active:scale-95 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="smilo-shine shrink-0 rounded-full bg-smilo-gold text-smilo-brown font-semibold text-sm px-5 py-2.5 hover:brightness-105 active:scale-95 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {isLoading ? (
             <>

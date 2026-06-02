@@ -1,9 +1,12 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { DevelopedPhoto } from "@/components/shared/DevelopedPhoto";
+import { TiltCard } from "@/components/shared/TiltCard";
+import { CameraFlash } from "@/components/shared/CameraFlash";
 
 const MotionImage = motion(Image);
 
@@ -35,6 +38,13 @@ const doubledPhotos = [...carouselPhotos, ...carouselPhotos];
 
 const HeroSection = () => {
   const reduceMotion = useReducedMotion();
+  const [flash, setFlash] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = setInterval(() => setFlash((f) => f + 1), 6500);
+    return () => clearInterval(id);
+  }, [reduceMotion]);
 
   return (
     <section className="relative min-h-[100dvh] bg-smilo-sepia/40 overflow-hidden flex flex-col border-b border-smilo-brown/10">
@@ -79,7 +89,7 @@ const HeroSection = () => {
             >
               <div className="smilo-film-frame inline-block w-full sm:w-auto">
                 <div className="smilo-film-frame__track smilo-film-frame__track--stack flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start p-2 sm:p-2.5">
-                  <Button variant="hero" size="lg" asChild>
+                  <Button variant="hero" size="lg" asChild className="smilo-shine">
                     <a href="#produkt">Köp nu</a>
                   </Button>
                   <Button variant="cream" size="lg" asChild className="smilo-btn-on-film">
@@ -96,19 +106,30 @@ const HeroSection = () => {
             initial={{ opacity: 0, x: 30, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
+            onHoverStart={() => setFlash((f) => f + 1)}
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-smilo-olive/10 blur-[60px] rounded-full scale-110" />
-              <MotionImage
-                src={heroCameraNoBg}
-                alt="Smilo Kamera"
-                width={520}
-                height={520}
-                className="relative w-48 sm:w-64 md:w-72 lg:w-96 xl:w-[26rem] max-w-[min(85vw,20rem)] drop-shadow-2xl"
-                animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
-                transition={reduceMotion ? undefined : { duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </div>
+            <TiltCard className="relative" max={14} scale={1.06}>
+              <div className="relative">
+                <div className="smilo-lens-glow absolute inset-0 -z-10 rounded-full bg-smilo-flash/20 blur-[70px] scale-110" />
+                <MotionImage
+                  src={heroCameraNoBg}
+                  alt="Smilo Kamera"
+                  width={520}
+                  height={520}
+                  className="relative w-48 sm:w-64 md:w-72 lg:w-96 xl:w-[26rem] max-w-[min(85vw,20rem)] drop-shadow-2xl"
+                  animate={reduceMotion ? undefined : { y: [0, -12, 0], rotate: [-1.5, 1.5, -1.5] }}
+                  transition={
+                    reduceMotion
+                      ? undefined
+                      : {
+                          y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                          rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
+                        }
+                  }
+                />
+                <CameraFlash trigger={flash} />
+              </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>
