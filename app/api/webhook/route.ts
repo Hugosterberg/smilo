@@ -51,16 +51,6 @@ async function isDuplicateEvent(eventId: string): Promise<boolean> {
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
-  const customerEmail = session.customer_details?.email ?? 'okänd';
-  const customerName = session.customer_details?.name ?? 'okänd';
-  const total = session.amount_total
-    ? `${(session.amount_total / 100).toFixed(0)} kr`
-    : 'okänd';
-  const colors = (session.metadata?.colors ?? 'okänd').split(',').join(', ');
-  const quantity = session.metadata?.quantity ?? '?';
-  const adapter = session.metadata?.adapter === 'yes' ? 'Ja' : 'Nej';
-  const orderId = session.id;
-
   // Leveransadressen flyttades till collected_information.shipping_details i nyare API-versioner;
   // faller tillbaka på toppnivå (äldre versioner) och customer_details som sista utväg.
   const shipping =
@@ -69,7 +59,22 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       shipping_details?: { address?: Stripe.Address; name?: string };
     }).shipping_details;
   const addr = shipping?.address ?? session.customer_details?.address ?? null;
+
+  const customerEmail = session.customer_details?.email ?? 'okänd';
+  // Faktureringsnamnet kan saknas – faller tillbaka på leveransmottagarens namn.
+  const customerName = session.customer_details?.name ?? shipping?.name ?? 'okänd';
   const recipientName = shipping?.name ?? customerName;
+  // amount_total kan vara 0 (t.ex. 100 %-rabattkod). 0 är falsy, så jämför mot null
+  // i stället – annars visas "okänd" för gratisordrar.
+  const total =
+    session.amount_total != null
+      ? `${(session.amount_total / 100).toFixed(0)} kr`
+      : 'okänd';
+  const colors = (session.metadata?.colors ?? 'okänd').split(',').join(', ');
+  const quantity = session.metadata?.quantity ?? '?';
+  const adapter = session.metadata?.adapter === 'yes' ? 'Ja' : 'Nej';
+  const orderId = session.id;
+
   const addressStr = addr
     ? [addr.line1, addr.line2, addr.postal_code, addr.city, addr.country]
         .filter(Boolean)
