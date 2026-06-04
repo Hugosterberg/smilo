@@ -4,6 +4,7 @@ import './globals.css'
 import { Providers } from './providers'
 import { Analytics } from '@/components/layout/Analytics'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { DiscountPopup } from '@/components/shared/DiscountPopup'
 import { organizationSchema, websiteSchema } from '@/lib/seo'
 
 const fraunces = Fraunces({
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
     locale: 'sv_SE',
     siteName: 'Smilo',
     url: 'https://smilo.se',
-    images: [{ url: '/smilo-og.png', width: 1200, height: 1200, alt: 'Smilo digital retrokamera' }],
+    images: [{ url: '/smilo-og.png', width: 1200, height: 630, alt: 'Smilo digital retrokamera' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
         <Providers>{children}</Providers>
+        <DiscountPopup />
         <Analytics />
       </body>
     </html>

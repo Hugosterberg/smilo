@@ -1,0 +1,4 @@
+# Supabase CLI – lokal state, ska aldrig checkas in
+.branches
+.temp
+.env

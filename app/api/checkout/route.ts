@@ -73,6 +73,9 @@ export async function POST(req: NextRequest) {
       success_url: `${origin}/tack?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#produkt`,
       locale: 'sv',
+      // Visar fältet "Lägg till kampanjkod" i kassan (t.ex. NY50). Själva rabatten
+      // definieras som en promotion code i Stripe – aldrig priser från klienten.
+      allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: ['SE'],
       },

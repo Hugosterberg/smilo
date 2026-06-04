@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
+import { escapeHtml } from '@/lib/escape-html';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,15 +11,6 @@ const contactSchema = z.object({
   subject: z.string().trim().min(1).max(200),
   message: z.string().trim().min(10).max(2000),
 });
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 export async function POST(req: NextRequest) {
   if (!process.env.RESEND_API_KEY) {

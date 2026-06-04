@@ -35,7 +35,7 @@ export const productSchema = {
   image: [
     `${SITE_URL}/smilo-og.png`,
     `${SITE_URL}/assets/smilo-black-transparent.png`,
-    `${SITE_URL}/assets/smilo-green-transparent.png`,
+    `${SITE_URL}/assets/smilo-white-transparent.png`,
   ],
   brand: { '@type': 'Brand', name: 'Smilo' },
   category: 'Digitalkamera',

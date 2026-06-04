@@ -18,7 +18,7 @@ import { CameraFlash } from "@/components/shared/CameraFlash";
 const MotionImage = motion.create(Image);
 
 const productBlack = "/assets/smilo-black-transparent.png";
-const productGreen = "/assets/smilo-green-transparent.png";
+const productWhite = "/assets/smilo-white-transparent.png";
 const productPink = "/assets/smilo-pink-transparent.png";
 const productBrown = "/assets/smilo-brown-transparent.png";
 
@@ -60,14 +60,13 @@ interface CameraColor {
   name: string;
   fullName: string;
   image: string;
-  colorClass: string;
 }
 
 const cameraColors: CameraColor[] = [
-  { id: "black", name: "Svart", fullName: "Smilo retro kamera – svart", image: productBlack, colorClass: "bg-zinc-900" },
-  { id: "green", name: "Grön", fullName: "Smilo retro kamera – grön", image: productGreen, colorClass: "bg-[#6B7B4B]" },
-  { id: "pink", name: "Rosa", fullName: "Smilo retro kamera – rosa", image: productPink, colorClass: "bg-[#D4A5A5]" },
-  { id: "brown", name: "Brun", fullName: "Smilo retro kamera – brun", image: productBrown, colorClass: "bg-[#8B5A3C]" },
+  { id: "black", name: "Svart", fullName: "Smilo retro kamera – svart", image: productBlack },
+  { id: "white", name: "Vit", fullName: "Smilo retro kamera – vit", image: productWhite },
+  { id: "pink", name: "Rosa", fullName: "Smilo retro kamera – rosa", image: productPink },
+  { id: "brown", name: "Brun", fullName: "Smilo retro kamera – brun", image: productBrown },
 ];
 
 // Quantity pricing options
