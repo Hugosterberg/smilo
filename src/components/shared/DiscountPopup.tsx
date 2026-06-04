@@ -188,7 +188,7 @@ export function DiscountPopup() {
                   Signa upp för uppdateringar från Smilo
                 </DialogTitle>
                 <DialogDescription className="mt-2 text-center text-sm leading-relaxed text-muted-foreground">
-                  Få nyheter och inspiration i inkorgen – och {DISCOUNT_AMOUNT_LABEL}{' '}
+                  Få nyheter och inspiration i inkorgen, och {DISCOUNT_AMOUNT_LABEL}{' '}
                   rabatt på ditt första köp direkt.
                 </DialogDescription>
 
@@ -250,7 +250,7 @@ export function DiscountPopup() {
                 </DialogTitle>
                 <DialogDescription className="mx-auto mt-1.5 max-w-xs text-sm leading-relaxed text-muted-foreground">
                   {alreadyMember
-                    ? 'Du är redan med i klubben! Här är din rabattkod – klicka på kortet för att kopiera den.'
+                    ? 'Du är redan med i klubben! Här är din rabattkod, klicka på kortet för att kopiera den.'
                     : `Vi har mejlat din rabattkod${email ? ` till ${email}` : ''}. Klicka på kortet för att kopiera den.`}
                 </DialogDescription>
 

@@ -2,26 +2,29 @@
 
 import { motion } from "framer-motion";
 import { DevelopedPhoto } from "@/components/shared/DevelopedPhoto";
-const gallery1 = "/assets/gallery-1.jpg";
-const gallery2 = "/assets/gallery-2.jpg";
-const gallery3 = "/assets/gallery-3.jpg";
-const gallery4 = "/assets/gallery-4.jpg";
-const gallery5 = "/assets/gallery-5.jpg";
-const gallery6 = "/assets/gallery-6.jpg";
-const gallery7 = "/assets/gallery-7.jpg";
-const gallery8 = "/assets/gallery-8.jpg";
-const gallery9 = "/assets/gallery-9.jpg";
-
+// Exempelbilder från olika tillfällen, medvetet omblandade så att bilder från
+// samma tillfälle (middag, sjö, kust, utomlands …) inte hamnar bredvid varandra.
 const images = [
-  { src: gallery1, alt: "Stilig kille i vit kavaj" },
-  { src: gallery2, alt: "Par på romantisk middag" },
-  { src: gallery3, alt: "Bästa vännerna i soffan" },
-  { src: gallery4, alt: "Matlagning med vänner i köket" },
-  { src: gallery5, alt: "Förrätt tillsammans" },
-  { src: gallery6, alt: "Skratt under middagsspelet" },
-  { src: gallery7, alt: "Stilig kille i kostym" },
-  { src: gallery8, alt: "Mysig middagsfest med vänner" },
-  { src: gallery9, alt: "Vinprovning vid bordet" },
+  { src: "/assets/gallery-10.jpg", alt: "Fika i sommarstugans trädgård" },
+  { src: "/assets/gallery-1.jpg", alt: "Stilig kille i vit kavaj" },
+  { src: "/assets/gallery-12.jpg", alt: "Björkar vid sjökanten en sommarkväll" },
+  { src: "/assets/gallery-2.jpg", alt: "Par på romantisk middag" },
+  { src: "/assets/gallery-15.jpg", alt: "Vid havet i vit hoodie" },
+  { src: "/assets/gallery-3.jpg", alt: "Bästa vännerna i soffan" },
+  { src: "/assets/gallery-18.jpg", alt: "Snorkling i havet" },
+  { src: "/assets/gallery-4.jpg", alt: "Matlagning med vänner i köket" },
+  { src: "/assets/gallery-11.jpg", alt: "Vid den röda ladan på landet" },
+  { src: "/assets/gallery-5.jpg", alt: "Förrätt tillsammans" },
+  { src: "/assets/gallery-13.jpg", alt: "Badbrygga en solig sommardag" },
+  { src: "/assets/gallery-6.jpg", alt: "Skratt under middagsspelet" },
+  { src: "/assets/gallery-16.jpg", alt: "Sommar i skärgårdshamnen" },
+  { src: "/assets/gallery-7.jpg", alt: "Stilig kille i kostym" },
+  { src: "/assets/gallery-20.jpg", alt: "Paintball bland träden" },
+  { src: "/assets/gallery-8.jpg", alt: "Mysig middagsfest med vänner" },
+  { src: "/assets/gallery-14.jpg", alt: "Kräftskiva vid vattnet" },
+  { src: "/assets/gallery-9.jpg", alt: "Vinprovning vid bordet" },
+  { src: "/assets/gallery-19.jpg", alt: "Kustby vid Medelhavet" },
+  { src: "/assets/gallery-17.jpg", alt: "Kajaker vid bryggan" },
 ];
 
 const GallerySection = () => {
