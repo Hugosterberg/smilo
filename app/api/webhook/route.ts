@@ -3,6 +3,11 @@ import Stripe from 'stripe';
 import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { escapeHtml } from '@/lib/escape-html';
+import {
+  orderEmailShell,
+  orderDetailRows,
+  orderTotalBox,
+} from '@/lib/order-email';
 
 // Signaturverifieringen använder Node:s crypto synkront – tvinga Node-runtime
 // (inte Edge) så constructEvent fungerar.
@@ -94,20 +99,21 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     to: 'info@smilo.se',
     replyTo: customerEmail !== 'okänd' ? customerEmail : undefined,
     subject: `Ny beställning – ${customerName} (${total})`,
-    html: `
-      <h2 style="font-family:sans-serif">Ny beställning på Smilo!</h2>
-      <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Order-ID</td><td>${orderId}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Kund</td><td>${safeName}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">E-post</td><td>${safeEmail}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Mottagare</td><td>${safeRecipient}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Leveransadress</td><td>${safeAddress}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Antal kameror</td><td>${quantity}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Färger</td><td>${safeColors}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">USB-C-adapter</td><td>${adapter}</td></tr>
-        <tr><td style="padding:6px 16px 6px 0;color:#666">Totalt</td><td><strong>${total}</strong></td></tr>
-      </table>
-    `,
+    html: orderEmailShell({
+      heading: 'Ny beställning! 🎉',
+      intro: 'En ny order har kommit in på Smilo. Här är detaljerna:',
+      body:
+        orderDetailRows([
+          ['Order-ID', orderId],
+          ['Kund', safeName],
+          ['E-post', safeEmail],
+          ['Mottagare', safeRecipient],
+          ['Leveransadress', safeAddress],
+          ['Antal kameror', quantity],
+          ['Färger', safeColors],
+          ['USB-C-adapter', adapter],
+        ]) + orderTotalBox(total),
+    }),
   }, 'admin');
 
   const customerEmailSend =
@@ -116,29 +122,22 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
           from: 'Smilo <noreply@smilo.se>',
           to: customerEmail,
           subject: 'Tack för din beställning hos Smilo!',
-          html: `
-            <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
-              <h1 style="font-size:24px;font-weight:600;letter-spacing:-0.5px">Tack för din beställning!</h1>
-              <p style="font-size:15px;line-height:1.6;color:#444">
-                Hej ${safeName}, vi har tagit emot din beställning och betalningen har gått igenom.
-                Vi packar och skickar din kamera så snart som möjligt – du får ett mejl när paketet är på väg.
-              </p>
-              <h2 style="font-size:16px;font-weight:600;margin-top:32px">Din beställning</h2>
-              <table style="border-collapse:collapse;font-size:14px;width:100%">
-                <tr><td style="padding:6px 16px 6px 0;color:#666">Antal kameror</td><td>${quantity}</td></tr>
-                <tr><td style="padding:6px 16px 6px 0;color:#666">Färger</td><td>${safeColors}</td></tr>
-                <tr><td style="padding:6px 16px 6px 0;color:#666">USB-C-adapter</td><td>${adapter}</td></tr>
-                <tr><td style="padding:6px 16px 6px 0;color:#666">Leveransadress</td><td>${safeAddress}</td></tr>
-                <tr><td style="padding:12px 16px 6px 0;color:#666;border-top:1px solid #eee">Totalt betalt</td><td style="padding-top:12px;border-top:1px solid #eee"><strong>${total}</strong></td></tr>
-              </table>
-              <p style="font-size:14px;line-height:1.6;color:#444;margin-top:32px">
-                Har du frågor om din order? Svara på det här mejlet eller kontakta oss på
-                <a href="mailto:info@smilo.se" style="color:#1a1a1a">info@smilo.se</a>.
-              </p>
-              <p style="font-size:13px;color:#999;margin-top:32px">Ordernummer: ${orderId}</p>
-              <p style="font-size:14px;color:#1a1a1a;margin-top:24px">Vänliga hälsningar,<br/>Smilo</p>
-            </div>
-          `,
+          html: orderEmailShell({
+            heading: 'Tack för din beställning!',
+            intro: `Hej ${safeName}, vi har tagit emot din beställning och betalningen har gått igenom. Vi packar och skickar din kamera så snart som möjligt – du får ett mejl när paketet är på väg.`,
+            body:
+              `<p style="margin:0 0 10px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#9a8f80">Din beställning</p>` +
+              orderDetailRows([
+                ['Antal kameror', quantity],
+                ['Färger', safeColors],
+                ['USB-C-adapter', adapter],
+                ['Leveransadress', safeAddress],
+              ]) +
+              orderTotalBox(total) +
+              `<p style="margin:26px 0 0;font-size:14px;line-height:1.65;color:#4a443d">Har du frågor om din order? Svara på det här mejlet eller kontakta oss på <a href="mailto:info@smilo.se" style="color:#6B7B4B;font-weight:500">info@smilo.se</a>.</p>
+               <p style="margin:18px 0 0;font-size:12px;color:#b3a995">Ordernummer: ${orderId}</p>
+               <p style="margin:20px 0 0;font-size:14px;color:#2a2018">Vänliga hälsningar,<br/>Smilo</p>`,
+          }),
         }, 'kund')
       : Promise.resolve<{ ok: boolean; error?: string }>({ ok: true });
 
