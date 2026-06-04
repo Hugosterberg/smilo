@@ -44,6 +44,9 @@ export function Analytics() {
   const choose = (value: Consent) => {
     localStorage.setItem(STORAGE_KEY, value);
     setConsent(value);
+    // Signalera att cookie-valet är gjort så att t.ex. rabatt-popupen kan
+    // armera sin timer utan att krocka med den här bannern.
+    window.dispatchEvent(new Event('smilo-cookie-consent'));
   };
 
   const hasTracking = hasIds && trackable;

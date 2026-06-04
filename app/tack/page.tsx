@@ -13,11 +13,12 @@ export default function TackPage() {
     <main className="min-h-[100dvh] bg-smilo-cream flex flex-col items-center justify-center px-6 py-10 text-center pt-[max(2.5rem,env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)]">
       <div className="max-w-md">
         <Image
-          src="/assets/smilo-retro-camera-2.png"
+          src="/assets/smilo-retro-camera-2-black.png"
           alt="Smilo"
-          width={160}
-          height={60}
-          className="h-12 w-auto mx-auto mb-10"
+          width={448}
+          height={448}
+          priority
+          className="h-44 w-44 sm:h-56 sm:w-56 object-contain mx-auto mb-4"
         />
 
         <div className="w-20 h-20 rounded-full bg-smilo-olive/10 flex items-center justify-center mx-auto mb-6">

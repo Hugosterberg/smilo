@@ -16,6 +16,8 @@ import { DISCOUNT_CODE, DISCOUNT_AMOUNT_LABEL } from '@/lib/discount';
 
 const STORAGE_KEY = 'smilo_discount_popup_v1';
 const SHOW_DELAY_MS = 8000;
+// Har besökaren bara sett (men inte anmält sig) visas popupen igen efter en vecka.
+const SHOW_AGAIN_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 
 // L-formade fokusparenteser i sökarens hörn – som en kameras AF-ram.
 function FocusBrackets() {
@@ -52,16 +54,45 @@ export function DiscountPopup() {
   const [flash, setFlash] = useState(0);
 
   useEffect(() => {
-    // Visa bara en gång per webbläsare och inte på tack-sidan.
-    if (localStorage.getItem(STORAGE_KEY)) return;
     if (window.location.pathname.startsWith('/tack')) return;
 
-    const timer = setTimeout(() => {
-      setOpen(true);
-      localStorage.setItem(STORAGE_KEY, 'seen');
-    }, SHOW_DELAY_MS);
+    const stored = localStorage.getItem(STORAGE_KEY);
+    // Redan anmäld → visa aldrig igen. Annars: visa igen först när en vecka gått.
+    if (stored === 'subscribed') return;
+    const lastSeen = Number(stored);
+    if (Number.isFinite(lastSeen) && Date.now() - lastSeen < SHOW_AGAIN_AFTER_MS) return;
 
-    return () => clearTimeout(timer);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const startTimer = () => {
+      timer = setTimeout(() => {
+        setOpen(true);
+        localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      }, SHOW_DELAY_MS);
+    };
+
+    // Krocka inte med cookie-bannern: om den fortfarande visas väntar vi tills
+    // besökaren gjort sitt cookie-val innan vi armerar popupen.
+    const host = window.location.hostname;
+    const isLocalHost =
+      host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+    const consent = localStorage.getItem('smilo-cookie-consent');
+    const bannerPending =
+      consent !== 'granted' &&
+      consent !== 'denied' &&
+      !isLocalHost &&
+      Boolean(process.env.NEXT_PUBLIC_GA_ID || process.env.NEXT_PUBLIC_CLARITY_ID);
+
+    if (!bannerPending) {
+      startTimer();
+      return () => clearTimeout(timer);
+    }
+
+    const onConsent = () => startTimer();
+    window.addEventListener('smilo-cookie-consent', onConsent, { once: true });
+    return () => {
+      window.removeEventListener('smilo-cookie-consent', onConsent);
+      clearTimeout(timer);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
