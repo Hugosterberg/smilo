@@ -39,7 +39,7 @@ const GallerySection = () => {
           transition={{ duration: 0.5 }}
           className="smilo-scroll-anchor text-center mb-8 sm:mb-12 pt-4 sm:pt-6 md:pt-8"
         >
-          <h2 className="smilo-heading-lg mb-4 text-smilo-brown">Bilder tagna med Smilo</h2>
+          <h2 className="smilo-heading-lg mb-4 text-smilo-brown">Samla minnen med Smilo</h2>
           <motion.div
             className="smilo-accent-bar"
             initial={{ scaleX: 0 }}
