@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, X, Menu } from "lucide-react";
+import { X, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -18,7 +18,6 @@ const navLinks = [
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -115,25 +114,6 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <motion.button
-              className="relative text-smilo-brown hover:text-smilo-olive transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Varukorg"
-            >
-              <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
-              {cartCount > 0 && (
-                <motion.span
-                  className="absolute -top-1 -right-1 w-4 h-4 bg-smilo-olive text-white text-[10px] rounded-full flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 500 }}
-                >
-                  {cartCount}
-                </motion.span>
-              )}
-            </motion.button>
-
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden nav-retro-btn nav-retro-btn-default px-3 py-2"

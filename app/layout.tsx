@@ -91,6 +91,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="sv" className={`${fraunces.variable} ${lora.variable}`}>
+      <head>
+        {/* Värm upp anslutningen till Stripe Checkout redan vid sidladdning så
+            redirecten efter "köp"-klicket slipper DNS- och TLS-handskakning. */}
+        <link rel="preconnect" href="https://checkout.stripe.com" />
+        <link rel="dns-prefetch" href="https://checkout.stripe.com" />
+      </head>
       <body className="antialiased">
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />

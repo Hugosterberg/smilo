@@ -116,6 +116,8 @@ const HeroSection = () => {
                   alt="Smilo Kamera"
                   width={520}
                   height={520}
+                  priority
+                  sizes="(max-width: 640px) 85vw, 320px"
                   className="relative w-48 sm:w-64 md:w-72 lg:w-96 xl:w-[26rem] max-w-[min(85vw,20rem)] drop-shadow-2xl"
                   animate={reduceMotion ? undefined : { y: [0, -12, 0], rotate: [-1.5, 1.5, -1.5] }}
                   transition={

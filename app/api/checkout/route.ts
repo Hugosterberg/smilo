@@ -10,17 +10,29 @@ const BUNDLE_PRICES: Record<number, number> = {
 
 const ADAPTER_PRICE_PER_UNIT = 9900; // 99 kr per adapter
 
+// Singleton på modulnivå – återanvänder keep-alive-anslutningen mot Stripe
+// mellan varma anrop så vi slipper en ny TLS-handskakning per köp.
+let stripeClient: Stripe | null = null;
+
+function getStripe(): Stripe | null {
+  if (!process.env.STRIPE_SECRET_KEY) return null;
+  if (!stripeClient) {
+    stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2026-04-22.dahlia',
+      telemetry: false,
+    });
+  }
+  return stripeClient;
+}
+
 export async function POST(req: NextRequest) {
-  if (!process.env.STRIPE_SECRET_KEY) {
+  const stripe = getStripe();
+  if (!stripe) {
     return NextResponse.json(
       { error: 'Betalningsfunktionen är inte konfigurerad.' },
       { status: 503 }
     );
   }
-
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2026-04-22.dahlia',
-  });
 
   try {
     const body = await req.json();
@@ -67,6 +79,8 @@ export async function POST(req: NextRequest) {
 
     const origin = req.headers.get('origin') ?? 'https://smilo.se';
 
+    const shippingRateId = process.env.STRIPE_SHIPPING_RATE_ID;
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: lineItems,
@@ -79,6 +93,9 @@ export async function POST(req: NextRequest) {
       shipping_address_collection: {
         allowed_countries: ['SE'],
       },
+      ...(shippingRateId
+        ? { shipping_options: [{ shipping_rate: shippingRateId }] }
+        : {}),
       metadata: {
         quantity: String(quantity),
         colors: colors.slice(0, quantity).join(','),
