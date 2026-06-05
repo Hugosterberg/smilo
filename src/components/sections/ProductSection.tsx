@@ -474,7 +474,7 @@ const ProductSection = () => {
               </Button>
             </motion.div>
             <p className="text-xs text-center text-muted-foreground mb-6">
-              40 kr frakt inom Sverige • Fri retur
+              49 kr frakt inom Sverige • Fri retur
             </p>
 
             {/* Trust Badges */}
@@ -544,7 +544,7 @@ const ProductSection = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="space-y-2 pb-4 text-sm text-muted-foreground text-center lg:text-left">
-                    <p>• 40 kr frakt inom Sverige</p>
+                    <p>• 49 kr frakt inom Sverige</p>
                     <p>• Leverans inom 2-4 arbetsdagar</p>
                     <p>• 30 dagars öppet köp</p>
                     <p>• Enkel returhantering</p>

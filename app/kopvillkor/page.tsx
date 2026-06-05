@@ -52,7 +52,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     body: (
       <p>
         Vi skickar din beställning inom 1–2 arbetsdagar och normal leveranstid är 2–4 arbetsdagar inom Sverige.
-        Frakten kostar 40 kr inom Sverige och vi skickar med PostNord. När paketet skickats får du en spårningslänk via e-post.
+        Frakten kostar 49 kr inom Sverige och vi skickar med PostNord. När paketet skickats får du en spårningslänk via e-post.
         Läs mer under <Link href="/leverans-faq" className="text-smilo-olive hover:underline">frakt &amp; leverans</Link>.
       </p>
     ),
