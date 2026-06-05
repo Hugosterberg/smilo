@@ -461,7 +461,7 @@ const ProductSection = () => {
                 {isLoading ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Skickar...
+                    Öppnar kassan…
                   </span>
                 ) : (
                   <>
