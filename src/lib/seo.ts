@@ -54,7 +54,7 @@ export const productSchema = {
     priceValidUntil: '2026-12-31',
     shippingDetails: {
       '@type': 'OfferShippingDetails',
-      shippingRate: { '@type': 'MonetaryAmount', value: '0', currency: 'SEK' },
+      shippingRate: { '@type': 'MonetaryAmount', value: '40', currency: 'SEK' },
       shippingDestination: {
         '@type': 'DefinedRegion',
         addressCountry: 'SE',

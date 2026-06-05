@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Frakt & leverans',
   description:
-    'Allt om frakt och leverans av din Smilo-kamera. Fri frakt inom Sverige och leverans inom 2–4 arbetsdagar.',
+    'Allt om frakt och leverans av din Smilo-kamera. 40 kr frakt inom Sverige och leverans inom 2–4 arbetsdagar.',
   alternates: { canonical: '/leverans-faq' },
 };
 
