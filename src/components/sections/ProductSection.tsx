@@ -178,6 +178,9 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
   const stockIssues = getStockRequestIssues(selectedColorIds, cameraColors);
   const canCheckout = totalCameraStock >= selectedQuantity.quantity && stockIssues.length === 0;
   const soldOutColors = cameraColors.filter((color) => color.stockQuantity <= 0);
+  const selectedSoldOutColor = selectedColors
+    .slice(0, selectedQuantity.quantity)
+    .find((color) => color.stockQuantity <= 0);
 
   const handleCheckout = async () => {
     if (!canCheckout) {
@@ -236,13 +239,13 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
 
   const handleColorChange = (colorIndex: number, color: CameraInventoryItem) => {
     const alreadySelectedCount = getSelectedColorCount(selectedColors, color.id, colorIndex);
-    if (alreadySelectedCount >= color.stockQuantity) {
+    const soldOut = color.stockQuantity <= 0;
+
+    if (!soldOut && alreadySelectedCount >= color.stockQuantity) {
       toast.error(
-        color.stockQuantity <= 0
-          ? `${color.name} är slutsåld.`
-          : `Det finns bara ${color.stockQuantity} kvar i ${color.name.toLocaleLowerCase(
-              "sv-SE"
-            )}.`
+        `Det finns bara ${color.stockQuantity} kvar i ${color.name.toLocaleLowerCase(
+          "sv-SE"
+        )}.`
       );
       return;
     }
@@ -305,14 +308,19 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                   getSelectedColorCount(selectedColors, color.id, activeColorIndex) >=
                   color.stockQuantity;
                 const soldOut = color.stockQuantity <= 0;
+                const disabled = unavailable && !soldOut;
                 return (
                   <button
                     key={color.id}
                     type="button"
                     onClick={() => handleColorChange(activeColorIndex, color)}
-                    disabled={unavailable}
+                    disabled={disabled}
                     className={`group/thumb relative smilo-flash-ring flex flex-col items-center gap-1.5 rounded-2xl bg-white p-2 transition-all hover:-translate-y-0.5 ${
-                      unavailable
+                      soldOut
+                        ? selected
+                          ? "cursor-pointer ring-2 ring-smilo-brown/35 ring-offset-2 shadow-soft"
+                          : "cursor-pointer opacity-80 ring-1 ring-smilo-brown/15 shadow-soft hover:opacity-100 hover:ring-smilo-brown/35"
+                        : disabled
                         ? "cursor-not-allowed opacity-45 grayscale ring-1 ring-border"
                         : selected
                         ? "ring-2 ring-smilo-olive ring-offset-2 shadow-card"
@@ -329,13 +337,21 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                       className="h-12 w-12 object-contain transition-transform duration-200 group-hover/thumb:scale-105 sm:h-14 sm:w-14 md:h-16 md:w-16"
                     />
                     {soldOut && (
-                      <span className="absolute right-1.5 top-1.5 rounded-full bg-smilo-brown px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-white">
+                      <span className="absolute right-1 top-1 rounded-full bg-smilo-brown/90 px-1.5 py-[1px] text-[7px] font-semibold uppercase leading-none tracking-[0.08em] text-white sm:right-1.5 sm:top-1.5 sm:text-[8px]">
                         Slut
                       </span>
                     )}
                     <span
                       className={`text-[10px] font-medium tracking-wide transition-colors sm:text-[11px] ${
-                        unavailable ? "text-muted-foreground" : selected ? "text-smilo-olive" : "text-muted-foreground"
+                        soldOut
+                          ? selected
+                            ? "text-smilo-brown"
+                            : "text-muted-foreground"
+                          : disabled
+                          ? "text-muted-foreground"
+                          : selected
+                          ? "text-smilo-olive"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {color.name}
@@ -387,7 +403,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                 </p>
               ) : soldOutColors.length > 0 ? (
                 <p className="mt-3 text-xs text-muted-foreground">
-                  Slutsålda färger markeras diskret och går inte att välja i kassan.
+                  Du kan öppna slutsålda färger för att se dem, men välj en färg i lager för att köpa.
                 </p>
               ) : null}
             </div>
@@ -520,60 +536,88 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
               </p>
 
               <div className="space-y-4">
-                {Array.from({ length: selectedQuantity.quantity }).map((_, cameraIndex) => (
-                  <div key={cameraIndex} className="space-y-2">
-                    {selectedQuantity.quantity > 1 && (
-                      <p className="text-xs font-semibold text-smilo-olive">
-                        Kamera {cameraIndex + 1}
-                      </p>
-                    )}
-                    <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-                      {cameraColors.map((color) => {
-                        const unavailable =
-                          getSelectedColorCount(selectedColors, color.id, cameraIndex) >=
-                          color.stockQuantity;
-                        const soldOut = color.stockQuantity <= 0;
+                {Array.from({ length: selectedQuantity.quantity }).map((_, cameraIndex) => {
+                  const selectedColor = selectedColors[cameraIndex];
+                  const selectedColorSoldOut = Boolean(
+                    selectedColor && selectedColor.stockQuantity <= 0
+                  );
 
-                        return (
-                          <motion.button
-                            key={color.id}
-                            type="button"
-                            onClick={() => handleColorChange(cameraIndex, color)}
-                            disabled={unavailable}
-                            aria-label={`${color.name}${soldOut ? " - slutsåld" : ""}`}
-                            className={`relative smilo-flash-ring h-11 w-11 overflow-hidden rounded-lg border-2 transition-all sm:h-12 sm:w-12 sm:rounded-xl ${
-                              unavailable
-                                ? "cursor-not-allowed border-border bg-white opacity-40 grayscale"
-                                : selectedColors[cameraIndex]?.id === color.id
-                                ? "border-smilo-olive ring-2 ring-smilo-olive/20"
-                                : "border-transparent hover:border-smilo-olive/50"
-                            }`}
-                            whileHover={unavailable ? undefined : { scale: 1.05 }}
-                            whileTap={unavailable ? undefined : { scale: 0.95 }}
-                          >
-                            <Image
-                              src={color.image}
-                              alt={color.name}
-                              width={48}
-                              height={48}
-                              className="h-full w-full bg-white object-contain p-0.5"
-                            />
-                            {soldOut && (
-                              <span
-                                aria-hidden
-                                className="absolute left-1/2 top-1/2 h-px w-14 -translate-x-1/2 -translate-y-1/2 -rotate-[32deg] bg-smilo-brown/60"
+                  return (
+                    <div key={cameraIndex} className="space-y-2">
+                      {selectedQuantity.quantity > 1 && (
+                        <p className="text-xs font-semibold text-smilo-olive">
+                          Kamera {cameraIndex + 1}
+                        </p>
+                      )}
+                      <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                        {cameraColors.map((color) => {
+                          const selected = selectedColor?.id === color.id;
+                          const unavailable =
+                            getSelectedColorCount(selectedColors, color.id, cameraIndex) >=
+                            color.stockQuantity;
+                          const soldOut = color.stockQuantity <= 0;
+                          const disabled = unavailable && !soldOut;
+
+                          return (
+                            <motion.button
+                              key={color.id}
+                              type="button"
+                              onClick={() => handleColorChange(cameraIndex, color)}
+                              disabled={disabled}
+                              aria-label={`${color.name}${soldOut ? " - slutsåld, visas endast" : ""}`}
+                              className={`relative smilo-flash-ring h-11 w-11 overflow-hidden rounded-lg border-2 transition-all sm:h-12 sm:w-12 sm:rounded-xl ${
+                                soldOut
+                                  ? selected
+                                    ? "cursor-pointer border-smilo-brown/45 bg-white ring-2 ring-smilo-brown/15"
+                                    : "cursor-pointer border-smilo-brown/15 bg-white/80 opacity-75 hover:border-smilo-brown/35 hover:opacity-100"
+                                  : disabled
+                                  ? "cursor-not-allowed border-border bg-white opacity-40 grayscale"
+                                  : selected
+                                  ? "border-smilo-olive ring-2 ring-smilo-olive/20"
+                                  : "border-transparent hover:border-smilo-olive/50"
+                              }`}
+                              whileHover={disabled ? undefined : { scale: 1.05 }}
+                              whileTap={disabled ? undefined : { scale: 0.95 }}
+                            >
+                              <Image
+                                src={color.image}
+                                alt={color.name}
+                                width={48}
+                                height={48}
+                                className="h-full w-full bg-white object-contain p-0.5"
                               />
-                            )}
-                          </motion.button>
-                        );
-                      })}
-                      <span className="w-full text-center text-xs text-muted-foreground sm:w-auto sm:text-left lg:text-left sm:self-center sm:ml-1 pt-0.5">
-                        {selectedColors[cameraIndex]?.name || 'Välj färg'}
-                      </span>
+                              {soldOut && (
+                                <span
+                                  aria-hidden
+                                  className="absolute right-0.5 top-0.5 rounded-full bg-smilo-brown/90 px-1 py-px text-[6px] font-semibold uppercase leading-none tracking-[0.04em] text-white sm:text-[7px]"
+                                >
+                                  Slut
+                                </span>
+                              )}
+                            </motion.button>
+                          );
+                        })}
+                        <span
+                          className={`w-full text-center text-xs sm:w-auto sm:text-left lg:text-left sm:self-center sm:ml-1 pt-0.5 ${
+                            selectedColorSoldOut ? "font-medium text-smilo-brown" : "text-muted-foreground"
+                          }`}
+                        >
+                          {selectedColor
+                            ? `${selectedColor.name}${selectedColorSoldOut ? " - slutsåld" : ""}`
+                            : "Välj färg"}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+
+              {selectedSoldOutColor && (
+                <p className="mt-3 rounded-xl border border-smilo-brown/15 bg-smilo-cream/70 px-3 py-2 text-center text-xs font-medium text-smilo-brown lg:text-left">
+                  {selectedSoldOutColor.name} är slutsåld just nu. Du kan titta på färgen,
+                  men den går inte att köpa.
+                </p>
+              )}
 
             </div>
 
