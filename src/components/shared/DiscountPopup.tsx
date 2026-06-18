@@ -54,7 +54,7 @@ export function DiscountPopup() {
   const [flash, setFlash] = useState(0);
 
   useEffect(() => {
-    if (window.location.pathname.startsWith('/tack')) return;
+    if (window.location.pathname.startsWith('/tack') || window.location.pathname.startsWith('/admin')) return;
 
     const stored = localStorage.getItem(STORAGE_KEY);
     // Redan anmäld → visa aldrig igen. Annars: visa igen först när en vecka gått.

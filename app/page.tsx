@@ -9,12 +9,19 @@ import HowItWorksSection from '@/components/sections/HowItWorksSection'
 import GallerySection from '@/components/sections/GallerySection'
 import FAQSection from '@/components/sections/FAQSection'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { productSchema, faqSchema } from '@/lib/seo'
+import { createProductSchema, faqSchema } from '@/lib/seo'
+import { readCameraInventory } from '@/lib/camera-inventory'
 
-export default function Home() {
+export const dynamic = 'force-dynamic'
+
+export default async function Home() {
+  const inventoryResult = await readCameraInventory()
+  const inventory = inventoryResult.items
+  const hasStock = inventory.some((item) => item.stockQuantity > 0)
+
   return (
     <div className="min-h-screen bg-background">
-      <JsonLd data={productSchema} />
+      <JsonLd data={createProductSchema(hasStock)} />
       <JsonLd data={faqSchema} />
       <HashScrollHandler />
       <Header />
@@ -22,7 +29,7 @@ export default function Home() {
         <HeroSection />
         <WhySmiloSection />
         <ComparisonSection />
-        <ProductSection />
+        <ProductSection inventory={inventory} inventoryError={inventoryResult.error} />
         <HowItWorksSection />
         <GallerySection />
         <FAQSection />

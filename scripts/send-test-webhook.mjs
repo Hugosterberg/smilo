@@ -19,6 +19,7 @@ const event = {
       object: 'checkout.session',
       amount_total: 134900,
       currency: 'sek',
+      payment_status: 'paid',
       customer_details: {
         email: 'hugo.osterberg@hotmail.se',
         name: 'Hugo Österberg',
@@ -42,7 +43,7 @@ const event = {
           },
         },
       },
-      metadata: { quantity: '2', colors: 'Svart,Grön', adapter: 'yes' },
+      metadata: { quantity: '2', colors: 'Svart, Vit', color_ids: 'black,white', adapter: 'yes' },
     },
   },
 };

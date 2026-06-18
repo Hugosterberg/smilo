@@ -1,27 +1,37 @@
 import { NextRequest, NextResponse, after } from 'next/server';
 import Stripe from 'stripe';
-import { Resend } from 'resend';
-import { getSupabaseAdmin } from '@/lib/supabase';
 import { escapeHtml } from '@/lib/escape-html';
 import {
   orderEmailShell,
   orderDetailRows,
   orderTotalBox,
 } from '@/lib/order-email';
+import {
+  getCameraColorById,
+  getCameraColorByName,
+  type CameraColorId,
+} from '@/lib/camera-colors';
+import { claimCheckoutInventory, releaseCheckoutInventory } from '@/lib/camera-inventory';
+import { getResend, type ResendEmailPayload } from '@/lib/resend';
 
 // Signaturverifieringen använder Node:s crypto synkront – tvinga Node-runtime
 // (inte Edge) så constructEvent fungerar.
 export const runtime = 'nodejs';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Resend kastar inte vid API-fel – det returnerar { data, error }. Den här
 // hjälparen normaliserar både kastade undantag och returnerade fel till ett enda
 // resultat så att inget misslyckat utskick passerar tyst.
 async function sendEmail(
-  payload: Parameters<typeof resend.emails.send>[0],
+  payload: ResendEmailPayload,
   label: string
 ): Promise<{ ok: boolean; error?: string }> {
+  const resend = getResend();
+  if (!resend) {
+    const error = 'RESEND_API_KEY saknas';
+    console.error(`Cannot send ${label} email: ${error}`);
+    return { ok: false, error };
+  }
+
   try {
     const { error } = await resend.emails.send(payload);
     if (error) {
@@ -35,24 +45,33 @@ async function sendEmail(
   }
 }
 
-// Idempotens: "claimar" event-id:t i databasen. Returnerar true om händelsen redan
-// är hanterad (då ska vi hoppa över). Stripe levererar minst en gång och kan skicka
-// samma händelse flera gånger – utan detta kan kunden få dubbla bekräftelsemail.
-async function isDuplicateEvent(eventId: string): Promise<boolean> {
-  const supabase = getSupabaseAdmin();
-  // Ingen idempotenslagring konfigurerad – fortsätt hellre än att tappa mailet.
-  if (!supabase) return false;
+function parseWebhookColorIds(
+  colorIdsValue: string | undefined,
+  colorsValue: string | undefined
+): CameraColorId[] {
+  const colorIds = (colorIdsValue ?? '')
+    .split(',')
+    .map((value) => getCameraColorById(value.trim())?.id)
+    .filter((colorId): colorId is CameraColorId => Boolean(colorId));
 
-  const { error } = await supabase
-    .from('processed_webhook_events')
-    .insert({ event_id: eventId });
+  if (colorIds.length > 0) {
+    return colorIds;
+  }
 
-  if (!error) return false; // claim lyckades → ny händelse
-  if (error.code === '23505') return true; // unique_violation → redan hanterad
+  return (colorsValue ?? '')
+    .split(',')
+    .map((value) => getCameraColorByName(value.trim())?.id)
+    .filter((colorId): colorId is CameraColorId => Boolean(colorId));
+}
 
-  // Annat DB-fel: logga men blockera inte utskicket.
-  console.error('Kunde inte claima webhook-event för idempotens:', error);
-  return false;
+function parseCheckoutQuantity(value: string | undefined): number | null {
+  const quantity = Number(value);
+  return Number.isInteger(quantity) && quantity > 0 ? quantity : null;
+}
+
+function getReservationId(session: Stripe.Checkout.Session): string | null {
+  const value = session.metadata?.reservation_id;
+  return value && value.trim() ? value : null;
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
@@ -233,20 +252,63 @@ export async function POST(req: NextRequest) {
     `Webhook mottagen: ${event.type} (${event.livemode ? 'live' : 'test'})`
   );
 
-  if (event.type === 'checkout.session.completed') {
+  if (
+    event.type === 'checkout.session.completed' ||
+    event.type === 'checkout.session.async_payment_succeeded'
+  ) {
     const session = event.data.object as Stripe.Checkout.Session;
-    const eventId = event.id;
+    const fulfillable =
+      event.type === 'checkout.session.async_payment_succeeded' ||
+      session.payment_status === 'paid' ||
+      session.payment_status === 'no_payment_required';
 
-    // Svara Stripe direkt och skicka mailen efteråt. Då hinner Stripe aldrig timea
-    // ut (vilket annars ger omförsök → dubbla mail). after() håller funktionen vid
-    // liv tills bakgrundsarbetet är klart.
-    after(async () => {
-      if (await isDuplicateEvent(eventId)) {
-        console.log(`Webhook ${eventId} redan hanterad – hoppar över.`);
-        return;
-      }
-      await handleCheckoutCompleted(session);
-    });
+    if (!fulfillable) {
+      return NextResponse.json({ received: true, fulfillable: false });
+    }
+
+    const colorIds = parseWebhookColorIds(session.metadata?.color_ids, session.metadata?.colors);
+    const quantity = parseCheckoutQuantity(session.metadata?.quantity);
+
+    if (!quantity || colorIds.length !== quantity) {
+      console.error('Checkout-session saknar giltig lagerdata:', {
+        eventId: event.id,
+        sessionId: session.id,
+        quantity: session.metadata?.quantity,
+        colorIds: session.metadata?.color_ids,
+        colors: session.metadata?.colors,
+      });
+      return NextResponse.json({ error: 'Invalid checkout inventory metadata' }, { status: 500 });
+    }
+
+    const claim = await claimCheckoutInventory(session.id, getReservationId(session), colorIds);
+    if (!claim.ok) {
+      console.error(`Order ${session.id} betalad men lager kunde inte minskas: ${claim.error}`);
+      return NextResponse.json({ error: 'Inventory update failed' }, { status: 500 });
+    }
+
+    if (claim.alreadyProcessed) {
+      console.log(`Checkout-session ${session.id} redan lagerhanterad – hoppar över.`);
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+
+    // Lager är nu atomiskt minskat och sessionen claimad. Mailen skickas efter
+    // 200-svaret så Stripe inte retryar bara för att e-postleverantören är långsam.
+    after(() => handleCheckoutCompleted(session));
+  }
+
+  if (
+    event.type === 'checkout.session.expired' ||
+    event.type === 'checkout.session.async_payment_failed'
+  ) {
+    const session = event.data.object as Stripe.Checkout.Session;
+    const release = await releaseCheckoutInventory(session.id, getReservationId(session));
+
+    if (!release.ok) {
+      console.error(`Kunde inte släppa lagerreservation för ${session.id}: ${release.error}`);
+      return NextResponse.json({ error: 'Inventory release failed' }, { status: 500 });
+    }
+
+    return NextResponse.json({ received: true, released: release.released === true });
   }
 
   return NextResponse.json({ received: true });

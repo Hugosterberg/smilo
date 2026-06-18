@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
 import { z } from 'zod';
 import { escapeHtml } from '@/lib/escape-html';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResend } from '@/lib/resend';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -13,7 +11,8 @@ const contactSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  if (!process.env.RESEND_API_KEY) {
+  const resend = getResend();
+  if (!resend) {
     return NextResponse.json(
       { error: 'Kontaktfunktionen är inte konfigurerad just nu.' },
       { status: 503 }

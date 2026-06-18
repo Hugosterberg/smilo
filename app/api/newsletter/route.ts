@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse, after } from 'next/server';
 import { z } from 'zod';
-import { Resend } from 'resend';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { DISCOUNT_CODE, DISCOUNT_AMOUNT_LABEL } from '@/lib/discount';
+import { getResend } from '@/lib/resend';
 
 export const runtime = 'nodejs';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 const newsletterSchema = z.object({
   email: z.string().trim().toLowerCase().email().max(255),
@@ -14,7 +12,9 @@ const newsletterSchema = z.object({
 });
 
 async function sendWelcomeEmail(email: string) {
-  if (!process.env.RESEND_API_KEY) return;
+  const resend = getResend();
+  if (!resend) return;
+
   try {
     const { error } = await resend.emails.send({
       from: 'Smilo <noreply@smilo.se>',
