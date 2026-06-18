@@ -5,6 +5,7 @@ create table if not exists public.camera_inventory (
   color_name text not null,
   stock_quantity integer not null default 0 check (stock_quantity >= 0),
   version integer not null default 1 check (version > 0),
+  manually_adjusted_at timestamptz,
   updated_at timestamptz not null default now()
 );
 
@@ -28,7 +29,7 @@ alter table public.processed_checkout_sessions enable row level security;
 create table if not exists public.camera_inventory_reservations (
   reservation_id text primary key,
   checkout_session_id text unique,
-  status text not null default 'reserved' check (status in ('reserved', 'completed', 'released')),
+  status text not null default 'reserved' check (status in ('reserved', 'pending_payment', 'completed', 'released')),
   expires_at timestamptz not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -98,10 +99,11 @@ set search_path = public
 as $$
 declare
   target_reservation_id text;
+  reservation_created_at timestamptz;
   item record;
 begin
-  select reservation_id
-    into target_reservation_id
+  select reservation_id, created_at
+    into target_reservation_id, reservation_created_at
     from public.camera_inventory_reservations
     where
       (p_reservation_id is not null and reservation_id = p_reservation_id)
@@ -118,7 +120,7 @@ begin
     set status = 'released',
         updated_at = now()
     where reservation_id = target_reservation_id
-      and status = 'reserved';
+      and status in ('reserved', 'pending_payment');
 
   if not found then
     return false;
@@ -134,7 +136,11 @@ begin
       set stock_quantity = stock_quantity + item.quantity,
           version = version + 1,
           updated_at = now()
-      where color_id = item.color_id;
+      where color_id = item.color_id
+        and (
+          manually_adjusted_at is null
+          or manually_adjusted_at < reservation_created_at
+        );
   end loop;
 
   return true;
@@ -143,6 +149,53 @@ $$;
 
 revoke execute on function public.release_checkout_inventory(text, text) from public, anon, authenticated;
 grant execute on function public.release_checkout_inventory(text, text) to service_role;
+
+create or replace function public.mark_checkout_inventory_pending(
+  p_checkout_session_id text,
+  p_reservation_id text
+)
+returns boolean
+language plpgsql
+set search_path = public
+as $$
+declare
+  target_reservation_id text;
+  current_status text;
+begin
+  select reservation_id, status
+    into target_reservation_id, current_status
+    from public.camera_inventory_reservations
+    where
+      (p_reservation_id is not null and reservation_id = p_reservation_id)
+      or (p_checkout_session_id is not null and checkout_session_id = p_checkout_session_id)
+    order by reservation_id
+    limit 1
+    for update;
+
+  if target_reservation_id is null then
+    return false;
+  end if;
+
+  if current_status in ('pending_payment', 'completed') then
+    return true;
+  end if;
+
+  if current_status <> 'reserved' then
+    return false;
+  end if;
+
+  update public.camera_inventory_reservations
+    set status = 'pending_payment',
+        checkout_session_id = coalesce(checkout_session_id, p_checkout_session_id),
+        updated_at = now()
+    where reservation_id = target_reservation_id;
+
+  return true;
+end;
+$$;
+
+revoke execute on function public.mark_checkout_inventory_pending(text, text) from public, anon, authenticated;
+grant execute on function public.mark_checkout_inventory_pending(text, text) to service_role;
 
 create or replace function public.release_expired_checkout_inventory()
 returns integer
@@ -288,7 +341,7 @@ begin
       where reservation_id = p_reservation_id
       for update;
 
-    if reservation_status = 'reserved' then
+    if reservation_status in ('reserved', 'pending_payment') then
       update public.camera_inventory_reservations
         set status = 'completed',
             checkout_session_id = coalesce(checkout_session_id, p_checkout_session_id),
@@ -375,6 +428,7 @@ begin
     update public.camera_inventory
       set stock_quantity = (update_row->>'stock_quantity')::integer,
           version = version + 1,
+          manually_adjusted_at = now(),
           updated_at = now()
       where color_id = update_row->>'color_id';
   end loop;

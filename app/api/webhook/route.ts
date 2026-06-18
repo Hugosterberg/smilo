@@ -11,7 +11,11 @@ import {
   getCameraColorByName,
   type CameraColorId,
 } from '@/lib/camera-colors';
-import { claimCheckoutInventory, releaseCheckoutInventory } from '@/lib/camera-inventory';
+import {
+  claimCheckoutInventory,
+  markCheckoutInventoryPending,
+  releaseCheckoutInventory,
+} from '@/lib/camera-inventory';
 import { getResend, type ResendEmailPayload } from '@/lib/resend';
 
 // Signaturverifieringen använder Node:s crypto synkront – tvinga Node-runtime
@@ -72,6 +76,34 @@ function parseCheckoutQuantity(value: string | undefined): number | null {
 function getReservationId(session: Stripe.Checkout.Session): string | null {
   const value = session.metadata?.reservation_id;
   return value && value.trim() ? value : null;
+}
+
+type WebhookSecretCandidate = {
+  name: string;
+  value: string;
+  livemode: boolean | null;
+};
+
+function getWebhookSecretCandidates(): WebhookSecretCandidate[] {
+  const candidates: WebhookSecretCandidate[] = [];
+
+  if (process.env.STRIPE_WEBHOOK_SECRET) {
+    candidates.push({
+      name: 'STRIPE_WEBHOOK_SECRET',
+      value: process.env.STRIPE_WEBHOOK_SECRET,
+      livemode: process.env.VERCEL_ENV === 'production' ? true : null,
+    });
+  }
+
+  if (process.env.VERCEL_ENV !== 'production' && process.env.STRIPE_WEBHOOK_SECRET_TEST) {
+    candidates.push({
+      name: 'STRIPE_WEBHOOK_SECRET_TEST',
+      value: process.env.STRIPE_WEBHOOK_SECRET_TEST,
+      livemode: false,
+    });
+  }
+
+  return candidates;
 }
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
@@ -199,19 +231,13 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 export async function POST(req: NextRequest) {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
 
-  // En slutpunkt kan ta emot både test- och live-händelser, men varje läge har sin
-  // egen signeringshemlighet. Vi provar alla konfigurerade hemligheter och låter den
-  // som matchar avgöra. Lägg test-lägets whsec_… i STRIPE_WEBHOOK_SECRET_TEST.
-  const webhookSecrets = [
-    process.env.STRIPE_WEBHOOK_SECRET,
-    process.env.STRIPE_WEBHOOK_SECRET_TEST,
-  ].filter((s): s is string => Boolean(s));
+  const webhookSecrets = getWebhookSecretCandidates();
 
   if (webhookSecrets.length === 0 || !stripeKey) {
     console.error(
       'Webhook saknar konfiguration:',
       !stripeKey && 'STRIPE_SECRET_KEY',
-      webhookSecrets.length === 0 && 'STRIPE_WEBHOOK_SECRET / STRIPE_WEBHOOK_SECRET_TEST'
+      webhookSecrets.length === 0 && 'STRIPE_WEBHOOK_SECRET'
     );
     return NextResponse.json({ error: 'Webhook not configured' }, { status: 503 });
   }
@@ -227,10 +253,12 @@ export async function POST(req: NextRequest) {
 
   // Prova varje hemlighet – den första som verifierar signaturen vinner.
   let event: Stripe.Event | null = null;
+  let matchedSecret: WebhookSecretCandidate | null = null;
   let lastError: unknown;
   for (const secret of webhookSecrets) {
     try {
-      event = stripe.webhooks.constructEvent(body, signature, secret);
+      event = stripe.webhooks.constructEvent(body, signature, secret.value);
+      matchedSecret = secret;
       break;
     } catch (err) {
       lastError = err;
@@ -242,10 +270,23 @@ export async function POST(req: NextRequest) {
     // signeringshemlighet i Stripe stämmer inte med någon av env-variablerna.
     console.error(
       'Webhook-signaturen kunde inte verifieras mot någon konfigurerad hemlighet ' +
-        '(STRIPE_WEBHOOK_SECRET / STRIPE_WEBHOOK_SECRET_TEST):',
+        '(STRIPE_WEBHOOK_SECRET' +
+        (process.env.VERCEL_ENV !== 'production' ? ' / STRIPE_WEBHOOK_SECRET_TEST' : '') +
+        '):',
       lastError instanceof Error ? lastError.message : lastError
     );
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
+  }
+
+  if (
+    !matchedSecret ||
+    (matchedSecret.livemode !== null && event.livemode !== matchedSecret.livemode)
+  ) {
+    console.error('Webhook-läge matchar inte signeringshemligheten:', {
+      eventLivemode: event.livemode,
+      secret: matchedSecret?.name,
+    });
+    return NextResponse.json({ error: 'Webhook mode mismatch' }, { status: 400 });
   }
 
   console.log(
@@ -263,7 +304,27 @@ export async function POST(req: NextRequest) {
       session.payment_status === 'no_payment_required';
 
     if (!fulfillable) {
-      return NextResponse.json({ received: true, fulfillable: false });
+      const reservationId = getReservationId(session);
+      if (!reservationId) {
+        console.error(
+          `Checkout-session ${session.id} inväntar async betalning men saknar reservation_id.`
+        );
+        return NextResponse.json({
+          received: true,
+          fulfillable: false,
+          missingReservation: true,
+        });
+      }
+
+      const pending = await markCheckoutInventoryPending(session.id, reservationId);
+      if (!pending.ok || !pending.marked) {
+        console.error(
+          `Checkout-session ${session.id} inväntar async betalning men reservationen kunde inte låsas: ${pending.error}`
+        );
+        return NextResponse.json({ error: 'Inventory reservation pending failed' }, { status: 500 });
+      }
+
+      return NextResponse.json({ received: true, fulfillable: false, pendingPayment: true });
     }
 
     const colorIds = parseWebhookColorIds(session.metadata?.color_ids, session.metadata?.colors);

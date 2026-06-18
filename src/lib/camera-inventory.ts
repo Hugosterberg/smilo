@@ -183,6 +183,28 @@ export async function releaseCheckoutInventory(
   return { ok: true, released: data === true };
 }
 
+export async function markCheckoutInventoryPending(
+  checkoutSessionId: string,
+  reservationId: string | null
+): Promise<ReservationResult & { marked?: boolean }> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) {
+    return { ok: false, error: "Supabase är inte konfigurerat för lagerhantering." };
+  }
+
+  const { data, error } = await supabase.rpc("mark_checkout_inventory_pending", {
+    p_checkout_session_id: checkoutSessionId,
+    p_reservation_id: reservationId,
+  });
+
+  if (error) {
+    console.error("Kunde inte markera lagerreservation som väntande betalning:", error);
+    return { ok: false, error: "Lagerreservationen kunde inte markeras som väntande." };
+  }
+
+  return { ok: true, marked: data === true };
+}
+
 export async function decrementCameraInventory(
   colorIds: CameraColorId[]
 ): Promise<{ ok: boolean; error?: string }> {
