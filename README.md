@@ -28,8 +28,9 @@ Kräver en `.env.local`-fil med Supabase- och Stripe-nycklar för full funktiona
 ## Admin och lager
 
 `/admin` låter behörig admin uppdatera antal kameror i lager per färg. Sätt
-`SMILO_ADMIN_PASSWORD` i Vercel/lokalt och kör Supabase-migrationen för
-`camera_inventory` innan funktionen används i produktion.
+`SMILO_ADMIN_PASSWORD`, `NEXT_PUBLIC_SUPABASE_URL` och servernyckeln
+`SUPABASE_SECRET_KEY` eller `SUPABASE_SERVICE_ROLE_KEY` i Vercel/lokalt. Kör
+Supabase-migrationen för `camera_inventory` innan funktionen används i produktion.
 
 ## Projektstruktur
 
