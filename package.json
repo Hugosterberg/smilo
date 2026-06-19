@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "supabase:db:push": "supabase db push",
+    "supabase:gen:types": "supabase gen types typescript --linked --schema public > src/types/supabase.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
