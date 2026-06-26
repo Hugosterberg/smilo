@@ -78,6 +78,10 @@ function getReservationId(session: Stripe.Checkout.Session): string | null {
   return value && value.trim() ? value : null;
 }
 
+function isPaymentLinkSession(session: Stripe.Checkout.Session): boolean {
+  return typeof session.payment_link === 'string' && session.payment_link.trim().length > 0;
+}
+
 type WebhookSecretCandidate = {
   name: string;
   value: string;
@@ -334,10 +338,25 @@ export async function POST(req: NextRequest) {
       console.error('Checkout-session saknar giltig lagerdata:', {
         eventId: event.id,
         sessionId: session.id,
+        paymentLink: session.payment_link,
         quantity: session.metadata?.quantity,
         colorIds: session.metadata?.color_ids,
         colors: session.metadata?.colors,
       });
+
+      if (isPaymentLinkSession(session)) {
+        console.warn(
+          `Checkout-session ${session.id} kommer fran Stripe Payment Link utan lager-metadata. ` +
+            'Hoppar over lagerminskning och skickar ordermail som manuell order.'
+        );
+        after(() => handleCheckoutCompleted(session));
+        return NextResponse.json({
+          received: true,
+          manualPaymentLink: true,
+          inventorySkipped: true,
+        });
+      }
+
       return NextResponse.json({ error: 'Invalid checkout inventory metadata' }, { status: 500 });
     }
 
