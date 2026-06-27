@@ -56,12 +56,16 @@ const specs = [
   { label: "Storlek", value: "Ca 115 × 65 × 34 mm" },
 ];
 
-// Quantity pricing options
+// Ordinarie pris per kamera. Kampanjpriserna nedan är vad kunden faktiskt
+// betalar – det ordinarie priset används endast för att visa besparingen.
+const REGULAR_UNIT_PRICE = 899;
+
+// Quantity pricing options. `originalPrice` räknas ut från ordinarie styckpris
+// så att besparingen alltid stämmer mot 899 kr/kamera.
 const quantityOptions = [
   {
     quantity: 1,
     price: 749,
-    originalPrice: 749,
     label: "1 kamera",
     description: "Perfekt för dig",
     icon: Camera,
@@ -70,7 +74,6 @@ const quantityOptions = [
   {
     quantity: 2,
     price: 1349,
-    originalPrice: 1498,
     label: "2 kameror",
     description: "En till dig & en till en vän",
     icon: Gift,
@@ -79,7 +82,6 @@ const quantityOptions = [
   {
     quantity: 3,
     price: 1899,
-    originalPrice: 2247,
     label: "3 kameror",
     description: "Hela gänget inför resan",
     icon: Users,
@@ -88,13 +90,15 @@ const quantityOptions = [
   {
     quantity: 5,
     price: 2995,
-    originalPrice: 3745,
     label: "5 kameror",
     description: "En till alla – fånga hela kvällen",
     icon: PartyPopper,
     tag: "Till festen!" as string | null,
   },
-];
+].map((option) => ({
+  ...option,
+  originalPrice: REGULAR_UNIT_PRICE * option.quantity,
+}));
 
 interface ProductSectionProps {
   inventory?: CameraInventoryItem[];
@@ -217,6 +221,8 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
 
   const adapterPrice = adapterAdded ? 99 * selectedQuantity.quantity : 0;
   const totalPrice = selectedQuantity.price + adapterPrice;
+  const totalSaving = selectedQuantity.originalPrice - selectedQuantity.price;
+  const originalTotalPrice = selectedQuantity.originalPrice + adapterPrice;
 
   const handleQuantityChange = (option: typeof quantityOptions[0]) => {
     if (option.quantity > totalCameraStock) {
@@ -470,14 +476,22 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                           </p>
                         </div>
                         <div className="shrink-0 text-right">
-                          <p className="text-lg font-bold leading-none text-smilo-brown">{option.price} kr</p>
-                          <p className="mt-1 text-[11px] text-muted-foreground">{perUnit} kr/st</p>
+                          <p className="text-[11px] leading-none text-muted-foreground/70 line-through decoration-smilo-flash/60 decoration-2">
+                            {REGULAR_UNIT_PRICE} kr/st
+                          </p>
+                          <p className="mt-1 text-lg font-bold leading-none text-smilo-brown">{option.price} kr</p>
+                          <p className="mt-1 text-[11px] font-medium text-smilo-olive">{perUnit} kr/st</p>
                         </div>
                       </div>
                       {saving > 0 && (
-                        <div className="mt-3 flex items-center justify-end gap-2 border-t border-border/60 pt-2">
-                          <span className="text-xs text-muted-foreground line-through">{option.originalPrice} kr</span>
-                          <span className="rounded-full bg-smilo-olive/10 px-2 py-0.5 text-xs font-semibold text-smilo-olive">
+                        <div className="mt-3 flex items-center justify-between gap-2 border-t border-border/60 pt-2">
+                          <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                            Ordinarie{" "}
+                            <span className="font-medium text-smilo-brown/70 line-through decoration-smilo-flash/70 decoration-2">
+                              {option.originalPrice} kr
+                            </span>
+                          </span>
+                          <span className="inline-flex items-center gap-1 rounded-full bg-smilo-olive/10 px-2.5 py-0.5 text-xs font-semibold text-smilo-olive ring-1 ring-smilo-olive/20">
                             Spara {saving} kr
                           </span>
                         </div>
@@ -492,15 +506,27 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
             <div className="flex flex-col items-center gap-3 mb-6 p-4 rounded-xl bg-smilo-cream/50 sm:flex-row sm:items-center sm:gap-4 lg:items-center">
               <div>
                 <p className="text-xs text-muted-foreground mb-1">Totalt</p>
-                <motion.p
-                  className="text-2xl sm:text-3xl font-bold text-smilo-brown"
-                  key={totalPrice}
-                  initial={{ scale: 1.1 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {totalPrice} kr
-                </motion.p>
+                <div className="flex items-baseline gap-2">
+                  <motion.p
+                    className="text-2xl sm:text-3xl font-bold text-smilo-brown"
+                    key={totalPrice}
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {totalPrice} kr
+                  </motion.p>
+                  {totalSaving > 0 && (
+                    <span className="text-sm text-muted-foreground line-through decoration-smilo-flash/60 decoration-2">
+                      {originalTotalPrice} kr
+                    </span>
+                  )}
+                </div>
+                {totalSaving > 0 && (
+                  <p className="mt-0.5 text-xs font-semibold text-smilo-olive">
+                    Du sparar {totalSaving} kr
+                  </p>
+                )}
               </div>
               <div className="flex items-center justify-center gap-1 text-smilo-gold flex-wrap sm:ml-auto lg:ml-auto">
                 {Array.from({ length: 5 }).map((_, i) => (
