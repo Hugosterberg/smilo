@@ -6,6 +6,7 @@ import WhySmiloSection from '@/components/sections/WhySmiloSection'
 import ComparisonSection from '@/components/sections/ComparisonSection'
 import ProductSection from '@/components/sections/ProductSection'
 import HowItWorksSection from '@/components/sections/HowItWorksSection'
+import FilterSection from '@/components/sections/FilterSection'
 import GallerySection from '@/components/sections/GallerySection'
 import FAQSection from '@/components/sections/FAQSection'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -31,6 +32,7 @@ export default async function Home() {
         <ComparisonSection />
         <ProductSection inventory={inventory} inventoryError={inventoryResult.error} />
         <HowItWorksSection />
+        <FilterSection />
         <GallerySection />
         <FAQSection />
       </main>
