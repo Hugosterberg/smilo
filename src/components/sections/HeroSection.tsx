@@ -11,27 +11,27 @@ import { CameraFlash } from "@/components/shared/CameraFlash";
 const MotionImage = motion.create(Image);
 
 const heroCameraNoBg = "/assets/smilo-black-transparent.png";
-const carousel1 = "/assets/carousel-1.jpg";
-const carousel2 = "/assets/carousel-2.jpg";
-const carousel3 = "/assets/carousel-3.jpg";
-const carousel4 = "/assets/carousel-4.jpg";
-const carousel5 = "/assets/carousel-5.jpg";
-const carousel6 = "/assets/carousel-6.jpg";
-const carousel7 = "/assets/carousel-7.jpg";
-const carousel8 = "/assets/carousel-8.jpg";
-const carousel9 = "/assets/carousel-9.jpg";
-const carousel10 = "/assets/carousel-10.jpg";
-const carousel11 = "/assets/carousel-11.jpg";
-const carousel12 = "/assets/carousel-12.jpg";
-const carousel13 = "/assets/carousel-13.jpg";
-const carousel14 = "/assets/carousel-14.jpg";
-const carousel15 = "/assets/carousel-15.jpg";
-const carousel16 = "/assets/carousel-16.jpg";
 
+// Exempelbilder tagna med Smilo, omblandade så att liknande motiv inte
+// hamnar bredvid varandra i den rullande raden.
 const carouselPhotos = [
-  carousel1, carousel2, carousel3, carousel4, carousel5,
-  carousel6, carousel7, carousel8, carousel9, carousel10,
-  carousel11, carousel12, carousel13, carousel14, carousel15, carousel16
+  "/assets/example-3.jpg",
+  "/assets/example-8.jpg",
+  "/assets/example-13.jpg",
+  "/assets/example-1.jpg",
+  "/assets/example-6.jpg",
+  "/assets/example-11.jpg",
+  "/assets/example-16.jpg",
+  "/assets/example-4.jpg",
+  "/assets/example-9.jpg",
+  "/assets/example-14.jpg",
+  "/assets/example-2.jpg",
+  "/assets/example-7.jpg",
+  "/assets/example-12.jpg",
+  "/assets/example-17.jpg",
+  "/assets/example-5.jpg",
+  "/assets/example-10.jpg",
+  "/assets/example-15.jpg",
 ];
 
 const doubledPhotos = [...carouselPhotos, ...carouselPhotos];

@@ -10,8 +10,7 @@ const RULES = [
   // Loggor – visas bara some små logotyper i header/footer.
   { test: /^smilo-retro-camera-2-black\.png$/i, kind: 'png', maxWidth: 256 }, // header (max ~96px)
   { test: /^smilo-retro-camera-2\.png$/i, kind: 'png', maxWidth: 360 }, // footer (max ~144px)
-  { test: /^carousel-\d+\.jpe?g$/i, kind: 'jpeg', maxWidth: 640 },
-  { test: /^gallery-\d+\.jpe?g$/i, kind: 'jpeg', maxWidth: 640 },
+  { test: /^example-\d+\.jpe?g$/i, kind: 'jpeg', maxWidth: 800 },
 ];
 
 const kb = (n) => (n / 1024).toFixed(1).padStart(8) + ' KB';

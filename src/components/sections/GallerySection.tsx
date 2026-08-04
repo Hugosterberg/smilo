@@ -2,29 +2,26 @@
 
 import { motion } from "framer-motion";
 import { DevelopedPhoto } from "@/components/shared/DevelopedPhoto";
-// Exempelbilder från olika tillfällen, medvetet omblandade så att bilder från
-// samma tillfälle (middag, sjö, kust, utomlands …) inte hamnar bredvid varandra.
+// Exempelbilder tagna med Smilo, omblandade så att liknande motiv inte
+// hamnar bredvid varandra i rutnätet.
 const images = [
-  { src: "/assets/gallery-10.jpg", alt: "Fika i sommarstugans trädgård" },
-  { src: "/assets/gallery-1.jpg", alt: "Stilig kille i vit kavaj" },
-  { src: "/assets/gallery-12.jpg", alt: "Björkar vid sjökanten en sommarkväll" },
-  { src: "/assets/gallery-2.jpg", alt: "Par på romantisk middag" },
-  { src: "/assets/gallery-15.jpg", alt: "Vid havet i vit hoodie" },
-  { src: "/assets/gallery-3.jpg", alt: "Bästa vännerna i soffan" },
-  { src: "/assets/gallery-18.jpg", alt: "Snorkling i havet" },
-  { src: "/assets/gallery-4.jpg", alt: "Matlagning med vänner i köket" },
-  { src: "/assets/gallery-11.jpg", alt: "Vid den röda ladan på landet" },
-  { src: "/assets/gallery-5.jpg", alt: "Förrätt tillsammans" },
-  { src: "/assets/gallery-13.jpg", alt: "Badbrygga en solig sommardag" },
-  { src: "/assets/gallery-6.jpg", alt: "Skratt under middagsspelet" },
-  { src: "/assets/gallery-16.jpg", alt: "Sommar i skärgårdshamnen" },
-  { src: "/assets/gallery-7.jpg", alt: "Stilig kille i kostym" },
-  { src: "/assets/gallery-20.jpg", alt: "Paintball bland träden" },
-  { src: "/assets/gallery-8.jpg", alt: "Mysig middagsfest med vänner" },
-  { src: "/assets/gallery-14.jpg", alt: "Kräftskiva vid vattnet" },
-  { src: "/assets/gallery-9.jpg", alt: "Vinprovning vid bordet" },
-  { src: "/assets/gallery-19.jpg", alt: "Kustby vid Medelhavet" },
-  { src: "/assets/gallery-17.jpg", alt: "Kajaker vid bryggan" },
+  { src: "/assets/example-1.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-8.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-15.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-5.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-12.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-2.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-9.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-16.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-6.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-13.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-3.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-10.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-17.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-7.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-14.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-4.jpg", alt: "Bild tagen med Smilo-kameran" },
+  { src: "/assets/example-11.jpg", alt: "Bild tagen med Smilo-kameran" },
 ];
 
 const GallerySection = () => {
