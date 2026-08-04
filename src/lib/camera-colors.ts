@@ -2,6 +2,8 @@ const productBlack = "/assets/smilo-black-transparent.png";
 const productWhite = "/assets/smilo-white-transparent.png";
 const productPink = "/assets/smilo-pink-transparent.png";
 const productBrown = "/assets/smilo-brown-transparent.png";
+const productTurquoise = "/assets/smilo-turquoise-transparent.png";
+const productGreen = "/assets/smilo-green-transparent.png";
 
 export const DEFAULT_CAMERA_STOCK_QUANTITY = 10;
 
@@ -10,6 +12,8 @@ export const CAMERA_COLORS = [
   { id: "white", name: "Vit", fullName: "Smilo retro kamera - vit", image: productWhite },
   { id: "pink", name: "Rosa", fullName: "Smilo retro kamera - rosa", image: productPink },
   { id: "brown", name: "Brun", fullName: "Smilo retro kamera - brun", image: productBrown },
+  { id: "turquoise", name: "Turkos", fullName: "Smilo retro kamera - turkos", image: productTurquoise },
+  { id: "green", name: "Grön", fullName: "Smilo retro kamera - grön", image: productGreen },
 ] as const;
 
 export type CameraColor = (typeof CAMERA_COLORS)[number];
