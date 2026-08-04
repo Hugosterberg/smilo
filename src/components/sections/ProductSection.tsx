@@ -307,7 +307,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
             </TiltCard>
 
             {/* Färgminiatyrer */}
-            <div className="mt-4 flex flex-wrap justify-center gap-2.5 sm:gap-3">
+            <div className="mt-4 grid grid-cols-6 gap-1.5 sm:gap-2.5">
               {cameraColors.map((color) => {
                 const selected = selectedColors[activeColorIndex]?.id === color.id;
                 const unavailable =
@@ -321,7 +321,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                     type="button"
                     onClick={() => handleColorChange(activeColorIndex, color)}
                     disabled={disabled}
-                    className={`group/thumb relative smilo-flash-ring flex flex-col items-center gap-1.5 rounded-2xl bg-white p-2 transition-all hover:-translate-y-0.5 ${
+                    className={`group/thumb relative smilo-flash-ring flex min-w-0 flex-col items-center gap-1.5 rounded-2xl bg-white p-1.5 transition-all hover:-translate-y-0.5 sm:p-2 ${
                       soldOut
                         ? selected
                           ? "cursor-pointer ring-2 ring-smilo-brown/35 ring-offset-2 shadow-soft"
@@ -340,7 +340,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                       alt={color.fullName}
                       width={80}
                       height={80}
-                      className="h-12 w-12 object-contain transition-transform duration-200 group-hover/thumb:scale-105 sm:h-14 sm:w-14 md:h-16 md:w-16"
+                      className="aspect-square w-full object-contain transition-transform duration-200 group-hover/thumb:scale-105"
                     />
                     {soldOut && (
                       <span className="absolute right-1 top-1 rounded-full bg-smilo-brown/90 px-1.5 py-[1px] text-[7px] font-semibold uppercase leading-none tracking-[0.08em] text-white sm:right-1.5 sm:top-1.5 sm:text-[8px]">
