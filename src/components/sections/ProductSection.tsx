@@ -426,6 +426,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                   return (
                     <motion.button
                       key={option.quantity}
+                      type="button"
                       onClick={() => handleQuantityChange(option)}
                       disabled={unavailable}
                       aria-pressed={selected}
@@ -590,6 +591,7 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                               type="button"
                               onClick={() => handleColorChange(cameraIndex, color)}
                               disabled={disabled}
+                              aria-pressed={selected}
                               aria-label={`${color.name}${soldOut ? " - slutsåld, visas endast" : ""}`}
                               className={`relative smilo-flash-ring h-11 w-11 overflow-hidden rounded-lg border-2 transition-all sm:h-12 sm:w-12 sm:rounded-xl ${
                                 soldOut
@@ -651,6 +653,10 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
             <div className="mb-6 p-4 rounded-xl bg-smilo-cream border border-smilo-gold/20 text-center lg:text-left">
               <label className="flex flex-col items-center gap-3 cursor-pointer sm:flex-row sm:items-start lg:items-start">
                 <motion.button
+                  type="button"
+                  role="checkbox"
+                  aria-checked={adapterAdded}
+                  aria-label="Lägg till USB-C-adapter"
                   onClick={() => setAdapterAdded(!adapterAdded)}
                   className={`mt-0.5 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors ${
                     adapterAdded

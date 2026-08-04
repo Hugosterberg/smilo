@@ -4,15 +4,16 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 // Åtta inbyggda filter som väljs direkt i kameran innan bilden tas.
-// Ordnade så färg- och svartvita filter grupperas snyggt.
+// Omblandade så liknande filter (Natural/Boost, Mono/Noir) inte ligger
+// bredvid varandra — varken horisontellt eller vertikalt i 4-kolumnsrutnätet.
 const filters = [
   { id: 'natural', name: 'Natural' },
-  { id: 'boost', name: 'Boost' },
-  { id: 'polar', name: 'Polar' },
-  { id: 'vintage', name: 'Vintage' },
-  { id: 'retro', name: 'Retro' },
-  { id: 'filmic', name: 'Filmic' },
   { id: 'mono', name: 'Mono' },
+  { id: 'vintage', name: 'Vintage' },
+  { id: 'polar', name: 'Polar' },
+  { id: 'filmic', name: 'Filmic' },
+  { id: 'retro', name: 'Retro' },
+  { id: 'boost', name: 'Boost' },
   { id: 'noir', name: 'Noir' },
 ] as const
 

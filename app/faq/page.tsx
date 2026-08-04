@@ -20,7 +20,7 @@ const faqs = [
       { question: "Är detta en engångskamera?", answer: "Nej. Smilo är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning." },
       { question: "Kan jag se bilderna direkt?", answer: "Nej. Kameran har ingen skärm – medvetet. Det skapar en mer genuin upplevelse där du fokuserar på ögonblicket istället för att granska varje bild." },
       { question: "Hur många bilder får plats?", answer: "Kameran levereras med ett 4GB minneskort som rymmer ca 1300 bilder. Behöver du mer lagring? Kameran stöder minneskort upp till 16GB (ca 5000 bilder). När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna." },
-      { question: "Vilken upplösning har bilderna?", answer: "Bilderna har en retro-inspirerad upplösning som ger den där autentiska känslan. Perfekt för sociala medier och utskrifter i mindre format." },
+      { question: "Vilken upplösning har bilderna?", answer: "Bilderna tas i 12 MP – skarpt nog för sociala medier och utskrifter, men med den där varma retrokänslan i färgerna." },
     ],
   },
   {
@@ -42,7 +42,7 @@ const faqs = [
     category: "Köp & retur",
     questions: [
       { question: "Hur funkar retur?", answer: "Vi erbjuder fri retur inom 30 dagar. Om du inte är nöjd, kontakta oss så ordnar vi en retursedel." },
-      { question: "Får jag rabatt om jag köper flera?", answer: "Ja! Vi erbjuder mängdrabatt: 2 kameror för 1199 kr (spara 371 kr) eller 3 kameror för 1649 kr (spara 706 kr)." },
+      { question: "Får jag rabatt om jag köper flera?", answer: "Ja! Vi erbjuder mängdrabatt: 2 kameror för 1349 kr (spara 449 kr), 3 kameror för 1899 kr (spara 798 kr) eller 5 kameror för 2995 kr (spara 1500 kr)." },
       { question: "Finns det garanti?", answer: "Ja, alla kameror har 12 månaders garanti mot tillverkningsfel." },
     ],
   },

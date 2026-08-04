@@ -506,6 +506,11 @@
     font-size: 0.58rem;
   }
 
+  .nav-retro-btn:focus-visible {
+    outline: 2px solid hsl(var(--smilo-flash));
+    outline-offset: 2px;
+  }
+
   @media (min-width: 768px) {
     .nav-retro-btn {
       letter-spacing: 0.12em;

@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { DevelopedPhoto } from "@/components/shared/DevelopedPhoto";
+
 // Exempelbilder tagna med Smilo, omblandade så att liknande motiv inte
-// hamnar bredvid varandra i rutnätet.
+// hamnar bredvid varandra.
 const images = [
   { src: "/assets/example-1.jpg", alt: "Bild tagen med Smilo-kameran" },
   { src: "/assets/example-8.jpg", alt: "Bild tagen med Smilo-kameran" },
@@ -23,6 +24,36 @@ const images = [
   { src: "/assets/example-4.jpg", alt: "Bild tagen med Smilo-kameran" },
   { src: "/assets/example-11.jpg", alt: "Bild tagen med Smilo-kameran" },
 ];
+
+// Tre snören: 6 + 6 + 5 — sista raden centreras så den inte känns "trasig".
+const rows = [
+  images.slice(0, 6),
+  images.slice(6, 12),
+  images.slice(12),
+] as const;
+
+// Deterministisk "slump" per foto — tilt + vertikal förskjutning.
+const HANG = [
+  { rotate: -3.5, y: 6 },
+  { rotate: 2.2, y: -4 },
+  { rotate: -1.4, y: 10 },
+  { rotate: 3.8, y: 2 },
+  { rotate: -2.6, y: -8 },
+  { rotate: 1.6, y: 8 },
+  { rotate: 2.8, y: -2 },
+  { rotate: -3.2, y: 12 },
+  { rotate: 1.1, y: 4 },
+  { rotate: -2.0, y: -6 },
+  { rotate: 3.4, y: 8 },
+  { rotate: -1.8, y: 0 },
+  { rotate: 2.5, y: -10 },
+  { rotate: -3.0, y: 6 },
+  { rotate: 1.9, y: 10 },
+  { rotate: -2.4, y: -4 },
+  { rotate: 3.1, y: 2 },
+] as const;
+
+const ROW_OFFSETS = [0, 6, 12] as const;
 
 const GallerySection = () => {
   return (
@@ -55,28 +86,74 @@ const GallerySection = () => {
           </p>
         </motion.div>
 
-        <div className="mx-auto grid max-w-3xl grid-cols-3 gap-3 sm:gap-4 sm:max-w-4xl sm:grid-cols-4 sm:gap-5 lg:max-w-5xl lg:grid-cols-5 lg:gap-6">
-          {images.map((image, index) => (
+        <div className="mx-auto flex max-w-5xl flex-col gap-10 sm:gap-14 lg:gap-16">
+          {rows.map((row, rowIndex) => (
             <motion.div
-              key={index}
-              className="flex min-w-0 justify-center"
-              initial={{ opacity: 0, y: 30 }}
+              key={rowIndex}
+              className="relative"
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              whileHover={{ scale: 1.03 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, delay: rowIndex * 0.08 }}
             >
-              <DevelopedPhoto
-                src={image.src}
-                alt={image.alt}
-                index={index}
-                aspect="square"
-                tilt
-                preserveQuality
-                priority={index < 4}
-                sizes="(min-width: 1024px) 168px, (min-width: 640px) 152px, 128px"
-                className="w-full max-w-[7.5rem] sm:max-w-[9rem] md:max-w-[9.75rem] lg:max-w-[10.25rem]"
+              {/* Snöre */}
+              <div
+                className="pointer-events-none absolute left-[2%] right-[2%] top-3 h-px bg-gradient-to-r from-transparent via-smilo-brown/35 to-transparent sm:top-4"
+                aria-hidden
               />
+              <div
+                className="pointer-events-none absolute left-[2%] right-[2%] top-[13px] h-px bg-smilo-brown/10 sm:top-[17px]"
+                aria-hidden
+              />
+
+              <ul className="relative flex flex-wrap items-start justify-center gap-x-2 gap-y-6 px-1 pt-5 sm:gap-x-3 sm:gap-y-8 sm:px-2 sm:pt-6 md:gap-x-4 lg:gap-x-5">
+                {row.map((image, colIndex) => {
+                  const index = ROW_OFFSETS[rowIndex] + colIndex;
+                  const hang = HANG[index % HANG.length];
+
+                  return (
+                    <motion.li
+                      key={image.src}
+                      className="relative list-none"
+                      style={{
+                        rotate: `${hang.rotate}deg`,
+                        y: hang.y,
+                      }}
+                      initial={{ opacity: 0, y: 28 }}
+                      whileInView={{ opacity: 1, y: hang.y }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.45, delay: colIndex * 0.05 }}
+                      whileHover={{
+                        scale: 1.06,
+                        y: hang.y - 6,
+                        rotate: hang.rotate * 0.35,
+                        zIndex: 20,
+                        transition: { duration: 0.25 },
+                      }}
+                    >
+                      {/* Klädnypa / pinne över snöret */}
+                      <span
+                        className="absolute left-1/2 top-0 z-20 flex -translate-x-1/2 -translate-y-[calc(50%-2px)] flex-col items-center"
+                        aria-hidden
+                      >
+                        <span className="h-3 w-[7px] rounded-[1px] bg-gradient-to-b from-smilo-flash to-smilo-flash-dark shadow-sm sm:h-3.5 sm:w-2" />
+                        <span className="mt-[-1px] h-1.5 w-1.5 rounded-full bg-smilo-brown/50" />
+                      </span>
+
+                      <DevelopedPhoto
+                        src={image.src}
+                        alt={image.alt}
+                        index={index}
+                        aspect="square"
+                        preserveQuality
+                        priority={index < 4}
+                        sizes="(min-width: 1024px) 168px, (min-width: 640px) 152px, 128px"
+                        className="w-[6.75rem] sm:w-[8.25rem] md:w-[9rem] lg:w-[9.5rem]"
+                      />
+                    </motion.li>
+                  );
+                })}
+              </ul>
             </motion.div>
           ))}
         </div>

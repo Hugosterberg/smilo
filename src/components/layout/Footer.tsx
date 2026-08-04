@@ -223,7 +223,7 @@ const Footer = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
             >
-              © 2025 Smilo
+              © {new Date().getFullYear()} Smilo
               <span className="inline-block">✨</span>
               <span className="text-smilo-cream/30">|</span>
               <span>Designad i Sverige</span>

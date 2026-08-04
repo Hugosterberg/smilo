@@ -37,6 +37,8 @@ export function createProductSchema(inStock = true) {
       `${SITE_URL}/smilo-og.png`,
       `${SITE_URL}/assets/smilo-black-transparent.png`,
       `${SITE_URL}/assets/smilo-white-transparent.png`,
+      `${SITE_URL}/assets/smilo-pink-transparent.png`,
+      `${SITE_URL}/assets/smilo-brown-transparent.png`,
       `${SITE_URL}/assets/smilo-turquoise-transparent.png`,
       `${SITE_URL}/assets/smilo-green-transparent.png`,
     ],

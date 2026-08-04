@@ -6,6 +6,32 @@ import Image from "next/image";
 
 const productBlack = "/assets/smilo-black-transparent.png";
 
+const ComparisonMark = ({ has, emphasized = false }: { has: boolean; emphasized?: boolean }) => (
+  <div className="flex justify-center">
+    {has ? (
+      <div
+        className={
+          emphasized
+            ? "w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-smilo-olive flex items-center justify-center shrink-0"
+            : "w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-smilo-olive/40 flex items-center justify-center shrink-0"
+        }
+      >
+        <Check
+          className={
+            emphasized ? "w-3.5 h-3.5 sm:w-5 sm:h-5 text-white" : "w-3 h-3 sm:w-4 sm:h-4 text-smilo-olive/60"
+          }
+          aria-hidden
+        />
+      </div>
+    ) : (
+      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center shrink-0">
+        <X className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" aria-hidden />
+      </div>
+    )}
+    <span className="sr-only">{has ? "Ja" : "Nej"}</span>
+  </div>
+);
+
 const comparisonFeatures = [
   { feature: "Retro-känsla i bilderna", smilo: true, disposable: true, polaroid: true },
   { feature: "Skärmfri & utan distraktioner", smilo: true, disposable: true, polaroid: true },
@@ -65,14 +91,14 @@ const ComparisonSection = () => {
 
               <div className="min-w-0 text-center">
                 <div className="w-10 h-10 sm:w-20 sm:h-20 mx-auto mb-1.5 sm:mb-3 rounded-xl sm:rounded-2xl bg-muted flex items-center justify-center">
-                  <span className="text-lg sm:text-3xl opacity-60">📷</span>
+                  <span className="text-lg sm:text-3xl opacity-60" aria-hidden>📷</span>
                 </div>
                 <p className="text-[9px] sm:text-xs text-muted-foreground">Engångs</p>
               </div>
 
               <div className="min-w-0 text-center">
                 <div className="w-10 h-10 sm:w-20 sm:h-20 mx-auto mb-1.5 sm:mb-3 rounded-xl sm:rounded-2xl bg-muted flex items-center justify-center">
-                  <span className="text-lg sm:text-3xl opacity-60">🖼️</span>
+                  <span className="text-lg sm:text-3xl opacity-60" aria-hidden>🖼️</span>
                 </div>
                 <p className="text-[9px] sm:text-xs text-muted-foreground">Polaroid</p>
               </div>
@@ -92,41 +118,9 @@ const ComparisonSection = () => {
                     {item.feature}
                   </p>
 
-                  <div className="flex justify-center">
-                    {item.smilo ? (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-smilo-olive flex items-center justify-center shrink-0">
-                        <Check className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-white" />
-                      </div>
-                    ) : (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center shrink-0">
-                        <X className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex justify-center">
-                    {item.disposable ? (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-smilo-olive/40 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 sm:w-4 sm:h-4 text-smilo-olive/60" />
-                      </div>
-                    ) : (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center shrink-0">
-                        <X className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex justify-center">
-                    {item.polaroid ? (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-smilo-olive/40 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 sm:w-4 sm:h-4 text-smilo-olive/60" />
-                      </div>
-                    ) : (
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-muted flex items-center justify-center shrink-0">
-                        <X className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
+                  <ComparisonMark has={item.smilo} emphasized />
+                  <ComparisonMark has={item.disposable} />
+                  <ComparisonMark has={item.polaroid} />
                 </motion.div>
               ))}
             </div>

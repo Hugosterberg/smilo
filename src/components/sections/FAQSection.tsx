@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import {
   Accordion,
   AccordionContent,
@@ -31,6 +32,24 @@ const FAQSection = () => {
             </AccordionItem>
           ))}
         </Accordion>
+
+        <p className="smilo-body-sm mt-8 text-center text-smilo-brown-light">
+          Fler frågor?{" "}
+          <Link
+            href="/faq"
+            className="font-semibold text-smilo-brown underline decoration-smilo-flash/50 underline-offset-4 transition-colors hover:text-smilo-olive"
+          >
+            Se alla vanliga frågor
+          </Link>{" "}
+          eller{" "}
+          <Link
+            href="/kontakt"
+            className="font-semibold text-smilo-brown underline decoration-smilo-flash/50 underline-offset-4 transition-colors hover:text-smilo-olive"
+          >
+            kontakta oss
+          </Link>
+          .
+        </p>
       </div>
     </section>
   );

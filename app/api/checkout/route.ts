@@ -93,12 +93,26 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  let parsedBody: unknown;
   try {
-    const body = await req.json();
-    const { quantity, adapterAdded } = body as {
-      quantity: number;
-      adapterAdded: boolean;
+    parsedBody = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Ogiltig förfrågan.' }, { status: 400 });
+  }
+
+  if (typeof parsedBody !== 'object' || parsedBody === null) {
+    return NextResponse.json({ error: 'Ogiltig förfrågan.' }, { status: 400 });
+  }
+
+  try {
+    const body = parsedBody as {
+      quantity?: unknown;
+      adapterAdded?: unknown;
+      colorIds?: unknown;
+      colors?: unknown;
     };
+    const quantity = typeof body.quantity === 'number' ? body.quantity : NaN;
+    const adapterAdded = body.adapterAdded === true;
 
     if (![1, 2, 3, 5].includes(quantity)) {
       return NextResponse.json({ error: 'Ogiltigt antal' }, { status: 400 });
