@@ -12,7 +12,7 @@ export default function NotFound() {
           <p className="smilo-retro-label mb-4">Fel ruta på filmrullen</p>
           <h1 className="smilo-heading-xl mb-4 text-smilo-brown">404</h1>
           <p className="smilo-body mb-8 text-smilo-brown-light">
-            Sidan du letar efter finns inte – men kameran gör det.
+            Sidan du letar efter finns inte, men kameran gör det.
           </p>
           <Button variant="hero" size="lg" asChild>
             <Link href="/">Tillbaka till startsidan</Link>

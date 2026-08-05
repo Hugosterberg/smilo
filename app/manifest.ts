@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Smilo – Digital retrokamera',
     short_name: 'Smilo',
     description:
-      'Smart digitalkamera utan skärm – ett återanvändbart alternativ till engångskameran.',
+      'Smart digitalkamera utan skärm, ett återanvändbart alternativ till engångskameran.',
     start_url: '/',
     display: 'standalone',
     lang: 'sv-SE',

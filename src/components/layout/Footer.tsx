@@ -51,7 +51,7 @@ const Footer = () => {
                 </p>
                 <p className="text-sm text-balance">
                   Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
-                  Därför skapade vi Smilo – en digital kamera utan skärm, som låter dig ta bilden och fortsätta leva.
+                  Därför skapade vi Smilo, en digital kamera utan skärm som låter dig ta bilden och fortsätta leva.
                 </p>
                 <p className="text-sm text-balance">
                   Designad i Sverige för vardag, fest och alla stunder däremellan.
@@ -81,7 +81,7 @@ const Footer = () => {
                 </p>
                 <p className="text-sm text-balance">
                   Vi älskar bilder, men märkte hur ofta mobilen tog över ögonblicket.
-                  Därför skapade vi Smilo – en digital kamera utan skärm, som låter dig ta bilden och fortsätta leva.
+                  Därför skapade vi Smilo, en digital kamera utan skärm som låter dig ta bilden och fortsätta leva.
                 </p>
                 <p className="text-sm flex items-center gap-2 text-balance">
                   <Heart className="w-4 h-4 shrink-0 text-smilo-gold fill-smilo-gold" />

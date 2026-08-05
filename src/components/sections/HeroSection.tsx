@@ -78,7 +78,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.25 }}
             >
-              En digital kamera utan skärm. Ta bilder – och fortsätt leva i stunden.
+              En digital kamera utan skärm. Ta bilder och fortsätt leva i stunden.
             </motion.p>
 
             <motion.div

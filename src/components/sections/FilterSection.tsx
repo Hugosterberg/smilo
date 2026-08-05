@@ -40,7 +40,7 @@ const FilterSection = () => {
             Samma ögonblick, åtta stämningar. Välj känsla redan när du fotar.
           </p>
           <p className="smilo-body-sm text-smilo-brown-light/70 max-w-xl mx-auto">
-            Filtret läggs på direkt i kameran — ingen redigering i efterhand.
+            Filtret läggs på direkt i kameran, ingen redigering i efterhand.
           </p>
         </motion.div>
 

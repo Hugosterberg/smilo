@@ -321,7 +321,7 @@ export default function ContactPage() {
                   <Truck className="w-8 h-8 mb-4 opacity-80" />
                   <h3 className="font-display text-xl font-bold mb-2">Behöver du snabbt svar?</h3>
                   <p className="text-white/80 text-sm">
-                    Kolla in vanliga frågor om leverans – kanske hittar du svaret direkt!
+                    Kolla in vanliga frågor om leverans, kanske hittar du svaret direkt!
                   </p>
                 </Link>
               </motion.div>

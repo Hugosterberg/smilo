@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: '%s | Smilo',
   },
   description:
-    'Smart digitalkamera utan skärm – ett återanvändbart alternativ till engångskameran. Ta bilden i stunden och för enkelt över den till mobilen via USB-C. 49 kr frakt inom Sverige, fri retur.',
+    'Smart digitalkamera utan skärm, ett återanvändbart alternativ till engångskameran. Ta bilden i stunden och för enkelt över den till mobilen via USB-C. 49 kr frakt inom Sverige, fri retur.',
   keywords: [
     'engångskamera',
     'digitalkamera',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Smilo – Smart digitalkamera utan skärm',
     description:
-      'Digitalkamera utan skärm och ett återanvändbart alternativ till engångskameran. Ta bilder, lev vidare – för över till mobilen via USB-C. 49 kr frakt inom Sverige, fri retur.',
+      'Digitalkamera utan skärm och ett återanvändbart alternativ till engångskameran. Ta bilder, lev vidare och för över till mobilen via USB-C. 49 kr frakt inom Sverige, fri retur.',
     type: 'website',
     locale: 'sv_SE',
     siteName: 'Smilo',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Smilo – Smart digitalkamera utan skärm',
     description:
-      'Digitalkamera utan skärm – ett återanvändbart alternativ till engångskameran. För över bilderna till mobilen via USB-C.',
+      'Digitalkamera utan skärm, ett återanvändbart alternativ till engångskameran. För över bilderna till mobilen via USB-C.',
     images: ['/smilo-og.png'],
   },
   icons: {

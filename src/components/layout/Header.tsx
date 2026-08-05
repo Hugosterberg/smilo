@@ -108,7 +108,7 @@ const Header = () => {
                     onClick={handleNavClick(link.href)}
                     aria-label={
                       link.variant === "action"
-                        ? "Smilo in action – bilder tagna med Smilo"
+                        ? "Smilo in action, bilder tagna med Smilo"
                         : undefined
                     }
                     className="px-2 py-1 md:px-2.5 md:py-1.5 xl:px-4 xl:py-2"
@@ -196,7 +196,7 @@ const Header = () => {
                         large
                         aria-label={
                           link.variant === "action"
-                            ? "Smilo in action – bilder tagna med Smilo"
+                            ? "Smilo in action, bilder tagna med Smilo"
                             : undefined
                         }
                       />

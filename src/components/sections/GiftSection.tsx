@@ -8,7 +8,7 @@ import { SELECT_QUANTITY_EVENT } from "@/components/sections/ProductSection";
 const giftOccasions = ["Studenten", "Födelsedagen", "Julklappen", "Bröllopsparet"];
 
 const partyPoints = [
-  "En kamera per bord – gästerna fotar, ni får minnena",
+  "En kamera per bord, gästerna fotar och ni får minnena",
   "Inga appar eller QR-koder som ingen orkar använda",
   "599 kr per kamera i stället för 899 kr",
 ];
@@ -44,7 +44,7 @@ const GiftSection = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           />
           <p className="smilo-body text-smilo-brown-light max-w-xl mx-auto">
-            Smilo är presenten som skapar minnen – och festens bästa gäst.
+            Smilo är presenten som skapar minnen och festens bästa gäst.
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ const GiftSection = () => {
             <h3 className="smilo-heading-md mb-2 text-smilo-brown">Presenten som alltid uppskattas</h3>
             <p className="smilo-body-sm mb-4 text-smilo-brown-light">
               En kamera i handen i stället för ännu ett presentkort. Mottagaren
-              fotar, minns och lever i stunden – långt efter att paketet öppnats.
+              fotar, minns och lever i stunden, långt efter att paketet öppnats.
             </p>
             <div className="mb-6 flex flex-wrap gap-2">
               {giftOccasions.map((occasion) => (
@@ -94,10 +94,10 @@ const GiftSection = () => {
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-smilo-cream-light/15">
               <PartyPopper className="h-6 w-6 text-smilo-cream-light" aria-hidden />
             </div>
-            <h3 className="smilo-heading-md mb-2 text-smilo-cream-light">Festpaketet – 5 kameror</h3>
+            <h3 className="smilo-heading-md mb-2 text-smilo-cream-light">Festpaketet med 5 kameror</h3>
             <p className="smilo-body-sm mb-4 text-smilo-cream-light/85">
               Perfekt till bröllopet, studentskivan eller födelsedagsfesten.
-              Samla hela kvällen genom gästernas ögon – äkta och oredigerat.
+              Samla hela kvällen genom gästernas ögon, äkta och oredigerat.
             </p>
             <ul className="mb-6 space-y-2">
               {partyPoints.map((point) => (

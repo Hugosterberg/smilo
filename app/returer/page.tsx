@@ -55,7 +55,7 @@ export default function ReturnsPage() {
             </span>
             <h1 className="smilo-heading-xl text-smilo-brown mb-4">Returer & byten</h1>
             <p className="smilo-body text-muted-foreground">
-              Inte helt nöjd? Ingen fara. Du har 30 dagars öppet köp och vi bjuder på returfrakten –
+              Inte helt nöjd? Ingen fara. Du har 30 dagars öppet köp och vi bjuder på returfrakten,
               så att du kan handla med ro i magen.
             </p>
           </motion.div>
@@ -130,7 +130,7 @@ export default function ReturnsPage() {
             <p className="text-muted-foreground">
               Vill du byta till en annan färg eller variant? Mejla oss på{" "}
               <a href="mailto:info@smilo.se" className="text-smilo-olive hover:underline">info@smilo.se</a>{" "}
-              så hjälper vi dig att byta – enklast är att returnera din kamera och lägga en ny beställning.
+              så hjälper vi dig att byta. Enklast är att returnera din kamera och lägga en ny beställning.
             </p>
           </motion.div>
 
@@ -147,7 +147,7 @@ export default function ReturnsPage() {
               som öppnats påverkar inte din rätt att ångra köpet.
             </p>
             <p>
-              Är produkten felaktig eller skadad? Då gäller reklamationsrätt – kontakta oss så löser vi det,
+              Är produkten felaktig eller skadad? Då gäller reklamationsrätt. Kontakta oss så löser vi det,
               läs mer i våra <Link href="/kopvillkor" className="text-smilo-olive hover:underline">köpvillkor</Link>.
             </p>
           </motion.div>

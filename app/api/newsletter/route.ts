@@ -36,7 +36,7 @@ async function sendWelcomeEmail(email: string) {
               <div style="border:2px dashed #6B7B4B;border-radius:14px;padding:20px;text-align:center;background:#f7f9f2">
                 <p style="margin:0 0 6px;font-size:13px;color:#6B7B4B;letter-spacing:1px;text-transform:uppercase">Din rabattkod</p>
                 <p style="margin:0;font-size:32px;font-weight:700;letter-spacing:4px;color:#3a3128">${DISCOUNT_CODE}</p>
-                <p style="margin:8px 0 0;font-size:13px;color:#888">Ange koden i kassan – ${DISCOUNT_AMOUNT_LABEL} dras av på ordern.</p>
+                <p style="margin:8px 0 0;font-size:13px;color:#888">Ange koden i kassan så dras ${DISCOUNT_AMOUNT_LABEL} av på ordern.</p>
               </div>
               <div style="text-align:center;margin:28px 0 8px">
                 <a href="https://smilo.se/#produkt" style="display:inline-block;background:#6B7B4B;color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding:13px 32px;border-radius:999px">Börja handla</a>

@@ -7,7 +7,7 @@ const features = [
   {
     icon: Camera,
     title: "Mer närvaro",
-    description: "Utan skärm finns inget att kontrollera. Du är där – på riktigt.",
+    description: "Utan skärm finns inget att kontrollera. Du är där, på riktigt.",
   },
   {
     icon: Heart,

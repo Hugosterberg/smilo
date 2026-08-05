@@ -5,7 +5,7 @@ export const faqs = [
   },
   {
     question: "Kan jag se bilderna direkt?",
-    answer: "Nej. Kameran har ingen skärm – medvetet.",
+    answer: "Nej. Kameran har ingen skärm, helt medvetet.",
   },
   {
     question: "Fungerar den med iPhone och Android?",

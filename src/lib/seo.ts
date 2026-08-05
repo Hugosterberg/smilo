@@ -10,7 +10,7 @@ export const organizationSchema = {
   logo: `${SITE_URL}/smilo-icon.png`,
   email: 'info@smilo.se',
   description:
-    'Smilo är en svensk digital retrokamera utan skärm – ett smart, återanvändbart alternativ till engångskameran.',
+    'Smilo är en svensk digital retrokamera utan skärm, ett smart och återanvändbart alternativ till engångskameran.',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'SE',
@@ -48,7 +48,7 @@ export function createProductSchema(inStock = true, reviewStats?: ProductReviewS
     '@type': 'Product',
     name: 'Smilo retrokamera',
     description:
-      'Digital retrokamera utan skärm – ta bilder i stunden och för enkelt över dem till mobilen via USB-C. Ett smart, återanvändbart alternativ till engångskameran.',
+      'Digital retrokamera utan skärm. Ta bilder i stunden och för enkelt över dem till mobilen via USB-C. Ett smart, återanvändbart alternativ till engångskameran.',
     image: [
       `${SITE_URL}/smilo-og.png`,
       `${SITE_URL}/assets/smilo-black-transparent.png`,

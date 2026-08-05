@@ -18,17 +18,17 @@ const faqs = [
     category: "Om produkten",
     questions: [
       { question: "Är detta en engångskamera?", answer: "Nej. Smilo är digital och kan användas om och om igen. Du behöver aldrig köpa ny film eller betala för framkallning." },
-      { question: "Kan jag se bilderna direkt?", answer: "Nej. Kameran har ingen skärm – medvetet. Det skapar en mer genuin upplevelse där du fokuserar på ögonblicket istället för att granska varje bild." },
+      { question: "Kan jag se bilderna direkt?", answer: "Nej. Kameran har ingen skärm, helt medvetet. Det skapar en mer genuin upplevelse där du fokuserar på ögonblicket istället för att granska varje bild." },
       { question: "Hur många bilder får plats?", answer: "Kameran levereras med ett 4GB minneskort som rymmer ca 1300 bilder. Behöver du mer lagring? Kameran stöder minneskort upp till 16GB (ca 5000 bilder). När minnet är fullt kopplar du enkelt upp kameran till din telefon och överför bilderna." },
-      { question: "Vilken upplösning har bilderna?", answer: "Bilderna tas i 12 MP – skarpt nog för sociala medier och utskrifter, men med den där varma retrokänslan i färgerna." },
+      { question: "Vilken upplösning har bilderna?", answer: "Bilderna tas i 12 MP, skarpt nog för sociala medier och utskrifter, men med den där varma retrokänslan i färgerna." },
     ],
   },
   {
     category: "Kompatibilitet",
     questions: [
       { question: "Fungerar den med iPhone och Android?", answer: "Ja. Android och nyare iPhone (med USB-C) fungerar direkt. Äldre iPhone med Lightning-kontakt kräver en adapter som du kan lägga till vid köp." },
-      { question: "Behöver jag ladda ner en app?", answer: "Nej. Allt sker via mobilens inbyggda filhanterare. Koppla in kameran och dra över bilderna – enkelt som det ska vara." },
-      { question: "Kan jag radera bilderna från mobilen?", answer: "Ja, medan kameran är inkopplad kan du hantera bilderna precis som vilken USB-enhet som helst – radera, kopiera eller flytta." },
+      { question: "Behöver jag ladda ner en app?", answer: "Nej. Allt sker via mobilens inbyggda filhanterare. Koppla in kameran och dra över bilderna, enkelt som det ska vara." },
+      { question: "Kan jag radera bilderna från mobilen?", answer: "Ja, medan kameran är inkopplad kan du hantera bilderna precis som vilken USB-enhet som helst: radera, kopiera eller flytta." },
     ],
   },
   {

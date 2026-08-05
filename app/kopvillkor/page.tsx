@@ -137,7 +137,7 @@ export default function TermsPage() {
             </span>
             <h1 className="smilo-heading-xl text-smilo-brown mb-4">Köpvillkor</h1>
             <p className="smilo-body text-muted-foreground">
-              Villkoren för att handla hos Smilo – betalning, leverans, ångerrätt och dina rättigheter som kund.
+              Villkoren för att handla hos Smilo: betalning, leverans, ångerrätt och dina rättigheter som kund.
             </p>
             <p className="text-sm text-muted-foreground mt-4">Senast uppdaterad: 28 maj 2026</p>
           </motion.div>

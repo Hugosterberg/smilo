@@ -200,7 +200,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
           subject: 'Tack för din beställning hos Smilo!',
           html: orderEmailShell({
             heading: 'Tack för din beställning!',
-            intro: `Hej ${safeName}, vi har tagit emot din beställning och betalningen har gått igenom. Vi packar och skickar din kamera så snart som möjligt – du får ett mejl när paketet är på väg.`,
+            intro: `Hej ${safeName}, vi har tagit emot din beställning och betalningen har gått igenom. Vi packar och skickar din kamera så snart som möjligt. Du får ett mejl när paketet är på väg.`,
             body:
               `<p style="margin:0 0 10px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:#9a8f80">Din beställning</p>` +
               orderDetailRows([

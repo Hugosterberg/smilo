@@ -15,7 +15,7 @@ import Footer from "@/components/layout/Footer";
 
 const deliveryFaqs = [
   { icon: Truck, question: "Hur lång är leveranstiden?", answer: "Vi skickar din beställning inom 1-2 arbetsdagar. Normal leveranstid är 2-4 arbetsdagar inom Sverige. Du får en spårningslänk via e-post så fort paketet skickats." },
-  { icon: CreditCard, question: "Vad kostar frakten?", answer: "Frakten kostar 49 kr inom Sverige. Returer är alltid kostnadsfria. Inga dolda avgifter – priset du ser är priset du betalar." },
+  { icon: CreditCard, question: "Vad kostar frakten?", answer: "Frakten kostar 49 kr inom Sverige. Returer är alltid kostnadsfria. Inga dolda avgifter, priset du ser är priset du betalar." },
   { icon: Package, question: "Hur skickas paketet?", answer: "Vi skickar med PostNord. Du kan välja att få paketet levererat till närmaste utlämningsställe eller direkt hem till dörren." },
   { icon: MapPin, question: "Kan jag spåra min leverans?", answer: "Ja! Så fort din beställning skickats får du ett mejl med spårningsinformation. Du kan följa paketets resa hela vägen till dig." },
   { icon: Clock, question: "Vad händer om jag inte är hemma vid leverans?", answer: "Oroa dig inte! Om du valt hemleverans och inte är hemma lämnas en avi, och paketet skickas till närmaste utlämningsställe. Du har 14 dagar på dig att hämta ut det." },

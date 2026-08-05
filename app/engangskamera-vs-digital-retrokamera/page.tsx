@@ -10,7 +10,7 @@ import { SITE_URL } from '@/lib/seo'
 export const metadata: Metadata = {
   title: 'Engångskamera vs digital retrokamera – vilken ska du välja?',
   description:
-    'Funderar du på att köpa en engångskamera? Jämför pris, bildkvalitet och miljöpåverkan med en digital retrokamera – och se varför allt fler väljer digitalt.',
+    'Funderar du på att köpa en engångskamera? Jämför pris, bildkvalitet och miljöpåverkan med en digital retrokamera, och se varför allt fler väljer digitalt.',
   alternates: { canonical: '/engangskamera-vs-digital-retrokamera' },
 }
 
@@ -26,7 +26,7 @@ const articleSchema = {
 
 const comparisonRows = [
   { feature: 'Retrokänsla i bilderna', disposable: true, smilo: true },
-  { feature: 'Skärmfri – du lever i stunden', disposable: true, smilo: true },
+  { feature: 'Skärmfri, du lever i stunden', disposable: true, smilo: true },
   { feature: 'Återanvändbar', disposable: false, smilo: true },
   { feature: 'Bilderna direkt till mobilen', disposable: false, smilo: true },
   { feature: 'Inga framkallningskostnader', disposable: false, smilo: true },
@@ -62,7 +62,7 @@ export default function DisposableVsDigitalPage() {
                 Engångskamera eller digital retrokamera?
               </h1>
               <p className="smilo-body text-muted-foreground">
-                Engångskameran är tillbaka på festerna – men den har fått en smartare
+                Engångskameran är tillbaka på festerna, men den har fått en smartare
                 utmanare. Här är skillnaderna i pris, bildkvalitet och miljöpåverkan.
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function DisposableVsDigitalPage() {
             <article className="space-y-10">
               <div>
                 <h2 className="smilo-heading-md mb-3 text-smilo-brown">
-                  Varför engångskameran känns rätt – men blir dyr
+                  Varför engångskameran känns rätt men blir dyr
                 </h2>
                 <p className="smilo-body-sm text-smilo-brown-light mb-3">
                   Charmen med en engångskamera är uppenbar: ingen skärm, ingen förhandsvisning,
@@ -85,7 +85,7 @@ export default function DisposableVsDigitalPage() {
                 <p className="smilo-body-sm text-smilo-brown-light">
                   Baksidan är ekonomin. En engångskamera kostar ofta 150–250 kr i butik och
                   ger 27 bilder. Sedan tillkommer framkallning och skanning, som brukar
-                  landa på 100–200 kr till. Slutnotan blir lätt över 10 kr per bild – och
+                  landa på 100–200 kr till. Slutnotan blir lätt över 10 kr per bild, och
                   efter en enda rulle slänger du hela kameran.
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function DisposableVsDigitalPage() {
                   En digital retrokamera som Smilo behåller det som gör engångskameran
                   rolig: ingen skärm, inga omtagningar, äkta ögonblick. Skillnaden är att
                   bilderna sparas digitalt. Du för över dem till mobilen med en
-                  USB-C-kabel, laddar kameran och fortsätter fota – om och om igen.
+                  USB-C-kabel, laddar kameran och fortsätter fota, om och om igen.
                 </p>
                 <p className="smilo-body-sm text-smilo-brown-light">
                   Ingen film att köpa, ingen framkallning att vänta på och inget som
@@ -160,11 +160,11 @@ export default function DisposableVsDigitalPage() {
                 </h2>
                 <p className="smilo-body-sm text-smilo-brown-light mb-3">
                   Vill du ha fysiska negativ och tycker att framkallningsväntan är en del av
-                  charmen? Då gör engångskameran fortfarande sitt jobb – en gång.
+                  charmen? Då gör engångskameran fortfarande sitt jobb, en gång.
                 </p>
                 <p className="smilo-body-sm text-smilo-brown-light">
-                  Vill du ha samma i-stunden-känsla på varje fest, resa och middag – utan
-                  att köpa ny kamera varje gång – är en digital retrokamera det
+                  Vill du ha samma i-stunden-känsla på varje fest, resa och middag utan
+                  att köpa ny kamera varje gång, är en digital retrokamera det
                   självklara valet. Extra tydligt blir det på bröllop och stora fester,
                   där ett par engångskameror snabbt kostar mer än en Smilo som håller i åratal.
                 </p>
@@ -172,7 +172,7 @@ export default function DisposableVsDigitalPage() {
 
               <div className="rounded-2xl bg-smilo-cream p-6 text-center sm:p-8">
                 <h2 className="smilo-heading-md mb-2 text-smilo-brown">
-                  Redo för retrokänslan – utan soptunnan?
+                  Redo för retrokänslan, utan soptunnan?
                 </h2>
                 <p className="smilo-body-sm mb-6 text-smilo-brown-light">
                   Smilo kostar från 749 kr, laddas via USB-C och kommer i sex färger.

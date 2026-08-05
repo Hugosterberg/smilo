@@ -24,7 +24,7 @@ const sections: { heading: string; body: React.ReactNode }[] = [
       <ul className="list-disc pl-5 space-y-1.5">
         <li>Kontakt- och leveransuppgifter: namn, e-post, leveransadress och eventuellt telefonnummer.</li>
         <li>Orderuppgifter: vad du köpt, ordernummer, belopp och orderhistorik.</li>
-        <li>Betalningsinformation: hanteras säkert av vår betalleverantör Stripe – vi lagrar aldrig fullständiga kortuppgifter.</li>
+        <li>Betalningsinformation: hanteras säkert av vår betalleverantör Stripe, vi lagrar aldrig fullständiga kortuppgifter.</li>
         <li>Teknisk information: t.ex. enhet och cookies när du besöker webbplatsen (se punkt 6).</li>
         <li>Meddelanden du skickar till oss via kontaktformulär eller e-post.</li>
       </ul>
@@ -34,10 +34,10 @@ const sections: { heading: string; body: React.ReactNode }[] = [
     heading: "3. Varför vi behandlar uppgifterna och laglig grund",
     body: (
       <ul className="list-disc pl-5 space-y-1.5">
-        <li><strong>Fullgöra ditt köp</strong> – hantera order, betalning och leverans (laglig grund: fullgörande av avtal).</li>
-        <li><strong>Kundservice</strong> – svara på frågor och hantera returer och reklamationer (berättigat intresse/avtal).</li>
-        <li><strong>Bokföring</strong> – spara underlag enligt lag (rättslig förpliktelse).</li>
-        <li><strong>Marknadsföring</strong> – nyhetsbrev och erbjudanden endast om du samtyckt (samtycke, som du när som helst kan återkalla).</li>
+        <li><strong>Fullgöra ditt köp</strong>: hantera order, betalning och leverans (laglig grund: fullgörande av avtal).</li>
+        <li><strong>Kundservice</strong>: svara på frågor och hantera returer och reklamationer (berättigat intresse/avtal).</li>
+        <li><strong>Bokföring</strong>: spara underlag enligt lag (rättslig förpliktelse).</li>
+        <li><strong>Marknadsföring</strong>: nyhetsbrev och erbjudanden endast om du samtyckt (samtycke, som du när som helst kan återkalla).</li>
       </ul>
     ),
   },
@@ -60,9 +60,9 @@ const sections: { heading: string; body: React.ReactNode }[] = [
           personuppgiftsbiträden som behandlar uppgifterna för vår räkning:
         </p>
         <ul className="list-disc pl-5 space-y-1.5">
-          <li><strong>Stripe</strong> – betalningshantering.</li>
-          <li><strong>PostNord</strong> – leverans av ditt paket.</li>
-          <li><strong>Resend</strong> – utskick av order- och leveransmejl.</li>
+          <li><strong>Stripe</strong>: betalningshantering.</li>
+          <li><strong>PostNord</strong>: leverans av ditt paket.</li>
+          <li><strong>Resend</strong>: utskick av order- och leveransmejl.</li>
         </ul>
         <p className="mt-2">
           Vissa leverantörer kan behandla uppgifter utanför EU/EES. I sådana fall säkerställer vi att överföringen

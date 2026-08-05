@@ -25,7 +25,7 @@ const MotionImage = motion.create(Image);
 
 // Product features
 const features = [
-  { icon: Camera, text: "Ingen skärm – bara riktig fotografering" },
+  { icon: Camera, text: "Ingen skärm, bara riktig fotografering" },
   { icon: Zap, text: "Direkt överföring via USB-C" },
   { icon: Battery, text: "200–300 bilder per laddning" },
   { icon: RefreshCw, text: "Återanvändbar & laddningsbar" },
@@ -91,7 +91,7 @@ const quantityOptions = [
     quantity: 5,
     price: 2995,
     label: "5 kameror",
-    description: "En till alla – fånga hela kvällen",
+    description: "En till alla, fånga hela kvällen",
     icon: PartyPopper,
     tag: "Till festen!" as string | null,
   },
@@ -765,7 +765,7 @@ const ProductSection = ({ inventory, inventoryError, reviewStats }: ProductSecti
                   <>
                     <span className="sm:hidden">Gå till kassan</span>
                     <span className="hidden sm:inline">
-                      {`Gå till kassan – ${selectedQuantity.quantity} ${selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'}`}
+                      {`Gå till kassan (${selectedQuantity.quantity} ${selectedQuantity.quantity === 1 ? 'kamera' : 'kameror'})`}
                     </span>
                   </>
                 )}
