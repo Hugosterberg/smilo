@@ -113,7 +113,9 @@ const GallerySection = () => {
                   return (
                     <motion.li
                       key={image.src}
-                      className="relative list-none"
+                      // Från md: bredd = (radbredd − 5 gap) / 6 så att sex foton
+                      // alltid ryms per snöre. Under md radbryts som förut.
+                      className="relative list-none w-[6.75rem] sm:w-[8.25rem] md:w-[calc((100%-5rem)/6)] lg:w-[calc((100%-6.25rem)/6)]"
                       style={{
                         rotate: `${hang.rotate}deg`,
                         y: hang.y,
@@ -146,8 +148,8 @@ const GallerySection = () => {
                         aspect="square"
                         preserveQuality
                         priority={index < 4}
-                        sizes="(min-width: 1024px) 168px, (min-width: 640px) 152px, 128px"
-                        className="w-[6.75rem] sm:w-[8.25rem] md:w-[9rem] lg:w-[9.5rem]"
+                        sizes="(min-width: 1024px) 152px, (min-width: 768px) 112px, (min-width: 640px) 132px, 108px"
+                        className="w-full"
                       />
                     </motion.li>
                   );
