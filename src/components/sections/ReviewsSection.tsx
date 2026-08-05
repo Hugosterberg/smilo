@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import { ReviewForm } from "@/components/shared/ReviewForm";
 import type { ProductReviewSummary } from "@/lib/product-reviews";
 
 const MAX_VISIBLE_REVIEWS = 6;
@@ -28,10 +29,6 @@ interface ReviewsSectionProps {
 }
 
 const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
-  if (reviews.reviewCount === 0) {
-    return null;
-  }
-
   return (
     <section id="recensioner" className="smilo-section smilo-scroll-anchor bg-smilo-cream">
       <div className="smilo-container">
@@ -50,13 +47,19 @@ const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           />
-          <div className="flex items-center justify-center gap-2">
-            <StarRow rating={reviews.averageRating} />
+          {reviews.reviewCount > 0 ? (
+            <div className="flex items-center justify-center gap-2">
+              <StarRow rating={reviews.averageRating} />
+              <p className="smilo-body-sm text-smilo-brown-light">
+                {reviews.averageRating.toLocaleString("sv-SE")} av 5 ·{" "}
+                {reviews.reviewCount === 1 ? "1 recension" : `${reviews.reviewCount} recensioner`}
+              </p>
+            </div>
+          ) : (
             <p className="smilo-body-sm text-smilo-brown-light">
-              {reviews.averageRating.toLocaleString("sv-SE")} av 5 ·{" "}
-              {reviews.reviewCount === 1 ? "1 recension" : `${reviews.reviewCount} recensioner`}
+              Bli först med att recensera Smilo.
             </p>
-          </div>
+          )}
         </motion.div>
 
         <div className="mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
@@ -82,6 +85,16 @@ const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
             </motion.blockquote>
           ))}
         </div>
+
+        <motion.div
+          className="mt-10 sm:mt-12"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.45 }}
+        >
+          <ReviewForm />
+        </motion.div>
       </div>
     </section>
   );

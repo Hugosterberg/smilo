@@ -67,3 +67,62 @@ export async function readProductReviews(): Promise<ProductReviewSummary> {
 
   return { items, averageRating, reviewCount };
 }
+
+/** Opublicerade recensioner som väntar på granskning i admin. */
+export async function readPendingReviews(): Promise<ProductReview[]> {
+  noStore();
+
+  const supabase = getSupabaseAdmin();
+  if (!supabase) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("product_reviews")
+    .select("id, author_name, rating, title, body, created_at")
+    .eq("published", false)
+    .order("created_at", { ascending: true });
+
+  if (error || !data) {
+    console.error("Kunde inte läsa väntande recensioner:", error);
+    return [];
+  }
+
+  return (data as ProductReviewRow[]).map((row) => ({
+    id: row.id,
+    authorName: row.author_name,
+    rating: Math.min(5, Math.max(1, row.rating)),
+    title: row.title,
+    body: row.body,
+    createdAt: row.created_at,
+  }));
+}
+
+export async function publishProductReview(id: string): Promise<{ ok: boolean }> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return { ok: false };
+
+  const { error } = await supabase
+    .from("product_reviews")
+    .update({ published: true })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Kunde inte publicera recension:", error);
+    return { ok: false };
+  }
+  return { ok: true };
+}
+
+export async function deleteProductReview(id: string): Promise<{ ok: boolean }> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return { ok: false };
+
+  const { error } = await supabase.from("product_reviews").delete().eq("id", id);
+
+  if (error) {
+    console.error("Kunde inte radera recension:", error);
+    return { ok: false };
+  }
+  return { ok: true };
+}

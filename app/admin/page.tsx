@@ -1,14 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Camera, LogOut, Save, ShieldCheck } from "lucide-react";
+import { Camera, Check, LogOut, Save, ShieldCheck, Star, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { isAdminAuthenticated, isAdminPasswordConfigured } from "@/lib/admin-auth";
 import { getTotalCameraStock } from "@/lib/camera-colors";
 import { readCameraInventory } from "@/lib/camera-inventory";
-import { loginAdmin, logoutAdmin, saveCameraInventory } from "./actions";
+import { readPendingReviews } from "@/lib/product-reviews";
+import {
+  approveReview,
+  loginAdmin,
+  logoutAdmin,
+  rejectReview,
+  saveCameraInventory,
+} from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -46,12 +53,29 @@ function AdminNotice({ status, error }: { status?: string; error?: string }) {
     );
   }
 
+  if (status === "review-approved") {
+    return (
+      <div className="rounded-2xl border border-smilo-olive/20 bg-smilo-olive/10 px-4 py-3 text-sm text-smilo-olive">
+        Recensionen är publicerad och syns nu på startsidan.
+      </div>
+    );
+  }
+
+  if (status === "review-deleted") {
+    return (
+      <div className="rounded-2xl border border-smilo-olive/20 bg-smilo-olive/10 px-4 py-3 text-sm text-smilo-olive">
+        Recensionen är raderad.
+      </div>
+    );
+  }
+
   const messages: Record<string, string> = {
     login: "Fel lösenord.",
     session: "Sessionen har gått ut. Logga in igen.",
     stock: "Ange ett heltal mellan 0 och 9999 för varje färg.",
     stale: "Lagersaldot har ändrats av en order sedan sidan laddades. Uppdatera sidan och försök igen.",
     save: "Lagerstatusen kunde inte sparas. Kontrollera Supabase-konfigurationen.",
+    review: "Recensionen kunde inte uppdateras. Försök igen.",
   };
 
   if (!error || !messages[error]) return null;
@@ -122,7 +146,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     return <LoginCard status={status} error={error} />;
   }
 
-  const inventoryResult = await readCameraInventory();
+  const [inventoryResult, pendingReviews] = await Promise.all([
+    readCameraInventory(),
+    readPendingReviews(),
+  ]);
   const totalStock = getTotalCameraStock(inventoryResult.items);
   const formDisabled = Boolean(inventoryResult.error);
 
@@ -243,6 +270,81 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                 </Button>
               </div>
             </form>
+          </div>
+        </section>
+
+        <section className="mt-8 overflow-hidden rounded-[2rem] border border-smilo-brown/10 bg-smilo-paper shadow-card">
+          <div className="border-b border-smilo-brown/10 bg-smilo-cream-light px-5 py-6 sm:px-8">
+            <p className="smilo-retro-label">Recensioner</p>
+            <h2 className="mt-2 text-2xl font-bold text-smilo-ink sm:text-3xl">
+              Väntar på granskning
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              Nya recensioner från sajten hamnar här. Publicera dem som ska synas på
+              startsidan och radera resten.
+            </p>
+          </div>
+
+          <div className="space-y-4 p-5 sm:p-8">
+            {pendingReviews.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                Inga recensioner väntar på granskning just nu.
+              </p>
+            ) : (
+              pendingReviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="rounded-3xl border border-smilo-brown/10 bg-white p-4 shadow-soft sm:p-5"
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="font-semibold text-smilo-brown">{review.authorName}</span>
+                    <span
+                      className="flex items-center gap-0.5"
+                      aria-label={`${review.rating} av 5 stjärnor`}
+                    >
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star
+                          key={index}
+                          aria-hidden
+                          className={`h-4 w-4 ${
+                            index < review.rating
+                              ? "fill-current text-smilo-gold"
+                              : "text-smilo-brown/20"
+                          }`}
+                        />
+                      ))}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(review.createdAt).toLocaleString("sv-SE")}
+                    </span>
+                  </div>
+
+                  {review.title && (
+                    <p className="mt-2 font-semibold text-smilo-brown">{review.title}</p>
+                  )}
+                  <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-smilo-brown-light">
+                    {review.body}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <form action={approveReview}>
+                      <input type="hidden" name="reviewId" value={review.id} />
+                      <Button type="submit" size="sm">
+                        <Check className="h-4 w-4" aria-hidden />
+                        Publicera
+                      </Button>
+                    </form>
+                    <form action={rejectReview}>
+                      <input type="hidden" name="reviewId" value={review.id} />
+                      <Button type="submit" size="sm" variant="destructive">
+                        <Trash2 className="h-4 w-4" aria-hidden />
+                        Radera
+                      </Button>
+                    </form>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </section>
       </div>

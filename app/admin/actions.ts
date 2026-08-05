@@ -10,6 +10,7 @@ import {
 } from "@/lib/admin-auth";
 import { CAMERA_COLORS, type CameraColorId } from "@/lib/camera-colors";
 import { updateCameraInventory } from "@/lib/camera-inventory";
+import { deleteProductReview, publishProductReview } from "@/lib/product-reviews";
 
 function adminRedirect(params: Record<string, string>): never {
   const search = new URLSearchParams(params);
@@ -71,4 +72,41 @@ export async function saveCameraInventory(formData: FormData): Promise<void> {
   revalidatePath("/");
   revalidatePath("/admin");
   adminRedirect({ status: "saved" });
+}
+
+function getReviewId(formData: FormData): string {
+  const id = String(formData.get("reviewId") ?? "").trim();
+  if (!id) {
+    adminRedirect({ error: "review" });
+  }
+  return id;
+}
+
+export async function approveReview(formData: FormData): Promise<void> {
+  if (!(await isAdminAuthenticated())) {
+    adminRedirect({ error: "session" });
+  }
+
+  const result = await publishProductReview(getReviewId(formData));
+  if (!result.ok) {
+    adminRedirect({ error: "review" });
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  adminRedirect({ status: "review-approved" });
+}
+
+export async function rejectReview(formData: FormData): Promise<void> {
+  if (!(await isAdminAuthenticated())) {
+    adminRedirect({ error: "session" });
+  }
+
+  const result = await deleteProductReview(getReviewId(formData));
+  if (!result.ok) {
+    adminRedirect({ error: "review" });
+  }
+
+  revalidatePath("/admin");
+  adminRedirect({ status: "review-deleted" });
 }
