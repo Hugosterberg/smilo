@@ -13,6 +13,7 @@ import {
   releaseCheckoutInventory,
   reserveCameraInventory,
 } from '@/lib/camera-inventory';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 const BUNDLE_PRICES: Record<number, number> = {
   1: 74900,   // 749 kr
@@ -85,6 +86,16 @@ function getCheckoutOrigin(req: NextRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  // Checkout skapar lagerreservationer – begränsa per IP så att skript inte
+  // kan tömma lagret genom att spamma reservationer.
+  const rate = checkRateLimit(`checkout:${getClientIp(req.headers)}`, 10, 10 * 60 * 1000);
+  if (!rate.ok) {
+    return NextResponse.json(
+      { error: 'För många försök. Vänta en stund och försök igen.' },
+      { status: 429, headers: { 'Retry-After': String(rate.retryAfterSeconds) } }
+    );
+  }
+
   const stripe = getStripe();
   if (!stripe) {
     return NextResponse.json(

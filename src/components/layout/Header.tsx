@@ -35,7 +35,10 @@ const Header = () => {
     };
   }, [mobileMenuOpen]);
 
-  const handleNavClick = (href: string) => {
+  // Knapparna är riktiga <a href> (SEO/mittenklick), men vanliga klick hanteras
+  // här för mjuk scroll + stängd mobilmeny utan full sidladdning.
+  const handleNavClick = (href: string) => (event: React.MouseEvent) => {
+    event.preventDefault();
     setMobileMenuOpen(false);
 
     if (href.startsWith('/#')) {
@@ -46,6 +49,7 @@ const Header = () => {
         const element = document.querySelector(hash);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.history.pushState(null, '', hash);
         }
       }
     } else {
@@ -100,7 +104,8 @@ const Header = () => {
                   <NavRetroButton
                     label={link.label}
                     variant={link.variant === "action" ? "action" : "default"}
-                    onClick={() => handleNavClick(link.href)}
+                    href={link.href}
+                    onClick={handleNavClick(link.href)}
                     aria-label={
                       link.variant === "action"
                         ? "Smilo in action – bilder tagna med Smilo"
@@ -114,8 +119,9 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <motion.button
-              onClick={() => handleNavClick('/#produkt')}
+            <motion.a
+              href="/#produkt"
+              onClick={handleNavClick('/#produkt')}
               className="hidden md:inline-flex nav-retro-btn bg-smilo-digital text-smilo-cream-light border-smilo-digital-dark/40 shadow-cta px-3 py-1.5 lg:px-4 lg:py-2"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -123,7 +129,7 @@ const Header = () => {
               whileTap={{ scale: 0.97 }}
             >
               KÖP NU
-            </motion.button>
+            </motion.a>
             <motion.button
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden nav-retro-btn nav-retro-btn-default px-3 py-2"
@@ -185,7 +191,8 @@ const Header = () => {
                       <NavRetroButton
                         label={link.label}
                         variant={link.variant === "action" ? "action" : "default"}
-                        onClick={() => handleNavClick(link.href)}
+                        href={link.href}
+                        onClick={handleNavClick(link.href)}
                         large
                         aria-label={
                           link.variant === "action"
@@ -198,16 +205,17 @@ const Header = () => {
                 </div>
               </div>
 
-              <motion.button
-                onClick={() => handleNavClick('/#produkt')}
-                className="mt-8 w-full max-w-xs px-8 py-4 bg-smilo-digital text-smilo-cream-light rounded-sm text-sm font-heading font-semibold uppercase tracking-[0.18em] shadow-cta border-2 border-smilo-digital-dark/40"
+              <motion.a
+                href="/#produkt"
+                onClick={handleNavClick('/#produkt')}
+                className="mt-8 w-full max-w-xs px-8 py-4 bg-smilo-digital text-smilo-cream-light rounded-sm text-center text-sm font-heading font-semibold uppercase tracking-[0.18em] shadow-cta border-2 border-smilo-digital-dark/40"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45 }}
                 whileTap={{ scale: 0.98 }}
               >
                 KÖP NU
-              </motion.button>
+              </motion.a>
             </nav>
           </motion.div>
         )}

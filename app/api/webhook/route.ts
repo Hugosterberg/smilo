@@ -17,6 +17,7 @@ import {
   releaseCheckoutInventory,
 } from '@/lib/camera-inventory';
 import { getResend, type ResendEmailPayload } from '@/lib/resend';
+import { getSupabaseAdmin } from '@/lib/supabase';
 
 // Signaturverifieringen använder Node:s crypto synkront – tvinga Node-runtime
 // (inte Edge) så constructEvent fungerar.
@@ -80,6 +81,26 @@ function getReservationId(session: Stripe.Checkout.Session): string | null {
 
 function isPaymentLinkSession(session: Stripe.Checkout.Session): boolean {
   return typeof session.payment_link === 'string' && session.payment_link.trim().length > 0;
+}
+
+// Stripe levererar minst en gång – claima event-id:t innan mail skickas så att
+// retries inte ger dubbla ordermail. Används för Payment Link-ordrar som inte
+// går genom claim_checkout_inventory (som redan är idempotent per session).
+async function claimWebhookEvent(
+  eventId: string
+): Promise<'claimed' | 'duplicate' | 'unavailable'> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return 'unavailable';
+
+  const { error } = await supabase
+    .from('processed_webhook_events')
+    .insert({ event_id: eventId });
+
+  if (!error) return 'claimed';
+  if (error.code === '23505') return 'duplicate';
+
+  console.error('Kunde inte registrera webhook-event för idempotens:', error);
+  return 'unavailable';
 }
 
 type WebhookSecretCandidate = {
@@ -345,6 +366,14 @@ export async function POST(req: NextRequest) {
       });
 
       if (isPaymentLinkSession(session)) {
+        const eventClaim = await claimWebhookEvent(event.id);
+        if (eventClaim === 'duplicate') {
+          console.log(`Webhook-event ${event.id} redan hanterat – hoppar över.`);
+          return NextResponse.json({ received: true, duplicate: true });
+        }
+
+        // 'unavailable' (DB nere) → skicka ändå; hellre risk för dubblettmail
+        // än att en betald order aldrig når inkorgen.
         console.warn(
           `Checkout-session ${session.id} kommer fran Stripe Payment Link utan lager-metadata. ` +
             'Hoppar over lagerminskning och skickar ordermail som manuell order.'

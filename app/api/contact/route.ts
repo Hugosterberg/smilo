@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { escapeHtml } from '@/lib/escape-html';
 import { getResend } from '@/lib/resend';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(100),
@@ -11,6 +12,14 @@ const contactSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const rate = checkRateLimit(`contact:${getClientIp(req.headers)}`, 5, 10 * 60 * 1000);
+  if (!rate.ok) {
+    return NextResponse.json(
+      { error: 'För många meddelanden på kort tid. Vänta en stund och försök igen.' },
+      { status: 429, headers: { 'Retry-After': String(rate.retryAfterSeconds) } }
+    );
+  }
+
   const resend = getResend();
   if (!resend) {
     return NextResponse.json(

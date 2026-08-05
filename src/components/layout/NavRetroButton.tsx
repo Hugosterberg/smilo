@@ -9,7 +9,9 @@ type NavRetroButtonVariant = 'default' | 'action'
 interface NavRetroButtonProps {
   label: string
   variant?: NavRetroButtonVariant
-  onClick: () => void
+  /** Riktig länkdestination – gör knappen till <a> (SEO, mittenklick, öppna i ny flik). */
+  href?: string
+  onClick?: (event: React.MouseEvent) => void
   className?: string
   large?: boolean
   'aria-label'?: string
@@ -18,6 +20,7 @@ interface NavRetroButtonProps {
 export function NavRetroButton({
   label,
   variant = 'default',
+  href,
   onClick,
   className,
   large = false,
@@ -25,20 +28,15 @@ export function NavRetroButton({
 }: NavRetroButtonProps) {
   const isAction = variant === 'action'
 
-  return (
-    <motion.button
-      type="button"
-      onClick={onClick}
-      aria-label={ariaLabel}
-      className={cn(
-        'nav-retro-btn group',
-        isAction ? 'nav-retro-btn-action' : 'nav-retro-btn-default',
-        large && 'nav-retro-btn-large',
-        className
-      )}
-      whileHover={{ y: -1 }}
-      whileTap={{ y: 1, scale: 0.98 }}
-    >
+  const classes = cn(
+    'nav-retro-btn group',
+    isAction ? 'nav-retro-btn-action' : 'nav-retro-btn-default',
+    large && 'nav-retro-btn-large',
+    className
+  )
+
+  const content = (
+    <>
       {isAction && (
         <span className="relative flex h-4 w-4 shrink-0 items-center justify-center" aria-hidden>
           <motion.span
@@ -59,6 +57,34 @@ export function NavRetroButton({
           aria-hidden
         />
       )}
+    </>
+  )
+
+  if (href) {
+    return (
+      <motion.a
+        href={href}
+        onClick={onClick}
+        aria-label={ariaLabel}
+        className={classes}
+        whileHover={{ y: -1 }}
+        whileTap={{ y: 1, scale: 0.98 }}
+      >
+        {content}
+      </motion.a>
+    )
+  }
+
+  return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      aria-label={ariaLabel}
+      className={classes}
+      whileHover={{ y: -1 }}
+      whileTap={{ y: 1, scale: 0.98 }}
+    >
+      {content}
     </motion.button>
   )
 }

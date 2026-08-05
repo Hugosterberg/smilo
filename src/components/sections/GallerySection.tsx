@@ -79,7 +79,7 @@ const GallerySection = () => {
             Äkta ögonblick. Precis som de är.
           </p>
           <p className="smilo-body-sm text-smilo-brown-light/70 max-w-xl mx-auto">
-            12 MP · inga filter i efterhand · ingen redigering.
+            12 MP · filtret väljer du när du fotar · ingen redigering i efterhand.
           </p>
           <p className="smilo-body-sm text-smilo-brown-light/70 max-w-xl mx-auto mt-2">
             För över till mobilen i full kvalitet via USB-C.

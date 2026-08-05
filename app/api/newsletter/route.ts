@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { DISCOUNT_CODE, DISCOUNT_AMOUNT_LABEL } from '@/lib/discount';
 import { getResend } from '@/lib/resend';
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 
@@ -56,6 +57,15 @@ async function sendWelcomeEmail(email: string) {
 }
 
 export async function POST(req: NextRequest) {
+  // Begränsa per IP – anmälan triggar välkomstmail och ska inte gå att spamma.
+  const rate = checkRateLimit(`newsletter:${getClientIp(req.headers)}`, 5, 10 * 60 * 1000);
+  if (!rate.ok) {
+    return NextResponse.json(
+      { error: 'För många försök. Vänta en stund och försök igen.' },
+      { status: 429, headers: { 'Retry-After': String(rate.retryAfterSeconds) } }
+    );
+  }
+
   const supabase = getSupabaseAdmin();
   if (!supabase) {
     return NextResponse.json(

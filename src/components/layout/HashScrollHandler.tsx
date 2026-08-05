@@ -21,7 +21,13 @@ export function HashScrollHandler() {
 
     scrollToHash()
     const t = window.setTimeout(scrollToHash, 100)
-    return () => window.clearTimeout(t)
+
+    // Fångar även hash-byten utan sidnavigering (t.ex. bakåt/framåt i historiken).
+    window.addEventListener('hashchange', scrollToHash)
+    return () => {
+      window.clearTimeout(t)
+      window.removeEventListener('hashchange', scrollToHash)
+    }
   }, [pathname])
 
   return null
