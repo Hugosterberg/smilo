@@ -27,7 +27,7 @@ const MotionImage = motion.create(Image);
 const features = [
   { icon: Camera, text: "Ingen skärm – bara riktig fotografering" },
   { icon: Zap, text: "Direkt överföring via USB-C" },
-  { icon: Battery, text: "200+ bilder per laddning" },
+  { icon: Battery, text: "200–300 bilder per laddning" },
   { icon: RefreshCw, text: "Återanvändbar & laddningsbar" },
 ];
 

@@ -57,15 +57,14 @@ const ROW_OFFSETS = [0, 6, 12] as const;
 
 const GallerySection = () => {
   return (
-    <section className="bg-smilo-cream pb-16 md:pb-24 lg:pb-32">
+    <section id="galleri" className="smilo-scroll-anchor bg-smilo-cream pb-16 md:pb-24 lg:pb-32">
       <div className="smilo-container">
         <motion.div
-          id="galleri"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="smilo-scroll-anchor text-center mb-8 sm:mb-12 pt-4 sm:pt-6 md:pt-8"
+          className="text-center mb-8 sm:mb-12 pt-4 sm:pt-6 md:pt-8"
         >
           <h2 className="smilo-heading-lg mb-4 text-smilo-brown">Samla minnen med Smilo</h2>
           <motion.div

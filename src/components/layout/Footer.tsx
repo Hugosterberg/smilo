@@ -1,6 +1,6 @@
 'use client'
 
-import { Facebook, Instagram, Sparkles, Heart } from "lucide-react";
+import { Sparkles, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,35 +8,6 @@ import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
 const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion.create(Image);
-
-const socialLinks = [
-  { href: "#", label: "Facebook", Icon: Facebook, rotate: 5 },
-  { href: "#", label: "Instagram", Icon: Instagram, rotate: -5 },
-] as const;
-
-function SocialIconButton({
-  href,
-  label,
-  Icon,
-  rotate,
-}: {
-  href: string;
-  label: string;
-  Icon: typeof Facebook;
-  rotate: number;
-}) {
-  return (
-    <motion.a
-      href={href}
-      className="w-10 h-10 shrink-0 rounded-full bg-smilo-cream/10 flex items-center justify-center text-smilo-cream/70 hover:bg-smilo-gold hover:text-smilo-brown transition-all"
-      aria-label={label}
-      whileHover={{ scale: 1.1, rotate }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <Icon className="w-5 h-5" />
-    </motion.a>
-  );
-}
 
 const Footer = () => {
   return (
@@ -69,17 +40,13 @@ const Footer = () => {
                 </p>
               </div>
               <Heart className="w-5 h-5 text-smilo-gold fill-smilo-gold my-4" aria-hidden />
-              <div className="flex items-center justify-center gap-3 w-full max-w-[17rem]">
-                <SocialIconButton {...socialLinks[0]} />
-                <Image
-                  src={smiloLogoFull}
-                  alt="Smilo"
-                  width={200}
-                  height={76}
-                  className="h-14 w-auto brightness-110 shrink-0"
-                />
-                <SocialIconButton {...socialLinks[1]} />
-              </div>
+              <Image
+                src={smiloLogoFull}
+                alt="Smilo"
+                width={200}
+                height={76}
+                className="h-14 w-auto brightness-110 shrink-0"
+              />
             </div>
 
             {/* Desktop */}
@@ -99,11 +66,6 @@ const Footer = () => {
                   <Heart className="w-4 h-4 shrink-0 text-smilo-gold fill-smilo-gold" />
                   Designad i Sverige för vardag, fest och alla stunder däremellan.
                 </p>
-              </div>
-              <div className="flex gap-4 mt-8">
-                {socialLinks.map((link) => (
-                  <SocialIconButton key={link.label} {...link} />
-                ))}
               </div>
             </div>
           </motion.div>

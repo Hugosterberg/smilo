@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+
+const MotionLink = motion.create(Link);
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { z } from "zod";
@@ -145,7 +147,7 @@ export default function ContactPage() {
         <div className="smilo-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {quickLinks.map((link, index) => (
-              <motion.a
+              <MotionLink
                 key={link.title}
                 href={link.href}
                 className="flex items-center gap-4 p-4 rounded-2xl bg-white hover:bg-smilo-cream/50 transition-all group border border-transparent hover:border-smilo-olive/20"
@@ -161,7 +163,7 @@ export default function ContactPage() {
                   <h3 className="font-semibold text-smilo-brown">{link.title}</h3>
                   <p className="text-sm text-muted-foreground">{link.description}</p>
                 </div>
-              </motion.a>
+              </MotionLink>
             ))}
           </div>
         </div>
