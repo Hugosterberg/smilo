@@ -48,7 +48,7 @@ const ReviewsSection = ({ reviews }: ReviewsSectionProps) => {
             transition={{ duration: 0.5, delay: 0.2 }}
           />
           {reviews.reviewCount > 0 ? (
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
               <StarRow rating={reviews.averageRating} />
               <p className="smilo-body-sm text-smilo-brown-light">
                 {reviews.averageRating.toLocaleString("sv-SE")} av 5 ·{" "}
