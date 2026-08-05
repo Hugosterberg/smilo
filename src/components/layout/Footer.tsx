@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkles, Heart } from "lucide-react";
+import { Sparkles, Heart, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,24 @@ import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
 const smiloLogoFull = "/assets/smilo-retro-camera-2.png";
 
 const MotionImage = motion.create(Image);
+
+const INSTAGRAM_URL = "https://www.instagram.com/smilo.se";
+
+function InstagramButton() {
+  return (
+    <motion.a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 shrink-0 rounded-full bg-smilo-cream/10 flex items-center justify-center text-smilo-cream/70 hover:bg-smilo-gold hover:text-smilo-brown transition-all"
+      aria-label="Smilo på Instagram (öppnas i ny flik)"
+      whileHover={{ scale: 1.1, rotate: -5 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Instagram className="w-5 h-5" aria-hidden />
+    </motion.a>
+  );
+}
 
 const Footer = () => {
   return (
@@ -40,13 +58,16 @@ const Footer = () => {
                 </p>
               </div>
               <Heart className="w-5 h-5 text-smilo-gold fill-smilo-gold my-4" aria-hidden />
-              <Image
-                src={smiloLogoFull}
-                alt="Smilo"
-                width={200}
-                height={76}
-                className="h-14 w-auto brightness-110 shrink-0"
-              />
+              <div className="flex items-center justify-center gap-4">
+                <Image
+                  src={smiloLogoFull}
+                  alt="Smilo"
+                  width={200}
+                  height={76}
+                  className="h-14 w-auto brightness-110 shrink-0"
+                />
+                <InstagramButton />
+              </div>
             </div>
 
             {/* Desktop */}
@@ -66,6 +87,9 @@ const Footer = () => {
                   <Heart className="w-4 h-4 shrink-0 text-smilo-gold fill-smilo-gold" />
                   Designad i Sverige för vardag, fest och alla stunder däremellan.
                 </p>
+              </div>
+              <div className="flex gap-4 mt-8">
+                <InstagramButton />
               </div>
             </div>
           </motion.div>
