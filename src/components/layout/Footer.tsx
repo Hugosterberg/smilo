@@ -125,6 +125,7 @@ const Footer = () => {
                 { label: "Frakt", href: "/leverans-faq" },
                 { label: "Returer & byten", href: "/returer" },
                 { label: "Kontakt", href: "/kontakt" },
+                { label: "Guide: Engångskamera vs digital", href: "/engangskamera-vs-digital-retrokamera" },
               ].map((item, index) => (
                 <motion.li
                   key={item.label}

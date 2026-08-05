@@ -115,6 +115,16 @@ const Header = () => {
 
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <motion.button
+              onClick={() => handleNavClick('/#produkt')}
+              className="hidden md:inline-flex nav-retro-btn bg-smilo-digital text-smilo-cream-light border-smilo-digital-dark/40 shadow-cta px-3 py-1.5 lg:px-4 lg:py-2"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.24 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              KÖP NU
+            </motion.button>
+            <motion.button
               onClick={() => setMobileMenuOpen(true)}
               className="md:hidden nav-retro-btn nav-retro-btn-default px-3 py-2"
               whileTap={{ scale: 0.95 }}

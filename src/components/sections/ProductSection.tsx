@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, Camera, Cable, CreditCard, Zap, Battery, RefreshCw, Gift, RotateCcw, ShieldCheck, Star, Users, PartyPopper, Loader2 } from "lucide-react";
@@ -103,7 +103,14 @@ const quantityOptions = [
 interface ProductSectionProps {
   inventory?: CameraInventoryItem[];
   inventoryError?: string;
+  reviewStats?: { averageRating: number; reviewCount: number };
 }
+
+// Event som låter andra sektioner (t.ex. festpaket-CTA:n) förvälja antal.
+export const SELECT_QUANTITY_EVENT = "smilo:select-quantity";
+
+// Under den här nivån visas "endast X kvar" för en färg.
+const LOW_STOCK_THRESHOLD = 5;
 
 const getSelectedColorCount = (
   colors: CameraInventoryItem[],
@@ -160,7 +167,7 @@ const buildSelectionForQuantity = (
   return nextSelection;
 };
 
-const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
+const ProductSection = ({ inventory, inventoryError, reviewStats }: ProductSectionProps) => {
   const cameraColors = normalizeInventory(inventory);
   const totalCameraStock = getTotalCameraStock(cameraColors);
   const initialQuantity =
@@ -267,6 +274,23 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
 
   const activeColor = selectedColors[activeColorIndex];
   const activeColorSoldOut = Boolean(activeColor && activeColor.stockQuantity <= 0);
+
+  // Lyssna på förval av antal från andra sektioner (t.ex. festpaketets CTA).
+  const quantityChangeRef = useRef(handleQuantityChange);
+  useEffect(() => {
+    quantityChangeRef.current = handleQuantityChange;
+  });
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const requested = (event as CustomEvent<number>).detail;
+      const option = quantityOptions.find((o) => o.quantity === requested);
+      if (option) {
+        quantityChangeRef.current(option);
+      }
+    };
+    window.addEventListener(SELECT_QUANTITY_EVENT, handler);
+    return () => window.removeEventListener(SELECT_QUANTITY_EVENT, handler);
+  }, []);
 
   return (
     <section id="produkt" className="smilo-section smilo-scroll-anchor bg-background">
@@ -529,12 +553,30 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                   </p>
                 )}
               </div>
-              <div className="flex items-center justify-center gap-1 text-smilo-gold flex-wrap sm:ml-auto lg:ml-auto">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current shrink-0" />
-                ))}
-                <span className="text-xs sm:text-sm text-muted-foreground ml-1">47 recensioner</span>
-              </div>
+              {reviewStats && reviewStats.reviewCount > 0 && (
+                <a
+                  href="#recensioner"
+                  className="flex items-center justify-center gap-1 flex-wrap sm:ml-auto lg:ml-auto"
+                  aria-label={`${reviewStats.averageRating.toLocaleString("sv-SE")} av 5 i snittbetyg, läs recensionerna`}
+                >
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      aria-hidden
+                      className={`w-4 h-4 shrink-0 ${
+                        i < Math.round(reviewStats.averageRating)
+                          ? "fill-current text-smilo-gold"
+                          : "text-smilo-brown/20"
+                      }`}
+                    />
+                  ))}
+                  <span className="text-xs sm:text-sm text-muted-foreground ml-1 underline-offset-4 hover:underline">
+                    {reviewStats.reviewCount === 1
+                      ? "1 recension"
+                      : `${reviewStats.reviewCount} recensioner`}
+                  </span>
+                </a>
+              )}
             </div>
 
             {/* Features List */}
@@ -567,6 +609,11 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                   const selectedColor = selectedColors[cameraIndex];
                   const selectedColorSoldOut = Boolean(
                     selectedColor && selectedColor.stockQuantity <= 0
+                  );
+                  const selectedColorLowStock = Boolean(
+                    selectedColor &&
+                      selectedColor.stockQuantity > 0 &&
+                      selectedColor.stockQuantity <= LOW_STOCK_THRESHOLD
                   );
 
                   return (
@@ -633,6 +680,11 @@ const ProductSection = ({ inventory, inventoryError }: ProductSectionProps) => {
                           {selectedColor
                             ? `${selectedColor.name}${selectedColorSoldOut ? " - slutsåld" : ""}`
                             : "Välj färg"}
+                          {selectedColor && selectedColorLowStock && (
+                            <span className="ml-1 font-semibold text-smilo-flash-dark">
+                              · endast {selectedColor.stockQuantity} kvar
+                            </span>
+                          )}
                         </span>
                       </div>
                     </div>

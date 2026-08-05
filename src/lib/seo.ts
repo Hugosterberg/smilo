@@ -26,7 +26,23 @@ export const websiteSchema = {
   publisher: { '@type': 'Organization', name: 'Smilo' },
 };
 
-export function createProductSchema(inStock = true) {
+export type ProductReviewStats = {
+  averageRating: number;
+  reviewCount: number;
+};
+
+export function createProductSchema(inStock = true, reviewStats?: ProductReviewStats) {
+  const aggregateRating =
+    reviewStats && reviewStats.reviewCount > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: String(reviewStats.averageRating),
+            reviewCount: String(reviewStats.reviewCount),
+          },
+        }
+      : {};
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -45,11 +61,7 @@ export function createProductSchema(inStock = true) {
     brand: { '@type': 'Brand', name: 'Smilo' },
     category: 'Digitalkamera',
     audience: { '@type': 'Audience', audienceType: 'Present, vardag, fest' },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      reviewCount: '47',
-    },
+    ...aggregateRating,
     offers: {
       '@type': 'Offer',
       url: `${SITE_URL}/#produkt`,
@@ -68,8 +80,6 @@ export function createProductSchema(inStock = true) {
     },
   };
 }
-
-export const productSchema = createProductSchema(true);
 
 export const faqSchema = {
   '@context': 'https://schema.org',

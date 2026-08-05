@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '/', priority: 1.0, changeFrequency: 'weekly' },
     { path: '/faq', priority: 0.8, changeFrequency: 'monthly' },
+    { path: '/engangskamera-vs-digital-retrokamera', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/leverans-faq', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/returer', priority: 0.6, changeFrequency: 'monthly' },
     { path: '/kontakt', priority: 0.6, changeFrequency: 'monthly' },

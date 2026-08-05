@@ -97,6 +97,13 @@ const HeroSection = () => {
                   </Button>
                 </div>
               </div>
+              <p className="mt-3 text-sm text-smilo-brown-light text-center lg:text-left">
+                Från <span className="font-semibold text-smilo-brown">749 kr</span>
+                <span className="mx-1.5 text-smilo-brown/30">·</span>
+                30 dagars öppet köp
+                <span className="mx-1.5 text-smilo-brown/30">·</span>
+                Fri retur
+              </p>
             </motion.div>
           </motion.div>
 
